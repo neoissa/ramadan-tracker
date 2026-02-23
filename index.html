@@ -2948,45 +2948,6 @@
             if (juzTotalEl) juzTotalEl.textContent = Object.values(quranJuz).filter(v => v).length;
         }
 
-        dot.className = 'fast-dot' + (isDone ? ' done' : '');
-        dot.textContent = i;
-
-        if (i <= currentDay) {
-            dot.onclick = () => toggleHabit(i, habitType);
-        } else {
-            dot.style.opacity = '0.3';
-            dot.style.cursor = 'default';
-        }
-        grid.appendChild(dot);
-                }
-
-        if (numEl) numEl.textContent = getStreak(habitDict);
-            }
-
-        buildGrid('fast-grid', 'streak-num', completedFasts, 'fast');
-        buildGrid('dua-grid', 'dua-streak-num', completedDuas, 'dua');
-        buildGrid('quran-grid', 'quran-streak-num', completedQurans, 'quran');
-        }
-        /* ═══ QURAN TRACKER ═══ */
-        let quranData = {};
-        function todayKey() { return new Date().toISOString().split('T')[0]; }
-        function loadQuran() { try { quranData = JSON.parse(localStorage.getItem('rm_quran') || '{}'); } catch (e) { } }
-        function addQuranPages(n) {
-            const k = todayKey();
-            quranData[k] = Math.max(0, (quranData[k] || 0) + n);
-            localStorage.setItem('rm_quran', JSON.stringify(quranData));
-            renderQuran();
-        }
-        function renderQuran() {
-            const total = Object.values(quranData).reduce((a, b) => a + b, 0);
-            const today = quranData[todayKey()] || 0;
-            const pct = Math.min(100, total / 604 * 100);
-            const te = document.getElementById('quran-today'); if (te) te.textContent = today;
-            const tot = document.getElementById('quran-total'); if (tot) tot.textContent = total;
-            const bar = document.getElementById('quran-bar'); if (bar) bar.style.width = pct.toFixed(1) + '%';
-            const pp = document.getElementById('quran-pct'); if (pp) pp.textContent = pct.toFixed(0) + '%';
-        }
-
         /* ═══ ADHAN SOUND ═══ */
         let adhanEnabled = localStorage.getItem('rm_adhan') === '1';
         function toggleAdhan() {
