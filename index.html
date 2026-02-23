@@ -2295,13 +2295,28 @@
                 }
 
                 // Pre-load default cities if the list is empty
+                const defaultList = [
+                    { id: 'city_beirut', city: 'Beirut, Lebanon', lat: 33.8938, lon: 35.5018, tzOffset: 2 },
+                    { id: 'city_paris', city: 'Paris, France', lat: 48.8566, lon: 2.3522, tzOffset: 1 },
+                    { id: 'city_tehran', city: 'Tehran, Iran', lat: 35.6892, lon: 51.3890, tzOffset: 3.5 },
+                    { id: 'city_najaf', city: 'Najaf, Iraq', lat: 31.9848, lon: 44.3540, tzOffset: 3 }
+                ];
+
                 if (extraCities.length === 0) {
-                    extraCities = [
-                        { id: 'city_beirut', city: 'Beirut, Lebanon', lat: 33.8938, lon: 35.5018, tzOffset: -2 }, // Standard time offset is -2 (EET)
-                        { id: 'city_paris', city: 'Paris, France', lat: 48.8566, lon: 2.3522, tzOffset: -1 },
-                        { id: 'city_tehran', city: 'Tehran, Iran', lat: 35.6892, lon: 51.3890, tzOffset: -3.5 },
-                        { id: 'city_najaf', city: 'Najaf, Iraq', lat: 31.9848, lon: 44.3540, tzOffset: -3 }
-                    ];
+                    extraCities = defaultList;
+                } else {
+                    // Update offsets for existing default cities if they were saved with wrong (negative) values
+                    extraCities.forEach(c => {
+                        const d = defaultList.find(df => df.id === c.id);
+                        if (d && c.tzOffset < 0) c.tzOffset = d.tzOffset;
+                    });
+                    // Ensure Najaf and Tehran are present for existing users
+                    ['city_tehran', 'city_najaf'].forEach(id => {
+                        if (!extraCities.find(c => c.id === id)) {
+                            const city = defaultList.find(c => c.id === id);
+                            if (city) extraCities.push(city);
+                        }
+                    });
                 }
             } catch (e) { }
         }
