@@ -75,6 +75,39 @@
             text-align: center;
             overflow: hidden;
             border-bottom: 1px solid rgba(228, 161, 20, .15);
+            transition: background 2s ease;
+        }
+
+        /* --- THEMES --- */
+        body {
+            transition: background-color 2s ease;
+        }
+
+        body.theme-dawn {
+            --bg: #0a1128;
+            --card: #151f38;
+        }
+
+        body.theme-dawn .header {
+            background: linear-gradient(160deg, #10163a 0%, #1a2a47 35%, #2a3c5a 65%, #465a7e 100%);
+        }
+
+        body.theme-day {
+            --bg: #0b1a1c;
+            --card: #132a2a;
+        }
+
+        body.theme-day .header {
+            background: linear-gradient(160deg, #0e2920 0%, #154233 35%, #1a5944 65%, #1e6b52 100%);
+        }
+
+        body.theme-sunset {
+            --bg: #1a0b12;
+            --card: #28151c;
+        }
+
+        body.theme-sunset .header {
+            background: linear-gradient(160deg, #2b111a 0%, #4a2122 35%, #6a3424 65%, #8b4522 100%);
         }
 
         /* Gold top accent line */
@@ -788,6 +821,16 @@
             overflow: hidden;
             border: 1px solid var(--border);
             box-shadow: 0 8px 30px rgba(0, 0, 0, .4);
+            transition: transform .2s, border-color .2s;
+            cursor: pointer;
+        }
+
+        .city-card:hover {
+            border-color: rgba(16, 185, 129, .4);
+        }
+
+        .city-card:active {
+            transform: scale(0.98);
         }
 
         .city-card-header {
@@ -1530,6 +1573,164 @@
             background: rgba(255, 255, 255, .15);
         }
 
+        /* TASBIH (FAB & MODAL) */
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--green), var(--green2));
+            color: #fff;
+            border: none;
+            box-shadow: 0 8px 24px rgba(14, 201, 138, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 50;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .fab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(14, 201, 138, .5);
+        }
+
+        .fab:active {
+            transform: translateY(0) scale(0.95);
+        }
+
+        .fab svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .tasbih-modal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .tasbih-count {
+            font-size: 80px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 40px;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, .5);
+        }
+
+        .tasbih-tap {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .01));
+            border: 2px solid var(--green);
+            box-shadow: 0 0 40px rgba(14, 201, 138, .2), inset 0 0 20px rgba(14, 201, 138, .1);
+            color: var(--green);
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .1s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .tasbih-tap:active {
+            transform: scale(0.94);
+            background: rgba(14, 201, 138, .15);
+            box-shadow: 0 0 60px rgba(14, 201, 138, .4), inset 0 0 30px rgba(14, 201, 138, .2);
+        }
+
+        .tasbih-reset {
+            margin-top: 40px;
+            background: transparent;
+            border: 1px solid var(--muted);
+            color: var(--muted);
+            padding: 10px 24px;
+            border-radius: 99px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all .2s;
+        }
+
+        .tasbih-reset:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        /* HYDRATION TRACKER */
+        .hydration-card {
+            background: rgba(14, 201, 138, .05);
+            border: 1px solid rgba(14, 201, 138, .2);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: none;
+            /* hidden by default, tick() handles logic */
+        }
+
+        .hyd-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .hyd-title {
+            color: var(--green);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .hyd-count {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .hyd-glasses {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .hyd-glass {
+            flex: 1;
+            height: 32px;
+            border-radius: 4px 4px 10px 10px;
+            border: 1px solid rgba(14, 201, 138, .3);
+            background: rgba(255, 255, 255, .02);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all .2s;
+        }
+
+        .hyd-glass.filled {
+            border-color: var(--green);
+            background: rgba(14, 201, 138, .2);
+        }
+
+        .hyd-glass.filled::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: var(--green);
+            opacity: 0.5;
+        }
+
         /* RTL support */
         /* RTL — keep all time displays LTR (so digits don't reverse) */
         [dir=rtl] .mini-digits,
@@ -1759,6 +1960,16 @@
                     <div class="p-time" id="maghrib-time">—</div>
                 </div>
             </div>
+
+            <!-- HYDRATION TRACKER -->
+            <div class="hydration-card" id="hydration-card">
+                <div class="hyd-header">
+                    <div class="hyd-title">💧 Nighttime Hydration</div>
+                    <div class="hyd-count"><span id="hyd-val">0</span> / 8</div>
+                </div>
+                <div class="hyd-glasses" id="hyd-glasses"></div>
+            </div>
+
             <!-- ALL 5 PRAYERS -->
             <div class="all-prayers">
                 <div class="section-title">Today's Prayer Times</div>
@@ -1857,6 +2068,32 @@
     </div>
 
     <div class="toast" id="toast"></div>
+
+    <!-- TASBIH FAB -->
+    <button class="fab" onclick="openTasbih()" title="Smart Tasbih">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="3" />
+            <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" />
+        </svg>
+    </button>
+
+    <!-- TASBIH MODAL -->
+    <div class="cal-overlay" id="tasbih-overlay" onclick="if(event.target===this)closeTasbih()">
+        <div class="gen-modal" style="height: 80vh; max-height: 600px;">
+            <div class="gen-modal-header">
+                <div class="gen-modal-title">📿 Smart Tasbih</div>
+                <button class="gen-close" onclick="closeTasbih()">✕</button>
+            </div>
+            <div class="tasbih-modal">
+                <div class="tasbih-count" id="tasbih-val">0</div>
+                <div class="tasbih-tap" onclick="tasbihTap()">TAP</div>
+                <button class="tasbih-reset" onclick="tasbihReset()">Reset Counter</button>
+            </div>
+        </div>
+    </div>
 
     <!-- SETTINGS MODAL -->
     <div class="cal-overlay" id="settings-overlay" onclick="if(event.target===this)closeSettings()">
@@ -2036,19 +2273,36 @@
                     primary: {
                         city: G.city, lat: G.lat, lon: G.lon,
                         tzOffset: G.tzOffset
-                    }, extras: extraCities
+                    },
+                    extras: extraCities,
+                    tasbih: G.tasbih || 0,
+                    hydration: G.hydration || { date: '', count: 0 }
                 }));
             } catch (e) { }
         }
         function loadState() {
             try {
-                const raw = localStorage.getItem(STORE_KEY); if (!raw) return;
-                const s = JSON.parse(raw);
-                if (s.primary) {
-                    G.city = s.primary.city; G.lat = s.primary.lat; G.lon = s.primary.lon; G.tzOffset =
-                        s.primary.tzOffset;
+                const raw = localStorage.getItem(STORE_KEY);
+                if (raw) {
+                    const s = JSON.parse(raw);
+                    if (s.primary) {
+                        G.city = s.primary.city; G.lat = s.primary.lat; G.lon = s.primary.lon; G.tzOffset =
+                            s.primary.tzOffset;
+                    }
+                    if (Array.isArray(s.extras)) extraCities = s.extras;
+                    if (typeof s.tasbih === 'number') G.tasbih = s.tasbih;
+                    if (s.hydration) G.hydration = s.hydration;
                 }
-                if (Array.isArray(s.extras)) extraCities = s.extras;
+
+                // Pre-load default cities if the list is empty
+                if (extraCities.length === 0) {
+                    extraCities = [
+                        { id: 'city_beirut', city: 'Beirut, Lebanon', lat: 33.8938, lon: 35.5018, tzOffset: -2 }, // Standard time offset is -2 (EET)
+                        { id: 'city_paris', city: 'Paris, France', lat: 48.8566, lon: 2.3522, tzOffset: -1 },
+                        { id: 'city_tehran', city: 'Tehran, Iran', lat: 35.6892, lon: 51.3890, tzOffset: -3.5 },
+                        { id: 'city_najaf', city: 'Najaf, Iraq', lat: 31.9848, lon: 44.3540, tzOffset: -3 }
+                    ];
+                }
             } catch (e) { }
         }
 
@@ -2146,8 +2400,22 @@
             document.getElementById('ram-pb-fill').style.width = ramPct.toFixed(2) + '%';
             document.getElementById('ram-pct').textContent = ramPct.toFixed(0) + '%';
 
+            // Dynamic Theme Switcher
+            // Dawn: Imsak-1hr to Imsak+1hr. Day: Imsak+1hr to Maghrib-1hr. Sunset: Maghrib-1hr to Maghrib+1hr. Night (default): Maghrib+1hr to Imsak-1hr.
+            let theme = '';
+            if (nowSec >= iSec - 3600 && nowSec < iSec + 3600) theme = 'theme-dawn';
+            else if (nowSec >= iSec + 3600 && nowSec < mSec - 3600) theme = 'theme-day';
+            else if (nowSec >= mSec - 3600 && nowSec <= mSec + 3600) theme = 'theme-sunset';
+
+            // Apply only if changed to avoid reflows
+            if (document.body.className !== theme) document.body.className = theme;
+
             // Determine if fasting (auto) and then resolve targetEvent
             const autoIsFasting = nowSec >= iSec && nowSec < mSec;
+
+            // Show hydration tracker only at night (not fasting)
+            document.getElementById('hydration-card').style.display = autoIsFasting ? 'none' : 'block';
+
             const targetEvent = manualEvent ? manualEvent : (autoIsFasting ? 'maghrib' : 'imsak');
             const isFasting = targetEvent === 'maghrib';
 
@@ -2237,10 +2505,11 @@
 
             const div = document.createElement('div');
             div.className = 'city-card'; div.dataset.id = c.id;
+            div.setAttribute('onclick', `swapCity('${c.id}')`);
             div.innerHTML = `
                                             <div class="city-card-header">
                                                 <div class="city-card-name"><span>📍</span>${c.city}</div>
-                                                <div class="city-card-remove" onclick="removeCity('${c.id}')">✕</div>
+                                                <div class="city-card-remove" onclick="event.stopPropagation(); removeCity('${c.id}')">✕</div>
                                             </div>
                                             <div class="city-smart ct-imsak" data-imsak="${iSec}" data-maghrib="${mSec}"
                                                 data-tz="${c.tzOffset}">
@@ -2257,6 +2526,36 @@
                 document.getElementById('cities-section'); s.innerHTML = '';
             extraCities.forEach(c => s.appendChild(buildCityCard(c)));
         }
+        function swapCity(id) {
+            const idx = extraCities.findIndex(c => c.id === id);
+            if (idx === -1) return;
+            const target = extraCities[idx];
+
+            // Temporary copy of current main city
+            const temp = {
+                id: 'city_' + Date.now(),
+                city: G.city,
+                lat: G.lat,
+                lon: G.lon,
+                tzOffset: G.tzOffset
+            };
+
+            // Set main city to clicked city
+            G.city = target.city;
+            G.lat = target.lat;
+            G.lon = target.lon;
+            G.tzOffset = target.tzOffset;
+
+            // Replace clicked city with old main in the extras list
+            extraCities[idx] = temp;
+
+            // Re-render layout and save
+            render();
+            renderCities();
+            saveState();
+            showToast('📍 Swapped to ' + G.city);
+        }
+
         function removeCity(id) {
             extraCities = extraCities.filter(c => c.id !==
                 id); renderCities(); saveState();
@@ -2646,9 +2945,50 @@
         function openShare() { document.getElementById('share-overlay').classList.add('open'); }
         function closeShare() { document.getElementById('share-overlay').classList.remove('open'); }
 
+        /* ═══ TASBIH ═══ */
+        function openTasbih() { document.getElementById('tasbih-overlay').classList.add('open'); document.getElementById('tasbih-val').textContent = G.tasbih || 0; }
+        function closeTasbih() { document.getElementById('tasbih-overlay').classList.remove('open'); }
+        function tasbihTap() {
+            if (navigator.vibrate) navigator.vibrate(40);
+            G.tasbih = (G.tasbih || 0) + 1;
+            document.getElementById('tasbih-val').textContent = G.tasbih;
+            saveState();
+        }
+        function tasbihReset() {
+            if (confirm('Reset Tasbih counter to 0?')) {
+                G.tasbih = 0;
+                document.getElementById('tasbih-val').textContent = 0;
+                saveState();
+                if (navigator.vibrate) navigator.vibrate([30, 50, 30]);
+            }
+        }
+
+        /* ═══ HYDRATION ═══ */
+        function renderHydration() {
+            const todayStr = new Date().toDateString();
+            if (!G.hydration || G.hydration.date !== todayStr) {
+                G.hydration = { date: todayStr, count: 0 };
+                saveState();
+            }
+            document.getElementById('hyd-val').textContent = G.hydration.count;
+            const container = document.getElementById('hyd-glasses');
+            container.innerHTML = Array(8).fill(0).map((_, i) => `<div class="hyd-glass${i < G.hydration.count ? ' filled' : ''}" onclick="toggleHydration(${i})"></div>`).join('');
+        }
+        function toggleHydration(idx) {
+            const current = G.hydration.count;
+            if (idx === current - 1) {
+                G.hydration.count--;
+            } else {
+                G.hydration.count = idx + 1;
+            }
+            saveState();
+            renderHydration();
+        }
+
         /* ═══ INIT ═══ */
         loadFromURL();
         loadState();
+        renderHydration();
         loadFasts();
         loadQuran();
         render(); tick();
