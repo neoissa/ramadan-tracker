@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Ramadan Tracker 1447</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
@@ -14,9 +14,9 @@
             --border: rgba(255, 255, 255, .07);
             --green: #10b981;
             --green2: #059669;
-            --green-dim: rgba(16, 185, 129, .12);
+            --gdim: rgba(16, 185, 129, .12);
             --amber: #f59e0b;
-            --amber-dim: rgba(245, 158, 11, .12);
+            --adim: rgba(245, 158, 11, .12);
             --muted: rgba(255, 255, 255, .4);
         }
 
@@ -46,7 +46,6 @@
             gap: 14px;
         }
 
-        /* ── CARD ── */
         .card {
             background: var(--card);
             border-radius: 22px;
@@ -55,10 +54,10 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
         }
 
-        /* ══ HEADER ══ */
+        /* HEADER */
         .header {
             position: relative;
-            background: linear-gradient(145deg, #061c13 0%, #0a2f20 50%, #0b2433 100%);
+            background: linear-gradient(145deg, #061c13, #0a2f20 50%, #0b2433);
             padding: 26px 22px 22px;
             text-align: center;
             overflow: hidden;
@@ -68,7 +67,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 75% 40%, rgba(16, 185, 129, .1) 0%, transparent 65%);
+            background: radial-gradient(ellipse at 75% 40%, rgba(16, 185, 129, .1), transparent 65%);
         }
 
         .crescent-deco {
@@ -80,11 +79,16 @@
             z-index: 0;
         }
 
-        .gps-btn {
+        .hdr-btns {
             position: absolute;
             top: 14px;
             right: 14px;
             z-index: 2;
+            display: flex;
+            gap: 7px;
+        }
+
+        .icon-btn {
             width: 32px;
             height: 32px;
             border-radius: 50%;
@@ -98,12 +102,12 @@
             transition: background .2s, transform .15s;
         }
 
-        .gps-btn:hover {
+        .icon-btn:hover {
             background: rgba(16, 185, 129, .28);
             transform: scale(1.05);
         }
 
-        .gps-btn svg {
+        .icon-btn svg {
             width: 15px;
             height: 15px;
         }
@@ -174,7 +178,7 @@
             font-size: 11px;
         }
 
-        /* ══ STATUS ══ */
+        /* STATUS */
         .status-row {
             padding: 16px 22px;
             display: flex;
@@ -199,7 +203,7 @@
         }
 
         .rem-pill {
-            background: var(--green-dim);
+            background: var(--gdim);
             border: 1px solid rgba(16, 185, 129, .35);
             border-radius: 10px;
             padding: 6px 14px;
@@ -218,7 +222,7 @@
             color: var(--green);
         }
 
-        /* ══ PROGRESS BAR ══ */
+        /* PROGRESS */
         .progress-wrap {
             padding: 0 22px 16px;
             border-bottom: 1px solid var(--border);
@@ -229,14 +233,7 @@
             justify-content: space-between;
             font-size: 10px;
             color: var(--muted);
-            font-weight: 500;
             margin-bottom: 6px;
-        }
-
-        .pb-meta span {
-            display: flex;
-            align-items: center;
-            gap: 3px;
         }
 
         .pb-track {
@@ -281,7 +278,7 @@
             }
         }
 
-        /* ══ DUAL COUNTDOWN ══ */
+        /* DUAL COUNTDOWN */
         .dual-cd {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -291,7 +288,6 @@
         .cd-half {
             padding: 20px 16px;
             text-align: center;
-            position: relative;
         }
 
         .cd-half:first-child {
@@ -309,14 +305,24 @@
         .cd-half-sub {
             font-size: 9px;
             color: var(--muted);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+        }
+
+        .cd-badge {
+            display: inline-block;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+            border-radius: 6px;
+            padding: 2px 8px;
+            margin-bottom: 10px;
         }
 
         .mini-digits {
             display: flex;
             align-items: flex-start;
             justify-content: center;
-            gap: 0;
         }
 
         .md-block {
@@ -324,12 +330,12 @@
         }
 
         .md-val {
-            font-size: 38px;
+            font-size: 36px;
             font-weight: 900;
             line-height: 1;
             letter-spacing: -1px;
             font-variant-numeric: tabular-nums;
-            min-width: 46px;
+            min-width: 44px;
             display: inline-block;
         }
 
@@ -343,7 +349,7 @@
         }
 
         .md-colon {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 900;
             color: rgba(255, 255, 255, .25);
             line-height: 1;
@@ -351,7 +357,6 @@
             margin: 0 1px;
         }
 
-        /* Imsak = amber theme, Maghrib = green theme */
         .cd-imsak .cd-half-title {
             color: var(--amber);
         }
@@ -362,6 +367,12 @@
 
         .cd-imsak .md-val.accent {
             color: var(--amber);
+        }
+
+        .cd-imsak .cd-badge {
+            background: var(--adim);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, .3);
         }
 
         .cd-maghrib .cd-half-title {
@@ -376,30 +387,13 @@
             color: var(--green);
         }
 
-        .cd-badge {
-            display: inline-block;
-            font-size: 8px;
-            font-weight: 700;
-            letter-spacing: .6px;
-            text-transform: uppercase;
-            border-radius: 6px;
-            padding: 2px 8px;
-            margin-bottom: 10px;
-        }
-
-        .cd-imsak .cd-badge {
-            background: var(--amber-dim);
-            color: var(--amber);
-            border: 1px solid rgba(245, 158, 11, .3);
-        }
-
         .cd-maghrib .cd-badge {
-            background: var(--green-dim);
+            background: var(--gdim);
             color: var(--green);
             border: 1px solid rgba(16, 185, 129, .3);
         }
 
-        /* ══ FEATURED PRAYER CARDS ══ */
+        /* PRAYER CARDS */
         .featured-prayers {
             padding: 14px 22px;
             display: flex;
@@ -416,17 +410,15 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 13px 16px;
-            position: relative;
-            overflow: hidden;
             transition: border-color .25s, background .25s;
         }
 
-        .prayer-card.active-imsak {
+        .prayer-card.active-a {
             background: rgba(245, 158, 11, .08);
             border-color: rgba(245, 158, 11, .38);
         }
 
-        .prayer-card.active-green {
+        .prayer-card.active-g {
             background: rgba(16, 185, 129, .09);
             border-color: rgba(16, 185, 129, .38);
         }
@@ -444,11 +436,11 @@
             transition: background .25s;
         }
 
-        .prayer-card.active-imsak .p-icon {
+        .prayer-card.active-a .p-icon {
             background: var(--amber);
         }
 
-        .prayer-card.active-green .p-icon {
+        .prayer-card.active-g .p-icon {
             background: var(--green);
         }
 
@@ -475,15 +467,15 @@
             white-space: nowrap;
         }
 
-        .prayer-card.active-imsak .p-time {
+        .prayer-card.active-a .p-time {
             color: var(--amber);
         }
 
-        .prayer-card.active-green .p-time {
+        .prayer-card.active-g .p-time {
             color: var(--green);
         }
 
-        /* ══ ALL 5 PRAYERS ══ */
+        /* ALL 5 PRAYERS */
         .all-prayers {
             padding: 14px 22px;
             border-bottom: 1px solid var(--border);
@@ -563,7 +555,32 @@
             color: var(--green);
         }
 
-        /* ══ INFO ══ */
+        /* CALENDAR BUTTON */
+        .cal-btn-wrap {
+            padding: 12px 22px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cal-btn {
+            width: 100%;
+            background: rgba(16, 185, 129, .08);
+            border: 1px solid rgba(16, 185, 129, .25);
+            border-radius: 12px;
+            padding: 10px;
+            color: var(--green);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+            font-family: inherit;
+            letter-spacing: .5px;
+        }
+
+        .cal-btn:hover {
+            background: rgba(16, 185, 129, .16);
+        }
+
+        /* INFO */
         .info-footer {
             margin: 0 22px 6px;
             background: rgba(255, 255, 255, .025);
@@ -596,7 +613,7 @@
             color: rgba(255, 255, 255, .65);
         }
 
-        /* ══ ADD CITY ══ */
+        /* SEARCH */
         .add-city-section {
             padding: 14px 22px 22px;
         }
@@ -646,15 +663,11 @@
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
-            transition: background .2s, transform .1s;
+            transition: background .2s;
         }
 
         .search-row button:hover {
             background: var(--green2);
-        }
-
-        .search-row button:active {
-            transform: scale(.97);
         }
 
         .status-msg {
@@ -672,7 +685,7 @@
             color: #f87171;
         }
 
-        /* ══ CITY CARDS (multi-city) ══ */
+        /* CITY CARDS */
         .cities-section {
             display: flex;
             flex-direction: column;
@@ -692,7 +705,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 14px 18px 10px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, .08) 0%, transparent 100%);
+            background: linear-gradient(135deg, rgba(16, 185, 129, .08), transparent);
             border-bottom: 1px solid var(--border);
         }
 
@@ -703,10 +716,6 @@
             display: flex;
             align-items: center;
             gap: 7px;
-        }
-
-        .city-card-name span {
-            font-size: 13px;
         }
 
         .city-card-remove {
@@ -721,7 +730,6 @@
             justify-content: center;
             cursor: pointer;
             font-size: 15px;
-            font-weight: 700;
             transition: background .2s;
         }
 
@@ -732,7 +740,6 @@
         .city-times {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0;
         }
 
         .ct-block {
@@ -759,18 +766,18 @@
             font-weight: 800;
         }
 
+        .ct-sub {
+            font-size: 9px;
+            color: rgba(255, 255, 255, .25);
+            margin-top: 2px;
+        }
+
         .ct-imsak .ct-time {
             color: var(--amber);
         }
 
         .ct-maghrib .ct-time {
             color: var(--green);
-        }
-
-        .ct-sub {
-            font-size: 9px;
-            color: rgba(255, 255, 255, .25);
-            margin-top: 2px;
         }
 
         .city-mini-prayers {
@@ -806,15 +813,149 @@
             color: rgba(255, 255, 255, .7);
         }
 
-        .cmp-item.current-p .cmp-time {
+        .cmp-item.cp .cmp-time,
+        .cmp-item.cp .cmp-name {
             color: var(--green);
         }
 
-        .cmp-item.current-p .cmp-name {
+        /* CALENDAR MODAL */
+        .cal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            z-index: 1000;
+            display: none;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cal-overlay.open {
+            display: flex;
+        }
+
+        .cal-modal {
+            background: var(--card);
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 700px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .7);
+        }
+
+        .cal-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: linear-gradient(135deg, #061c13, #0a2f20 50%, #0b2433);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cal-modal-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .cal-modal-title span {
             color: var(--green);
         }
 
-        /* ══ TOAST ══ */
+        .cal-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid var(--border);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s;
+        }
+
+        .cal-close:hover {
+            background: rgba(255, 255, 255, .15);
+        }
+
+        .cal-scroll {
+            overflow-x: auto;
+        }
+
+        table.cal-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        table.cal-table th {
+            padding: 10px 12px;
+            background: #0a1a28;
+            color: var(--muted);
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        table.cal-table th:first-child {
+            text-align: left;
+        }
+
+        table.cal-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            text-align: center;
+            color: rgba(255, 255, 255, .7);
+            white-space: nowrap;
+        }
+
+        table.cal-table td:first-child {
+            text-align: left;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        table.cal-table tr.today-row {
+            background: rgba(16, 185, 129, .1);
+        }
+
+        table.cal-table tr.today-row td {
+            color: #fff;
+        }
+
+        table.cal-table tr.today-row td:first-child {
+            color: var(--green);
+        }
+
+        table.cal-table tr.past-row td {
+            opacity: .45;
+        }
+
+        table.cal-table td.imsak-col {
+            color: var(--amber);
+        }
+
+        table.cal-table td.maghrib-col {
+            color: var(--green);
+        }
+
+        table.cal-table tr.today-row td.imsak-col {
+            color: var(--amber);
+        }
+
+        table.cal-table tr.today-row td.maghrib-col {
+            color: var(--green);
+        }
+
+        /* TOAST */
         .toast {
             position: fixed;
             bottom: 24px;
@@ -829,7 +970,7 @@
             box-shadow: 0 8px 30px rgba(16, 185, 129, .4);
             opacity: 0;
             transition: all .4s cubic-bezier(.34, 1.56, .64, 1);
-            z-index: 999;
+            z-index: 9999;
             white-space: nowrap;
         }
 
@@ -837,23 +978,12 @@
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
-
-        @media(max-width:380px) {
-            .md-val {
-                font-size: 30px;
-                min-width: 38px;
-            }
-        }
     </style>
 </head>
 
 <body>
-
     <div class="app">
-
-        <!-- ═══ PRIMARY CITY CARD ═══ -->
         <div class="card" id="primary-card">
-
             <!-- HEADER -->
             <div class="header">
                 <svg class="crescent-deco" viewBox="0 0 120 130" fill="none">
@@ -864,15 +994,22 @@
                     <circle cx="100" cy="40" r="3" fill="white" opacity=".6" />
                     <circle cx="112" cy="55" r="2" fill="white" opacity=".4" />
                 </svg>
-                <button class="gps-btn" onclick="autoLocate()" title="Detect my location">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3" />
-                        <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
-                        <path d="M12 2a10 10 0 0 1 10 10A10 10 0 0 1 12 22 10 10 0 0 1 2 12 10 10 0 0 1 12 2z"
-                            opacity=".4" />
-                    </svg>
-                </button>
+                <div class="hdr-btns">
+                    <button class="icon-btn" onclick="toggleNotifications()" id="bell-btn" title="Toggle notifications">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                        </svg>
+                    </button>
+                    <button class="icon-btn" onclick="autoLocate()" title="Detect my location">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3" />
+                            <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
+                        </svg>
+                    </button>
+                </div>
                 <div class="location-badge">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                         stroke-linejoin="round">
@@ -896,7 +1033,6 @@
                     <div class="date-pill hijri-pill" id="hijri-pill">🌙 —</div>
                 </div>
             </div>
-
             <!-- STATUS -->
             <div class="status-row">
                 <div>
@@ -905,11 +1041,10 @@
                 </div>
                 <div class="rem-pill">
                     <div class="rl">Remaining</div>
-                    <div class="rv" id="rem-days">— Days</div>
+                    <div class="rv" id="rem-days">—</div>
                 </div>
             </div>
-
-            <!-- PROGRESS BAR -->
+            <!-- PROGRESS -->
             <div class="progress-wrap">
                 <div class="pb-meta">
                     <span>🌅 Imsak <b id="pb-imsak" style="color:#f59e0b;margin-left:3px">—</b></span>
@@ -921,13 +1056,11 @@
                     <div class="pb-dot" id="pb-dot"></div>
                 </div>
             </div>
-
             <!-- DUAL COUNTDOWN -->
             <div class="dual-cd">
-                <!-- LEFT: Imsak countdown -->
                 <div class="cd-half cd-imsak">
                     <div class="cd-half-title">⏳ Until Imsak</div>
-                    <div class="cd-half-sub">Suhoor ends · Stop eating</div>
+                    <div class="cd-half-sub">Suhoor ends · stop eating</div>
                     <div class="cd-badge">Fast Begins</div>
                     <div class="mini-digits">
                         <div class="md-block">
@@ -946,8 +1079,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- RIGHT: Maghrib/Iftar countdown -->
                 <div class="cd-half cd-maghrib">
                     <div class="cd-half-title">🌙 Until Iftar</div>
                     <div class="cd-half-sub">Maghrib · Sunset + 15 min</div>
@@ -970,8 +1101,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- IMSAK + MAGHRIB FEATURED CARDS -->
+            <!-- FEATURED CARDS -->
             <div class="featured-prayers">
                 <div class="prayer-card" id="imsak-card">
                     <div class="p-icon">☕</div>
@@ -981,7 +1111,7 @@
                     </div>
                     <div class="p-time" id="imsak-time">—</div>
                 </div>
-                <div class="prayer-card active-green" id="maghrib-card">
+                <div class="prayer-card active-g" id="maghrib-card">
                     <div class="p-icon">🍽️</div>
                     <div class="p-info">
                         <div class="p-name">Maghrib (Iftar)</div>
@@ -990,30 +1120,28 @@
                     <div class="p-time" id="maghrib-time">—</div>
                 </div>
             </div>
-
             <!-- ALL 5 PRAYERS -->
             <div class="all-prayers">
                 <div class="section-title">Today's Prayer Times</div>
                 <div id="prayers-list"></div>
             </div>
-
-            <!-- INFO NOTE -->
+            <!-- CALENDAR BTN -->
+            <div class="cal-btn-wrap">
+                <button class="cal-btn" onclick="openCalendar()">📅 View Full 30-Day Ramadan Schedule</button>
+            </div>
+            <!-- INFO -->
             <div class="info-footer">
-                <div class="info-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
+                <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="10" />
                         <line x1="12" y1="8" x2="12" y2="12" />
                         <line x1="12" y1="16" x2="12.01" y2="16" />
-                    </svg>
-                </div>
-                <div class="info-text">
-                    Calculated for <strong id="info-city">Dearborn Heights, MI</strong> using
-                    <strong>Shia Jafari</strong> (Leva Research Institute, Qum).
-                    Fajr 16° · Imsak = Fajr−10 min · Maghrib = Sunset+15 min.
+                    </svg></div>
+                <div class="info-text">Calculated for <strong id="info-city">Dearborn Heights, MI</strong> using
+                    <strong>Shia Jafari</strong> (Leva Research Institute, Qum). Fajr 16° · Imsak=Fajr−10min ·
+                    Maghrib=Sunset+15min.
                 </div>
             </div>
-
             <!-- ADD CITY -->
             <div class="add-city-section">
                 <div class="search-label">Add City to Compare</div>
@@ -1023,148 +1151,159 @@
                 </div>
                 <div class="status-msg" id="status-msg"></div>
             </div>
-
-        </div><!-- /primary card -->
-
-        <!-- ═══ EXTRA CITY CARDS ═══ -->
+        </div>
+        <!-- EXTRA CITIES -->
         <div class="cities-section" id="cities-section"></div>
+    </div>
 
-    </div><!-- /app -->
+    <!-- CALENDAR MODAL -->
+    <div class="cal-overlay" id="cal-overlay" onclick="overlayClick(event)">
+        <div class="cal-modal">
+            <div class="cal-modal-header">
+                <div class="cal-modal-title">📅 Ramadan 1447 — <span id="cal-city-name">Schedule</span></div>
+                <button class="cal-close" onclick="closeCalendar()">✕</button>
+            </div>
+            <div class="cal-scroll">
+                <table class="cal-table" id="cal-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Date</th>
+                            <th>Imsak</th>
+                            <th>Fajr</th>
+                            <th>Dhuhr</th>
+                            <th>Asr</th>
+                            <th>Maghrib</th>
+                            <th>Isha'a</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cal-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <div class="toast" id="toast"></div>
 
     <script>
-        /* ══════════════════════════════════════════
-           CONFIG
-        ══════════════════════════════════════════ */
+        /* ═══ CONFIG ═══ */
         const RAMADAN_START = new Date('2026-02-19T00:00:00');
         const RAMADAN_DAYS = 30;
+        const STORE_KEY = 'ramadanTracker_v3';
 
-        // Primary city
-        let G = { lat: 42.3223, lon: -83.1763, city: 'Dearborn Heights, MI', times: null };
-
-        // Extra cities array  [{city, lat, lon}]
+        let G = {
+            lat: 42.3223, lon: -83.1763, city: 'Dearborn Heights, MI',
+            tzOffset: -(new Date().getTimezoneOffset() / 60), times: null
+        };
         let extraCities = [];
+        let notifTimers = [];
 
-        /* ══════════════════════════════════════════
-           MATH
-        ══════════════════════════════════════════ */
-        const rad = d => d * Math.PI / 180;
-        const deg = r => r * 180 / Math.PI;
-        const pad = n => String(n).padStart(2, '0');
+        /* ═══ MATH ═══ */
+        const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI, pad = n => String(n).padStart(2, '0');
 
-        function julianDate(date) {
-            let Y = date.getFullYear(), M = date.getMonth() + 1;
-            const D = date.getDate() + (date.getHours() + date.getTimezoneOffset() / 60) / 24;
-            if (M <= 2) { Y--; M += 12; }
-            const A = Math.floor(Y / 100), B = 2 - A + Math.floor(A / 4);
-            return Math.floor(365.25 * (Y + 4716)) + Math.floor(30.6001 * (M + 1)) + D + B - 1524.5;
-        }
+        /* core calc — tzOffset = signed UTC hours (+3.5 Tehran, -5 EST, 0 London)
+           dayOffset=0 today, +1 tomorrow etc. */
+        function calcTimes(lat, lon, tzOffset, dayOffset = 0) {
+            // Determine calendar date in the TARGET city
+            const cityMs = Date.now() + dayOffset * 86400000 + tzOffset * 3600000;
+            const cd = new Date(cityMs);
+            const Y = cd.getUTCFullYear(), M = cd.getUTCMonth() + 1, D = cd.getUTCDate();
 
-        /* Shia Jafari prayer times.
-           tzOffsetHours: UTC offset of the TARGET city (e.g. -5 for EST, +3.5 for Tehran).
-           Pass null to use the device's own offset (primary city). */
-        function calcTimes(lat, lon, date, tzOffsetHours) {
-            const JD = julianDate(date), D = JD - 2451545.0;
-            const g = rad((357.529 + 0.98560028 * D) % 360);
-            const q = (280.459 + 0.98564736 * D) % 360;
+            // JD for noon UTC on that local date
+            let Yj = Y, Mj = M; if (Mj <= 2) { Yj--; Mj += 12; }
+            const A = Math.floor(Yj / 100), B = 2 - A + Math.floor(A / 4);
+            const JD = Math.floor(365.25 * (Yj + 4716)) + Math.floor(30.6001 * (Mj + 1)) + D + 0.5 + B - 1524.5;
+            const Dv = JD - 2451545.0;
+
+            const g = rad((357.529 + 0.98560028 * Dv) % 360);
+            const q = (280.459 + 0.98564736 * Dv) % 360;
             const L = rad((q + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) % 360);
-            const e = rad(23.439 - 0.00000036 * D);
+            const e = rad(23.439 - 0.00000036 * Dv);
             const RA = deg(Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L))) / 15;
             const sinDec = Math.sin(e) * Math.sin(L);
             const dec = Math.asin(sinDec), cosDec = Math.cos(dec);
             const EqT = q / 15 - ((RA + 360 / 15) % 24);
-            const noon = 12 - EqT - lon / 15; // in UTC decimal hours
+            const noonUTC = 12 - EqT - lon / 15;
 
-            function ha(z) {
-                const c = (Math.cos(rad(z)) - Math.sin(rad(lat)) * sinDec) / (Math.cos(rad(lat)) * cosDec);
-                return c < -1 ? 12 : c > 1 ? 0 : deg(Math.acos(c));
-            }
-
+            function ha(z) { const c = (Math.cos(rad(z)) - Math.sin(rad(lat)) * sinDec) / (Math.cos(rad(lat)) * cosDec); return c < -1 ? 12 : c > 1 ? 0 : deg(Math.acos(c)); }
             const H0 = ha(90.8333);
-            const sunrise = noon - H0 / 15, sunset = noon + H0 / 15;
-            const fajr = noon - ha(90 + 16) / 15;
-            const isha = noon + ha(90 + 14) / 15;
+            const sunriseUTC = noonUTC - H0 / 15, sunsetUTC = noonUTC + H0 / 15;
+            const fajrUTC = noonUTC - ha(90 + 16) / 15, ishaUTC = noonUTC + ha(90 + 14) / 15;
             const asrA = deg(Math.atan(1 + Math.tan(Math.abs(rad(lat) - dec))));
-            const asr = noon + ha(asrA) / 15;
-            const imsak = fajr - 10 / 60;
-            const maghrib = sunset + 15 / 60;
+            const asrUTC = noonUTC + ha(asrA) / 15;
+            const imsakUTC = fajrUTC - 10 / 60, maghribUTC = sunsetUTC + 15 / 60;
 
-            // UTC → target city local time
-            // getTimezoneOffset() returns minutes AHEAD of UTC for western zones (positive = behind UTC)
-            const tz = (tzOffsetHours !== null && tzOffsetHours !== undefined)
-                ? -tzOffsetHours          // e.g. UTC+3.5 → subtract -3.5 = add 3.5
-                : date.getTimezoneOffset() / 60;  // device offset (positive for UTC-5 = EST)
-            const shift = t => t - tz;
-            return {
-                imsak: shift(imsak),
-                fajr: shift(fajr),
-                sunrise: shift(sunrise),
-                noon: shift(noon),
-                asr: shift(asr),
-                sunset: shift(sunset),
-                maghrib: shift(maghrib),
-                isha: shift(isha),
-            };
+            const s = t => t + tzOffset;
+            return { imsak: s(imsakUTC), fajr: s(fajrUTC), sunrise: s(sunriseUTC), noon: s(noonUTC), asr: s(asrUTC), sunset: s(sunsetUTC), maghrib: s(maghribUTC), isha: s(ishaUTC) };
         }
 
-        // Safely convert decimal hours → {h, m} handling any negative or >24 wrap
-        function toHM(dec) {
-            let total = Math.round(((dec % 24) + 24) % 24 * 60);
-            return { h: Math.floor(total / 60) % 24, m: total % 60 };
-        }
-
+        function toHM(dec) { const n = ((dec % 24) + 24) % 24, t = Math.round(n * 60); return { h: Math.floor(t / 60) % 24, m: t % 60 }; }
         function fmt(dec) { const { h, m } = toHM(dec); return `${h % 12 || 12}:${pad(m)} ${h >= 12 ? 'PM' : 'AM'}`; }
-
         function decToSec(dec) { const { h, m } = toHM(dec); return h * 3600 + m * 60; }
 
-        // Fetch UTC offset for a lat/lon via free timezone API
-        async function fetchTzOffset(lat, lon) {
-            try {
-                const r = await fetch(`https://timeapi.io/api/timezone/coordinate?latitude=${lat}&longitude=${lon}`);
-                const d = await r.json();
-                if (d && d.currentUtcOffset) {
-                    // currentUtcOffset.seconds gives signed offset in seconds
-                    return d.currentUtcOffset.seconds / 3600;
-                }
-            } catch (e) { /* fall through */ }
-            // Fallback: longitude-based approximation (accurate to ±30 min for most places)
-            return Math.round(lon / 15 * 2) / 2;  // round to nearest 0.5h
-        }
-
-        /* ══════════════════════════════════════════
-           HIJRI DATE
-        ══════════════════════════════════════════ */
+        /* ═══ HIJRI ═══ */
         function toHijri(date) {
-            try {
-                return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
-            } catch (e) { return ''; }
+            try { return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' }).format(date); }
+            catch (e) { return ''; }
         }
 
-        /* ══════════════════════════════════════════
-           RAMADAN STATUS
-        ══════════════════════════════════════════ */
+        /* ═══ RAMADAN ═══ */
         function ramadanStatus() {
-            const diff = Math.floor((new Date() - RAMADAN_START) / 86400000);
-            if (diff < 0 || diff >= RAMADAN_DAYS) return { day: null, remaining: 0 };
-            return { day: diff + 1, remaining: RAMADAN_DAYS - (diff + 1) };
+            const d = Math.floor((new Date() - RAMADAN_START) / 86400000);
+            if (d < 0 || d >= RAMADAN_DAYS) return { day: null, remaining: 0 };
+            return { day: d + 1, remaining: RAMADAN_DAYS - (d + 1) };
         }
 
-        /* ══════════════════════════════════════════
-           RENDER PRIMARY
-        ══════════════════════════════════════════ */
-        const PRAYERS_DEF = [
-            { key: 'fajr', label: 'Fajr', arabic: 'الفجر', icon: '🌄' },
-            { key: 'dhuhr', label: 'Dhuhr', arabic: 'الظهر', icon: '☀️' },
-            { key: 'asr', label: 'Asr', arabic: 'العصر', icon: '🌤️' },
-            { key: 'maghrib', label: 'Maghrib', arabic: 'المغرب', icon: '🌅' },
-            { key: 'isha', label: "Isha'a", arabic: 'العشاء', icon: '🌙' },
-        ];
-        const KEY_MAP = { fajr: 'fajr', dhuhr: 'noon', asr: 'asr', maghrib: 'maghrib', isha: 'isha' };
+        /* ═══ LOCAL STORAGE ═══ */
+        function saveState() {
+            try { localStorage.setItem(STORE_KEY, JSON.stringify({ primary: { city: G.city, lat: G.lat, lon: G.lon, tzOffset: G.tzOffset }, extras: extraCities })); } catch (e) { }
+        }
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORE_KEY); if (!raw) return;
+                const s = JSON.parse(raw);
+                if (s.primary) { G.city = s.primary.city; G.lat = s.primary.lat; G.lon = s.primary.lon; G.tzOffset = s.primary.tzOffset; }
+                if (Array.isArray(s.extras)) extraCities = s.extras;
+            } catch (e) { }
+        }
 
+        /* ═══ NOTIFICATIONS ═══ */
+        function clearNotifTimers() { notifTimers.forEach(t => clearTimeout(t)); notifTimers = []; }
+        function scheduleNotifications() {
+            if (!G.times || !('Notification' in window) || Notification.permission !== 'granted') return;
+            clearNotifTimers();
+            const now = new Date();
+            const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            function sched(tSec, title, body) {
+                let diff = (tSec - nowSec) * 1000; if (diff < 0) diff += 86400000;
+                if (diff > 500 && diff < 86400000) notifTimers.push(setTimeout(() => new Notification(title, { body, icon: 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>' }), diff));
+            }
+            const iS = decToSec(G.times.imsak), mS = decToSec(G.times.maghrib);
+            sched(iS - 900, '⚠️ Imsak in 15 min', 'Finish your Suhoor — fast starts soon');
+            sched(iS, '☕ Imsak — Fast Begins!', 'Stop eating now. Ramadan Mubarak!');
+            sched(mS, '🍽️ Iftar Time! Alhamdulillah', 'Break your fast — Maghrib prayer time');
+        }
+        async function toggleNotifications() {
+            if (!('Notification' in window)) { showToast('Browser does not support notifications'); return; }
+            if (Notification.permission === 'granted') { showToast('🔕 Notifications already enabled'); scheduleNotifications(); return; }
+            const p = await Notification.requestPermission();
+            if (p === 'granted') { scheduleNotifications(); showToast('🔔 Notifications enabled!'); }
+            else showToast('❌ Notification permission denied');
+        }
+
+        /* ═══ PRAYERS DEFINITION ═══ */
+        const P5 = [
+            { key: 'fajr', dec: 'fajr', label: 'Fajr', arabic: 'الفجر', icon: '🌄' },
+            { key: 'dhuhr', dec: 'noon', label: 'Dhuhr', arabic: 'الظهر', icon: '☀️' },
+            { key: 'asr', dec: 'asr', label: 'Asr', arabic: 'العصر', icon: '🌤️' },
+            { key: 'magh', dec: 'maghrib', label: 'Maghrib', arabic: 'المغرب', icon: '🌅' },
+            { key: 'isha', dec: 'isha', label: "Isha'a", arabic: 'العشاء', icon: '🌙' },
+        ];
+
+        /* ═══ RENDER PRIMARY ═══ */
         function render() {
             const now = new Date();
-            const t = calcTimes(G.lat, G.lon, now);
+            const t = calcTimes(G.lat, G.lon, G.tzOffset);
             G.times = t;
 
             document.getElementById('greg-date').textContent = now.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -1181,151 +1320,134 @@
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
 
-            // Prayers list
             const nowMins = now.getHours() * 60 + now.getMinutes();
             const list = document.getElementById('prayers-list'); list.innerHTML = '';
-            PRAYERS_DEF.forEach(p => {
-                const dec = t[KEY_MAP[p.key]];
-                const { h, m } = toHM(dec);
-                const tMin = h * 60 + m;
-                const cur = nowMins >= tMin && nowMins < tMin + 60;
+            P5.forEach(p => {
+                const dec = t[p.dec], { h, m } = toHM(dec);
+                const cur = nowMins >= h * 60 + m && nowMins < h * 60 + m + 60;
                 const row = document.createElement('div');
                 row.className = 'prayer-row' + (cur ? ' current' : '');
                 row.innerHTML = `<div class="pr-dot"></div><span class="pr-icon">${p.icon}</span><div class="pr-name">${p.label}</div><div class="pr-arabic">${p.arabic}</div><div class="pr-time-val">${fmt(dec)}</div>`;
                 list.appendChild(row);
             });
+
+            scheduleNotifications();
         }
 
-        /* ══════════════════════════════════════════
-           TICK — countdowns + progress
-        ══════════════════════════════════════════ */
+        /* ═══ TICK ═══ */
         function tick() {
             if (!G.times) return;
             const now = new Date();
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
 
-            const imsakSec = decToSec(G.times.imsak);
-            const maghribSec = decToSec(G.times.maghrib);
-
-            // ── Progress bar
-            const total = maghribSec - imsakSec;
-            let pct = 0;
-            if (nowSec >= imsakSec && nowSec <= maghribSec) pct = Math.min(100, ((nowSec - imsakSec) / total) * 100);
-            else if (nowSec > maghribSec) pct = 100;
+            // progress
+            const total = mSec - iSec; let pct = 0;
+            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100);
+            else if (nowSec > mSec) pct = 100;
             document.getElementById('pb-fill').style.width = pct.toFixed(2) + '%';
             document.getElementById('pb-pct').textContent = pct.toFixed(0) + '%';
-            const dot = document.getElementById('pb-dot');
-            dot.style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
+            document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
 
-            // ── Countdown helper
-            function cd(targetSec) {
-                let d = targetSec - nowSec;
-                if (d < 0) d += 86400;
-                return { hh: Math.floor(d / 3600), mm: Math.floor((d % 3600) / 60), ss: d % 60 };
-            }
+            function cd(tSec) { let d = tSec - nowSec; if (d < 0) d += 86400; return { hh: Math.floor(d / 3600), mm: Math.floor((d % 3600) / 60), ss: d % 60 }; }
+            const ci = cd(iSec), cm = cd(mSec);
+            ['i-h', 'i-m', 'i-s'].forEach((id, i) => document.getElementById(id).textContent = pad([ci.hh, ci.mm, ci.ss][i]));
+            ['m-h', 'm-m', 'm-s'].forEach((id, i) => document.getElementById(id).textContent = pad([cm.hh, cm.mm, cm.ss][i]));
 
-            // Imsak countdown
-            {
-                const { hh, mm, ss } = cd(imsakSec);
-                document.getElementById('i-h').textContent = pad(hh);
-                document.getElementById('i-m').textContent = pad(mm);
-                document.getElementById('i-s').textContent = pad(ss);
-            }
-            // Maghrib/Iftar countdown
-            {
-                const { hh, mm, ss } = cd(maghribSec);
-                document.getElementById('m-h').textContent = pad(hh);
-                document.getElementById('m-m').textContent = pad(mm);
-                document.getElementById('m-s').textContent = pad(ss);
-            }
-
-            // Card highlight states
             const nowMins = Math.floor(nowSec / 60);
-            const imsakMin = Math.floor(imsakSec / 60);
-            const ic = document.getElementById('imsak-card');
-            const mc = document.getElementById('maghrib-card');
-            ic.className = 'prayer-card' + (nowMins === imsakMin ? ' active-imsak' : '');
-            mc.className = 'prayer-card' + (nowSec < maghribSec ? ' active-green' : '');
+            document.getElementById('imsak-card').className = 'prayer-card' + (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
+            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec ? ' active-g' : '');
 
-            // Refresh extra city cards' countdowns
+            // extra cities: compare against the CITY's own local time, not device time
             document.querySelectorAll('.city-cd').forEach(el => {
-                const iS = parseInt(el.dataset.imsak) || 0;
-                const mS = parseInt(el.dataset.maghrib) || 0;
-                const type = el.dataset.type;
-                const tgt = type === 'imsak' ? iS : mS;
-                const { hh, mm, ss } = cd(tgt);
+                const tSec = parseInt(el.dataset.target) || 0;
+                const tzOff = parseFloat(el.dataset.tz) || 0;
+                // Current time-of-day in the target city (UTC + city offset)
+                const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
+                let d = tSec - cityNowSec; if (d < 0) d += 86400;
+                const hh = Math.floor(d / 3600), mm = Math.floor((d % 3600) / 60), ss = Math.floor(d % 60);
                 el.textContent = `${pad(hh)}:${pad(mm)}:${pad(ss)}`;
             });
         }
 
-        /* ══════════════════════════════════════════
-           EXTRA CITY CARDS
-        ══════════════════════════════════════════ */
+        /* ═══ EXTRA CITY CARDS ═══ */
         function buildCityCard(c) {
-            const now = new Date();
-            const t = calcTimes(c.lat, c.lon, now, c.tzOffset);  // use city's own tz offset
-            const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-            const imsakSec = decToSec(t.imsak);
-            const maghribSec = decToSec(t.maghrib);
+            const now = new Date(), t = calcTimes(c.lat, c.lon, c.tzOffset);
             const nowMins = now.getHours() * 60 + now.getMinutes();
+            const iSec = decToSec(t.imsak), mSec = decToSec(t.maghrib);
 
-            const div = document.createElement('div');
-            div.className = 'city-card';
-            div.dataset.id = c.id;
-
-            // Prayers row
-            const pRows = PRAYERS_DEF.map(p => {
-                const dec = t[KEY_MAP[p.key]];
-                const { h, m } = toHM(dec);
-                const tMin = h * 60 + m;
-                const cur = nowMins >= tMin && nowMins < tMin + 60;
-                return `<div class="cmp-item${cur ? ' current-p' : ''}">
-      <div class="cmp-icon">${p.icon}</div>
-      <div class="cmp-name">${p.label}</div>
-      <div class="cmp-time">${fmt(dec)}</div>
-    </div>`;
+            const pRows = P5.map(p => {
+                const dec = t[p.dec], { h, m } = toHM(dec);
+                const cur = nowMins >= h * 60 + m && nowMins < h * 60 + m + 60;
+                return `<div class="cmp-item${cur ? ' cp' : ''}"><div class="cmp-icon">${p.icon}</div><div class="cmp-name">${p.label}</div><div class="cmp-time">${fmt(dec)}</div></div>`;
             }).join('');
 
+            const div = document.createElement('div');
+            div.className = 'city-card'; div.dataset.id = c.id;
             div.innerHTML = `
-    <div class="city-card-header">
-      <div class="city-card-name"><span>📍</span>${c.city}</div>
-      <div class="city-card-remove" onclick="removeCity('${c.id}')">✕</div>
-    </div>
+    <div class="city-card-header"><div class="city-card-name"><span>📍</span>${c.city}</div><div class="city-card-remove" onclick="removeCity('${c.id}')">✕</div></div>
     <div class="city-times">
-      <div class="ct-block ct-imsak">
-        <div class="ct-label">⏳ Until Imsak</div>
-        <div class="ct-time city-cd" data-type="imsak" data-imsak="${imsakSec}" data-maghrib="${maghribSec}">--:--:--</div>
-        <div class="ct-sub">Imsak at ${fmt(t.imsak)}</div>
-      </div>
-      <div class="ct-block ct-maghrib">
-        <div class="ct-label">🌙 Until Iftar</div>
-        <div class="ct-time city-cd" data-type="maghrib" data-imsak="${imsakSec}" data-maghrib="${maghribSec}">--:--:--</div>
-        <div class="ct-sub">Maghrib at ${fmt(t.maghrib)}</div>
-      </div>
+      <div class="ct-block ct-imsak"><div class="ct-label">⏳ Until Imsak</div><div class="ct-time city-cd" data-target="${iSec}" data-tz="${c.tzOffset}">--:--:--</div><div class="ct-sub">Imsak ${fmt(t.imsak)}</div></div>
+      <div class="ct-block ct-maghrib"><div class="ct-label">🌙 Until Iftar</div><div class="ct-time city-cd" data-target="${mSec}" data-tz="${c.tzOffset}">--:--:--</div><div class="ct-sub">Maghrib ${fmt(t.maghrib)}</div></div>
     </div>
     <div class="city-mini-prayers">${pRows}</div>`;
             return div;
         }
+        function renderCities() { const s = document.getElementById('cities-section'); s.innerHTML = ''; extraCities.forEach(c => s.appendChild(buildCityCard(c))); }
+        function removeCity(id) { extraCities = extraCities.filter(c => c.id !== id); renderCities(); saveState(); }
 
-        function renderCities() {
-            const sec = document.getElementById('cities-section');
-            sec.innerHTML = '';
-            extraCities.forEach(c => sec.appendChild(buildCityCard(c)));
+        /* ═══ 30-DAY CALENDAR ═══ */
+        function openCalendar() {
+            document.getElementById('cal-city-name').textContent = G.city;
+            const tbody = document.getElementById('cal-body');
+            tbody.innerHTML = '';
+            const today = new Date();
+            const todayMid = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+
+            for (let i = 0; i < RAMADAN_DAYS; i++) {
+                const dayDate = new Date(RAMADAN_START.getTime() + i * 86400000);
+                const dayMid = new Date(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate()).getTime();
+                const dayOffset = Math.round((dayMid - todayMid) / 86400000);
+                const t = calcTimes(G.lat, G.lon, G.tzOffset, dayOffset);
+
+                const isToday = dayOffset === 0, isPast = dayOffset < 0;
+                const tr = document.createElement('tr');
+                tr.className = isToday ? 'today-row' : isPast ? 'past-row' : '';
+
+                const fmtDate = dayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                tr.innerHTML = `
+      <td>${isToday ? '▶ ' : ''}Day ${i + 1}</td>
+      <td>${fmtDate}</td>
+      <td class="imsak-col">${fmt(t.imsak)}</td>
+      <td>${fmt(t.fajr)}</td>
+      <td>${fmt(t.noon)}</td>
+      <td>${fmt(t.asr)}</td>
+      <td class="maghrib-col">${fmt(t.maghrib)}</td>
+      <td>${fmt(t.isha)}</td>`;
+                tbody.appendChild(tr);
+            }
+            document.getElementById('cal-overlay').classList.add('open');
+            // scroll today into view
+            const todayRow = tbody.querySelector('.today-row');
+            if (todayRow) setTimeout(() => todayRow.scrollIntoView({ block: 'center', behavior: 'smooth' }), 100);
         }
+        function closeCalendar() { document.getElementById('cal-overlay').classList.remove('open'); }
+        function overlayClick(e) { if (e.target === document.getElementById('cal-overlay')) closeCalendar(); }
 
-        function removeCity(id) {
-            extraCities = extraCities.filter(c => c.id !== id);
-            renderCities();
-        }
-
-        /* ══════════════════════════════════════════
-           GEOCODE
-        ══════════════════════════════════════════ */
+        /* ═══ GEOCODE ═══ */
         async function geocode(q) {
             const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`, { headers: { 'Accept-Language': 'en' } });
             const d = await r.json();
             if (d && d[0]) return { lat: +d[0].lat, lon: +d[0].lon, name: d[0].display_name.split(',').slice(0, 2).join(',').trim() };
             return null;
+        }
+        async function fetchTzOffset(lat, lon) {
+            try {
+                const r = await fetch(`https://timeapi.io/api/timezone/coordinate?latitude=${lat}&longitude=${lon}`);
+                const d = await r.json();
+                if (d && d.currentUtcOffset) return d.currentUtcOffset.seconds / 3600;
+            } catch (e) { }
+            return Math.round(lon / 15 * 2) / 2;
         }
 
         async function addCity() {
@@ -1335,60 +1457,45 @@
             try {
                 const res = await geocode(q);
                 if (res) {
-                    if (extraCities.find(c => Math.abs(c.lat - res.lat) < 0.01)) {
-                        setStatus('City already added.', 'err'); return;
-                    }
-                    // Fetch real UTC offset for this city's coordinates
+                    if (extraCities.find(c => Math.abs(c.lat - res.lat) < 0.01)) { setStatus('City already added.', 'err'); return; }
                     setStatus('Getting timezone…');
                     const tzOffset = await fetchTzOffset(res.lat, res.lon);
                     const id = 'city_' + Date.now();
                     extraCities.push({ id, city: res.name || q, lat: res.lat, lon: res.lon, tzOffset });
-                    renderCities();
-                    setStatus('✓ Added ' + res.name, 'ok');
-                    input.value = '';
+                    renderCities(); saveState();
+                    setStatus('✓ Added ' + res.name, 'ok'); input.value = '';
                     showToast('📍 ' + res.name + ' added');
-                } else { setStatus('City not found. Try "London, UK"', 'err'); }
+                } else setStatus('City not found. Try "London, UK"', 'err');
             } catch (e) { setStatus('Network error.', 'err'); }
         }
 
-        // Also allow primary city update via input → just change to addCity flow
         async function autoLocate() {
             if (!navigator.geolocation) { alert('Geolocation not supported.'); return; }
             showToast('📡 Detecting location…');
             navigator.geolocation.getCurrentPosition(async pos => {
                 G.lat = pos.coords.latitude; G.lon = pos.coords.longitude;
+                G.tzOffset = -(new Date().getTimezoneOffset() / 60);
                 try {
                     const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${G.lat}&lon=${G.lon}&format=json`, { headers: { 'Accept-Language': 'en' } });
-                    const d = await r.json();
-                    const a = d.address;
+                    const d = await r.json(); const a = d.address;
                     G.city = (a.city || a.town || a.village || 'Your Location') + (a.state ? ', ' + a.state : '');
                 } catch (e) { G.city = 'Your Location'; }
-                render(); tick(); showToast('📍 ' + G.city);
+                render(); renderCities(); saveState(); showToast('📍 ' + G.city);
             }, () => showToast('❌ Location denied'));
         }
 
-        function setStatus(txt, cls) {
-            const el = document.getElementById('status-msg');
-            el.textContent = txt; el.className = 'status-msg ' + (cls || '');
-        }
-
-        /* ══════════════════════════════════════════
-           TOAST
-        ══════════════════════════════════════════ */
+        function setStatus(txt, cls) { const el = document.getElementById('status-msg'); el.textContent = txt; el.className = 'status-msg ' + (cls || ''); }
         let toastT;
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg; t.classList.add('show');
-            clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3000);
-        }
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 3000); }
 
-        /* ══════════════════════════════════════════
-           INIT
-        ══════════════════════════════════════════ */
+        /* ═══ INIT ═══ */
+        loadState();
         render(); tick();
+        renderCities();
         setInterval(tick, 1000);
         setInterval(() => { render(); renderCities(); }, 60000);
         document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCity(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCalendar(); });
     </script>
 </body>
 
