@@ -1913,6 +1913,21 @@
 
             <!-- DUA OF THE DAY -->
             <div class="dua-card" id="dua-section"></div>
+            <div class="streak-section" style="padding-top: 5px; border-bottom: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="streak-badge"
+                        style="background: rgba(16, 185, 129, .12); border-color: rgba(16, 185, 129, .3);">
+                        <div class="streak-fire">🤲</div>
+                        <div class="streak-info">
+                            <div class="streak-count" style="color: var(--green);"><span id="dua-streak-num">0</span>
+                                days</div>
+                            <div class="streak-lbl">Dua Streak</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fast-grid" id="dua-grid"></div>
+            </div>
+
             <!-- SMART COUNTDOWN -->
             <div class="smart-cd" id="smart-cd">
                 <div class="cd-badge" id="cd-badge">Fast Begins</div>
@@ -2022,6 +2037,20 @@
                     </div>
                     <div class="quran-pct" id="quran-pct">0%</div>
                 </div>
+            </div>
+            <div class="streak-section" style="padding-top: 5px; border-top: none;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="streak-badge"
+                        style="background: rgba(16, 185, 129, .12); border-color: rgba(16, 185, 129, .3);">
+                        <div class="streak-fire">📖</div>
+                        <div class="streak-info">
+                            <div class="streak-count" style="color: var(--green);"><span id="quran-streak-num">0</span>
+                                days</div>
+                            <div class="streak-lbl">Quran Streak</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fast-grid" id="quran-grid"></div>
             </div>
             <!-- CALENDAR BTN -->
             <div class="cal-btn-wrap" style="display:flex;gap:8px;">
@@ -2819,32 +2848,74 @@
             banner.innerHTML = '<div class="laylat-title">🌟 Last 10 Nights — Laylat al-Qadr</div><div class="laylat-sub">' + msg + '</div>';
         }
 
-        /* ═══ FAST STREAK ═══ */
+        /* ═══ FAST STREAK & HABIT GRIDS ═══ */
         let completedFasts = {};
-        function loadFasts() { try { completedFasts = JSON.parse(localStorage.getItem('rm_fasts') || '{}'); } catch (e) { } }
-        function saveFasts() { localStorage.setItem('rm_fasts', JSON.stringify(completedFasts)); }
-        function getStreak() {
-            const { day } = ramadanStatus(); if (!day) return 0;
-            for (var s = 0, d = day; d >= 1; d--) { if (completedFasts[d]) s++; else break; }
-            return s;
-        }
-        function toggleFast() {
-            const { day } = ramadanStatus(); if (!day) return;
-            completedFasts[day] = !completedFasts[day];
-            saveFasts(); updateStreak();
-        }
-        function updateStreak() {
-            const { day } = ramadanStatus();
-            const s = getStreak();
-            const el = document.getElementById('streak-num'); if (el) el.textContent = s;
-            const btn = document.getElementById('streak-btn');
-            if (btn) {
-                const done = day && completedFasts[day];
-                btn.textContent = done ? '✅ Fasted!' : 'Mark Today ✓';
-                btn.className = 'streak-check' + (done ? ' done' : '');
-            }
+        let completedDuas = {};
+        let completedQurans = {};
+
+        function loadHabits() {
+            try {
+                completedFasts = JSON.parse(localStorage.getItem('rm_fasts') || '{}');
+                completedDuas = JSON.parse(localStorage.getItem('rm_duas') || '{}');
+                completedQurans = JSON.parse(localStorage.getItem('rm_qurans') || '{}');
+            } catch (e) { }
         }
 
+        function saveHabits() {
+            localStorage.setItem('rm_fasts', JSON.stringify(completedFasts));
+            localStorage.setItem('rm_duas', JSON.stringify(completedDuas));
+            localStorage.setItem('rm_qurans', JSON.stringify(completedQurans));
+        }
+
+        function getStreak(habitDict) {
+            const { day } = ramadanStatus(); if (!day) return 0;
+            for (var s = 0, d = day; d >= 1; d--) { if (habitDict[d]) s++; else break; }
+            return s;
+        }
+
+        function toggleHabit(dayStr, habitType) {
+            const day = parseInt(dayStr);
+            if (habitType === 'fast') completedFasts[day] = !completedFasts[day];
+            else if (habitType === 'dua') completedDuas[day] = !completedDuas[day];
+            else if (habitType === 'quran') completedQurans[day] = !completedQurans[day];
+            saveHabits();
+            renderHabitGrids();
+        }
+
+        function renderHabitGrids() {
+            const currentObj = ramadanStatus();
+            // Up to day 30, but cap interactive dots at the current day
+            const currentDay = currentObj.day || 0;
+
+            function buildGrid(gridId, numId, habitDict, habitType) {
+                const grid = document.getElementById(gridId);
+                const numEl = document.getElementById(numId);
+                if (!grid) return;
+
+                grid.innerHTML = '';
+                for (let i = 1; i <= 30; i++) {
+                    const dot = document.createElement('div');
+                    const isDone = habitDict[i] ? true : false;
+
+                    dot.className = 'fast-dot' + (isDone ? ' done' : '');
+                    dot.textContent = i;
+
+                    if (i <= currentDay) {
+                        dot.onclick = () => toggleHabit(i, habitType);
+                    } else {
+                        dot.style.opacity = '0.3';
+                        dot.style.cursor = 'default';
+                    }
+                    grid.appendChild(dot);
+                }
+
+                if (numEl) numEl.textContent = getStreak(habitDict);
+            }
+
+            buildGrid('fast-grid', 'streak-num', completedFasts, 'fast');
+            buildGrid('dua-grid', 'dua-streak-num', completedDuas, 'dua');
+            buildGrid('quran-grid', 'quran-streak-num', completedQurans, 'quran');
+        }
         /* ═══ QURAN TRACKER ═══ */
         let quranData = {};
         function todayKey() { return new Date().toISOString().split('T')[0]; }
@@ -3027,8 +3098,10 @@
         loadFromURL();
         loadState();
         renderHydration();
-        loadFasts();
+        loadHabits();
+        renderHabitGrids();
         loadQuran();
+        render();
         render(); tick();
         renderCities();
         renderDua();
