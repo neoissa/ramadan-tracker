@@ -158,7 +158,7 @@
         }
 
         .header h1 {
-            font-size: 27px;
+            font-size: 29px;
             font-weight: 900;
             color: #fff;
             letter-spacing: -.4px;
@@ -495,7 +495,12 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 13px 16px;
-            transition: border-color .25s, background .25s;
+            transition: border-color .25s, background .25s, transform .2s;
+            cursor: pointer;
+        }
+
+        .prayer-card:active {
+            transform: scale(0.98);
         }
 
         .prayer-card.active-a {
@@ -1671,7 +1676,7 @@
             </div>
             <!-- STATUS -->
 
-            <div class="status-row">
+            <div class="status-row" style="border-bottom:none; padding-bottom:12px;">
                 <div>
                     <div class="status-label">Ramadan Status</div>
                     <div class="status-day" id="ram-day">Day —</div>
@@ -1681,20 +1686,22 @@
                     <div class="rv" id="rem-days">—</div>
                 </div>
             </div>
-            <!-- LAYLAT AL-QADR (shown from day 20+) -->
-            <div class="laylat-banner" id="laylat-banner"></div>
-            <!-- PROGRESS -->
-            <div class="progress-wrap">
+            <!-- RAMADAN DAYS PROGRESS -->
+            <div class="progress-wrap" style="padding-top:0;">
                 <div class="pb-meta">
-                    <span>🌅 Imsak <b id="pb-imsak" style="color:#f59e0b;margin-left:3px">—</b></span>
-                    <span id="pb-pct" style="color:var(--green);font-weight:700">0%</span>
-                    <span>🌇 Maghrib <b id="pb-maghrib" style="color:#10b981;margin-left:3px">—</b></span>
+                    <span>Day 1</span>
+                    <span id="ram-pct" style="color:var(--amber);font-weight:700">0%</span>
+                    <span>Day 30</span>
                 </div>
                 <div class="pb-track">
-                    <div class="pb-fill" id="pb-fill" style="width:0%"></div>
-                    <div class="pb-dot" id="pb-dot"></div>
+                    <div class="pb-fill" id="ram-pb-fill"
+                        style="width:0%; background: linear-gradient(90deg, var(--amber), var(--gold));box-shadow: 0 0 8px var(--adim);">
+                    </div>
                 </div>
             </div>
+            <!-- LAYLAT AL-QADR (shown from day 20+) -->
+            <div class="laylat-banner" id="laylat-banner"></div>
+
             <!-- DUA OF THE DAY -->
             <div class="dua-card" id="dua-section"></div>
             <!-- SMART COUNTDOWN -->
@@ -1719,11 +1726,23 @@
                     </div>
                 </div>
                 <div class="cd-next" id="cd-next"></div>
+                <!-- TIME PROGRESS -->
+                <div class="progress-wrap" style="border-bottom:none; padding:16px 0 0;">
+                    <div class="pb-meta">
+                        <span>🌅 Imsak <b id="pb-imsak" style="color:#f59e0b;margin-left:3px">—</b></span>
+                        <span id="pb-pct" style="color:var(--green);font-weight:700">0%</span>
+                        <span>🌇 Maghrib <b id="pb-maghrib" style="color:#10b981;margin-left:3px">—</b></span>
+                    </div>
+                    <div class="pb-track">
+                        <div class="pb-fill" id="pb-fill" style="width:0%"></div>
+                        <div class="pb-dot" id="pb-dot"></div>
+                    </div>
+                </div>
             </div>
 
             <!-- FEATURED CARDS -->
             <div class="featured-prayers">
-                <div class="prayer-card" id="imsak-card">
+                <div class="prayer-card" id="imsak-card" onclick="selectEvent('imsak')">
                     <div class="p-icon">☕</div>
                     <div class="p-info">
                         <div class="p-name">Imsak</div>
@@ -1731,7 +1750,7 @@
                     </div>
                     <div class="p-time" id="imsak-time">—</div>
                 </div>
-                <div class="prayer-card active-g" id="maghrib-card">
+                <div class="prayer-card active-g" id="maghrib-card" onclick="selectEvent('maghrib')">
                     <div class="p-icon">🍽️</div>
                     <div class="p-info">
                         <div class="p-name">Maghrib (Iftar)</div>
@@ -1939,6 +1958,13 @@
         };
         let extraCities = [];
         let notifTimers = [];
+        let manualEvent = null; // 'imsak' | 'maghrib' | null
+
+        function selectEvent(type) {
+            manualEvent = manualEvent === type ? null : type;
+            render();
+            tick();
+        }
 
         /* ═══ MATH ═══ */
         const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI, pad = n => String(n).padStart(2, '0');
@@ -2109,44 +2135,72 @@
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
 
-            // progress bar
-            const total = mSec - iSec; let pct = 0;
-            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100);
-            else if (nowSec > mSec) pct = 100;
+            // Ramadan Days Progress
+            const dayNum = Math.floor((now - RAMADAN_START) / 86400000) + 1;
+            let ramPct = 0;
+            if (dayNum >= 1 && dayNum <= 30) {
+                ramPct = (dayNum / 30) * 100;
+            } else if (dayNum > 30) {
+                ramPct = 100;
+            }
+            document.getElementById('ram-pb-fill').style.width = ramPct.toFixed(2) + '%';
+            document.getElementById('ram-pct').textContent = ramPct.toFixed(0) + '%';
+
+            // Determine if fasting (auto) and then resolve targetEvent
+            const autoIsFasting = nowSec >= iSec && nowSec < mSec;
+            const targetEvent = manualEvent ? manualEvent : (autoIsFasting ? 'maghrib' : 'imsak');
+            const isFasting = targetEvent === 'maghrib';
+
+            // Time progress bar (Daily)
+            const scd = document.getElementById('smart-cd');
+            let pct = 0;
+
+            if (isFasting) {
+                // Tracking Iftar (Fasting)
+                const total = mSec - iSec;
+                if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100);
+                else if (nowSec > mSec) pct = 100;
+
+                scd.className = 'smart-cd fasting';
+                document.getElementById('cd-badge').textContent = manualEvent ? 'Iftar (Manual)' : 'Iftar';
+                document.getElementById('cd-title').textContent = '🌙 Until Iftar';
+                document.getElementById('cd-sub').textContent = 'Maghrib · Sunset + 15 min';
+                document.getElementById('cd-next').textContent = 'Imsak was at ' + fmt(G.times.imsak);
+            } else {
+                // Tracking Imsak (Pre-Fast)
+                // From yesterday's maghrib to today's imsak OR today's maghrib to tomorrow's imsak
+                let total = (86400 - mSec) + iSec;
+                let elapsed = 0;
+                if (nowSec >= mSec) {
+                    elapsed = nowSec - mSec;
+                } else if (nowSec <= iSec) {
+                    elapsed = (86400 - mSec) + nowSec;
+                }
+                pct = Math.min(100, elapsed / total * 100);
+                if (nowSec > iSec && nowSec < mSec) pct = 100; // between imsak and maghrib it's 100% done for pre-fast tracking (unless manually selected)
+
+                scd.className = 'smart-cd pre-fast';
+                document.getElementById('cd-badge').textContent = manualEvent ? 'Fast Begins (Manual)' : 'Fast Begins';
+                document.getElementById('cd-title').textContent = '⏳ Until Imsak';
+                document.getElementById('cd-sub').textContent = 'Suhoor ends · Stop eating';
+                document.getElementById('cd-next').textContent = 'Iftar today at ' + fmt(G.times.maghrib);
+            }
+
             document.getElementById('pb-fill').style.width = pct.toFixed(2) + '%';
             document.getElementById('pb-pct').textContent = pct.toFixed(0) + '%';
             document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
 
-            // smart primary countdown
-            const isFasting = nowSec >= iSec && nowSec < mSec;
+            // Countdown timer digits
             const tSec = isFasting ? mSec : iSec;
             let d = tSec - nowSec; if (d < 0) d += 86400;
             document.getElementById('sc-h').textContent = pad(Math.floor(d / 3600));
             document.getElementById('sc-m').textContent = pad(Math.floor((d % 3600) / 60));
             document.getElementById('sc-s').textContent = pad(d % 60);
 
-            const scd = document.getElementById('smart-cd');
-            const badge = document.getElementById('cd-badge');
-            const title = document.getElementById('cd-title');
-            const sub = document.getElementById('cd-sub');
-            const next = document.getElementById('cd-next');
-            if (isFasting) {
-                scd.className = 'smart-cd fasting';
-                badge.textContent = 'Iftar';
-                title.textContent = '🌙 Until Iftar';
-                sub.textContent = 'Maghrib · Sunset + 15 min';
-                next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
-            } else {
-                scd.className = 'smart-cd pre-fast';
-                badge.textContent = 'Fast Begins';
-                title.textContent = '⏳ Until Imsak';
-                sub.textContent = 'Suhoor ends · Stop eating';
-                next.textContent = 'Iftar today at ' + fmt(G.times.maghrib);
-            }
-
+            // Active cards
             const nowMins = Math.floor(nowSec / 60);
-            document.getElementById('imsak-card').className = 'prayer-card' + (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
-            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec ? ' active-g' : '');
+            document.getElementById('imsak-card').className = 'prayer-card' + (targetEvent === 'imsak' ? ' active-a' : '');
+            document.getElementById('maghrib-card').className = 'prayer-card' + (targetEvent === 'maghrib' ? ' active-g' : '');
 
             // extra cities: smart countdown using city's own local time
             document.querySelectorAll('.city-smart').forEach(el => {
