@@ -1913,6 +1913,8 @@
 
             <!-- DUA OF THE DAY -->
             <div class="dua-card" id="dua-section"></div>
+            <!-- QURAN VERSE OF THE DAY -->
+            <div class="dua-card" id="quran-verse-section" style="margin-top: 20px;"></div>
             <div class="streak-section" style="padding-top: 5px; border-bottom: none;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <div class="streak-badge"
@@ -2823,11 +2825,60 @@
             const el = document.getElementById('dua-section');
             if (!el) return;
             el.innerHTML = '<div class="dua-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%">' +
-                '<span>📖 Sahifa al-Sajjadiyya Dua - Day ' + day + '</span>' +
+                '<span>🤲 Sahifa al-Sajjadiyya Dua - Day ' + day + '</span>' +
                 '<a href="https://www.al-islam.org/sahifa-al-kamilah-al-sajjadiyya-imam-ali-zayn-al-abidin" target="_blank" style="font-size: 9px; color: var(--green); text-decoration: underline; text-transform: none; letter-spacing: 0;">Read Full Source</a>' +
                 '</div>' +
                 '<div class="dua-ar">' + d.ar + '</div>' +
                 '<div class="dua-en">' + d.en + '</div>';
+        }
+
+        /* ═══ DAILY QURAN VERSES ═══ */
+        const QURAN_VERSES = [
+            { ref: 'Al-Baqarah 2:185', url: 'https://quran.com/2/185', ar: 'شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ هُدًى لِّلنَّاسِ', en: 'The month of Ramadhan [is that] in which was revealed the Qur\'an, a guidance for the people.' },
+            { ref: 'Al-Baqarah 2:183', url: 'https://quran.com/2/183', ar: 'يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ', en: 'O you who have believed, decreed upon you is fasting as it was decreed upon those before you that you may become righteous.' },
+            { ref: 'Al-Baqarah 2:153', url: 'https://quran.com/2/153', ar: 'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', en: 'O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.' },
+            { ref: 'Al-Imran 3:134', url: 'https://quran.com/3/134', ar: 'وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ', en: '...who restrain anger and who pardon the people - and Allah loves the doers of good.' },
+            { ref: 'Ash-Sharh 94:5', url: 'https://quran.com/94/5', ar: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا', en: 'For indeed, with hardship [will be] ease.' },
+            { ref: 'Al-Ghafir 40:60', url: 'https://quran.com/40/60', ar: 'وَقَالَ رَبُّكُمُ ادْعُونِي أَسْتَجِبْ لَكُمْ', en: 'And your Lord says, "Call upon Me; I will respond to you."' },
+            { ref: 'Al-Baqarah 2:186', url: 'https://quran.com/2/186', ar: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ', en: 'And when My servants ask you concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me.' },
+            { ref: 'Az-Zumar 39:53', url: 'https://quran.com/39/53', ar: 'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ', en: 'Say, "O My servants who have transgressed against themselves, do not despair of the mercy of Allah..."' },
+            { ref: 'Al-Baqarah 2:286', url: 'https://quran.com/2/286', ar: 'لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا', en: 'Allah does not charge a soul except [with that within] its capacity.' },
+            { ref: 'Al-Furqan 25:63', url: 'https://quran.com/25/63', ar: 'وَعِبَادُ الرَّحْمَٰنِ الَّذِينَ يَمْشُونَ عَلَى الْأَرْضِ هَوْنًا وَإِذَا خَاطَبَهُمُ الْجَاهِلُونَ قَالُوا سَلَامًا', en: 'And the servants of the Most Merciful are those who walk upon the earth easily, and when the ignorant address them, they say, "Peace."' },
+            { ref: 'At-Talaq 65:3', url: 'https://quran.com/65/3', ar: 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ', en: 'And whoever relies upon Allah - then He is sufficient for him.' },
+            { ref: 'Ar-Ra\'d 13:28', url: 'https://quran.com/13/28', ar: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنِّ الْقُلُوبُ', en: 'Unquestionably, by the remembrance of Allah hearts are assured.' },
+            { ref: 'Al-Baqarah 2:152', url: 'https://quran.com/2/152', ar: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ', en: 'So remember Me; I will remember you. And be grateful to Me and do not deny Me.' },
+            { ref: 'Ar-Rahman 55:60', url: 'https://quran.com/55/60', ar: 'هَلْ جَزَاءُ الْإِحْسَانِ إِلَّا الْإِحْسَانُ', en: 'Is the reward for good [anything] but good?' },
+            { ref: 'Al-Mulk 67:2', url: 'https://quran.com/67/2', ar: 'الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا', en: '[He] who created death and life to test you [as to] which of you is best in deed.' },
+            { ref: 'Al-Kahf 18:46', url: 'https://quran.com/18/46', ar: 'وَالْبَاقِيَاتُ الصَّالِحَاتُ خَيْرٌ عِندَ رَبِّكَ ثَوَابًا وَخَيْرٌ أَمَلًا', en: 'But the enduring good deeds are better to your Lord for reward and better for [one\'s] hope.' },
+            { ref: 'Taha 20:114', url: 'https://quran.com/20/114', ar: 'وَقُل رَّبِّ زِدْنِي عِلْمًا', en: 'And say, "My Lord, increase me in knowledge."' },
+            { ref: 'Al-Imran 3:139', url: 'https://quran.com/3/139', ar: 'وَلَا تَهِنُوا وَلَا تَحْزَنُوا وَأَنتُمُ الْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ', en: 'So do not weaken and do not grieve, and you will be superior if you are [true] believers.' },
+            { ref: 'Al-Baqarah 2:201', url: 'https://quran.com/2/201', ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', en: 'Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.' },
+            { ref: 'Al-Anfal 8:46', url: 'https://quran.com/8/46', ar: 'وَاصْبِرُوا ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', en: 'And be patient. Indeed, Allah is with the patient.' },
+            { ref: 'Yusuf 12:86', url: 'https://quran.com/12/86', ar: 'قَالَ إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ', en: 'He said, "I only complain of my suffering and my grief to Allah."' },
+            { ref: 'Ghafir 40:44', url: 'https://quran.com/40/44', ar: 'وَأُفَوِّضُ أَمْرِي إِلَى اللَّهِ ۚ إِنَّ اللَّهَ بَصِيرٌ بِالْعِبَادِ', en: 'And I entrust my affair to Allah. Indeed, Allah is Seeing of [His] servants.' },
+            { ref: 'Fatir 35:15', url: 'https://quran.com/35/15', ar: 'يَا أَيُّهَا النَّاسُ أَنتُمُ الْفُقَرَاءُ إِلَى اللَّهِ ۖ وَاللَّهُ هُوَ الْغَنِيُّ الْحَمِيدُ', en: 'O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy.' },
+            { ref: 'Az-Zumar 39:10', url: 'https://quran.com/39/10', ar: 'إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ', en: 'Indeed, the patient will be given their reward without account.' },
+            { ref: 'Al-Imran 3:8', url: 'https://quran.com/3/8', ar: 'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً', en: 'Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy.' },
+            { ref: 'Al-Qadr 97:1', url: 'https://quran.com/97/1', ar: 'إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ', en: 'Indeed, We sent the Qur\'an down during the Night of Decree.' },
+            { ref: 'Al-Qadr 97:3', url: 'https://quran.com/97/3', ar: 'لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ', en: 'The Night of Decree is better than a thousand months.' },
+            { ref: 'Ibrahim 14:7', url: 'https://quran.com/14/7', ar: 'لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ', en: 'If you are grateful, I will surely increase you [in favor].' },
+            { ref: 'Al-Ahzab 33:35', url: 'https://quran.com/33/35', ar: 'وَالذَّاكِرِينَ اللَّهَ كَثِيرًا وَالذَّاكِرَاتِ أَعَدَّ اللَّهُ لَهُم مَّغْفِرَةً وَأَجْرًا عَظِيمًا', en: 'And the men who remember Allah often and the women who do so - Allah has prepared for them forgiveness and a great reward.' },
+            { ref: 'Al-Baqarah 2:285', url: 'https://quran.com/2/285', ar: 'سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ', en: 'We hear and we obey. [We seek] Your forgiveness, our Lord, and to You is the [final] destination.' }
+        ];
+
+        function renderQuranVerse() {
+            const { day } = ramadanStatus();
+            if (!day) return;
+            const q = QURAN_VERSES[(day - 1) % QURAN_VERSES.length];
+            const el = document.getElementById('quran-verse-section');
+            if (!el) return;
+            el.innerHTML = '<div class="dua-label" style="display: flex; justify-content: space-between; align-items: center; width: 100%">' +
+                '<span>📖 Quran Verse - Day ' + day + '</span>' +
+                '<a href="' + q.url + '" target="_blank" style="font-size: 9px; color: var(--green); text-decoration: underline; text-transform: none; letter-spacing: 0;">Read Full Source</a>' +
+                '</div>' +
+                '<div style="text-align: center; color: var(--gold); font-size: 10px; margin-bottom: 8px;">' + q.ref + '</div>' +
+                '<div class="dua-ar">' + q.ar + '</div>' +
+                '<div class="dua-en">' + q.en + '</div>';
         }
 
         /* ═══ LAYLAT AL-QADR ═══ */
@@ -3106,6 +3157,7 @@
         renderCities();
         renderDua();
         renderQuran();
+        renderQuranVerse();
         updateStreak();
         updateLaylat();
         applyLabels();
