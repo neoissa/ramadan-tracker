@@ -278,34 +278,50 @@
             }
         }
 
-        /* DUAL COUNTDOWN */
-        .dual-cd {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .cd-half {
-            padding: 20px 16px;
+        /* SMART COUNTDOWN */
+        .smart-cd {
+            padding: 22px 22px 18px;
             text-align: center;
+            border-bottom: 1px solid var(--border);
+            transition: background .5s;
         }
 
-        .cd-half:first-child {
-            border-right: 1px solid var(--border);
+        .smart-cd.pre-fast {
+            background: rgba(245, 158, 11, .05);
         }
 
-        .cd-half-title {
-            font-size: 8.5px;
+        .smart-cd.fasting {
+            background: rgba(16, 185, 129, .05);
+        }
+
+        .cd-title {
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
+            transition: color .5s;
         }
 
-        .cd-half-sub {
-            font-size: 9px;
+        .smart-cd.pre-fast .cd-title {
+            color: var(--amber);
+        }
+
+        .smart-cd.fasting .cd-title {
+            color: var(--green);
+        }
+
+        .cd-sub {
+            font-size: 10px;
             color: var(--muted);
             margin-bottom: 10px;
+        }
+
+        .cd-next {
+            font-size: 10.5px;
+            color: var(--muted);
+            margin-top: 10px;
+            font-weight: 500;
         }
 
         .cd-badge {
@@ -317,6 +333,19 @@
             border-radius: 6px;
             padding: 2px 8px;
             margin-bottom: 10px;
+            transition: background .5s, color .5s;
+        }
+
+        .smart-cd.pre-fast .cd-badge {
+            background: var(--adim);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, .3);
+        }
+
+        .smart-cd.fasting .cd-badge {
+            background: var(--gdim);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, .3);
         }
 
         .mini-digits {
@@ -330,13 +359,26 @@
         }
 
         .md-val {
-            font-size: 36px;
+            font-size: 52px;
             font-weight: 900;
             line-height: 1;
-            letter-spacing: -1px;
+            letter-spacing: -2px;
             font-variant-numeric: tabular-nums;
-            min-width: 44px;
+            min-width: 62px;
             display: inline-block;
+            color: #fff;
+        }
+
+        .md-val.accent {
+            transition: color .5s;
+        }
+
+        .smart-cd.pre-fast .md-val.accent {
+            color: var(--amber);
+        }
+
+        .smart-cd.fasting .md-val.accent {
+            color: var(--green);
         }
 
         .md-lbl {
@@ -349,48 +391,65 @@
         }
 
         .md-colon {
+            font-size: 40px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, .2);
+            line-height: 1;
+            padding-bottom: 18px;
+            margin: 0 2px;
+        }
+
+        /* City smart countdown (single row, replaces two-column) */
+        .city-smart {
+            padding: 14px 18px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            transition: background .4s;
+        }
+
+        .city-smart.ct-imsak {
+            background: rgba(245, 158, 11, .05);
+        }
+
+        .city-smart.ct-maghrib {
+            background: rgba(16, 185, 129, .06);
+        }
+
+        .city-smart .ct-label {
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .city-smart.ct-imsak .ct-label {
+            color: var(--amber);
+        }
+
+        .city-smart.ct-maghrib .ct-label {
+            color: var(--green);
+        }
+
+        .city-smart .ct-time {
             font-size: 28px;
             font-weight: 900;
-            color: rgba(255, 255, 255, .25);
-            line-height: 1;
-            padding-bottom: 12px;
-            margin: 0 1px;
+            letter-spacing: -1px;
+            font-variant-numeric: tabular-nums;
         }
 
-        .cd-imsak .cd-half-title {
+        .city-smart.ct-imsak .ct-time {
             color: var(--amber);
         }
 
-        .cd-imsak .md-val {
-            color: #fff;
-        }
-
-        .cd-imsak .md-val.accent {
-            color: var(--amber);
-        }
-
-        .cd-imsak .cd-badge {
-            background: var(--adim);
-            color: var(--amber);
-            border: 1px solid rgba(245, 158, 11, .3);
-        }
-
-        .cd-maghrib .cd-half-title {
+        .city-smart.ct-maghrib .ct-time {
             color: var(--green);
         }
 
-        .cd-maghrib .md-val {
-            color: #fff;
-        }
-
-        .cd-maghrib .md-val.accent {
-            color: var(--green);
-        }
-
-        .cd-maghrib .cd-badge {
-            background: var(--gdim);
-            color: var(--green);
-            border: 1px solid rgba(16, 185, 129, .3);
+        .city-smart .ct-sub {
+            font-size: 9px;
+            color: rgba(255, 255, 255, .3);
+            margin-top: 3px;
         }
 
         /* PRAYER CARDS */
@@ -1056,51 +1115,30 @@
                     <div class="pb-dot" id="pb-dot"></div>
                 </div>
             </div>
-            <!-- DUAL COUNTDOWN -->
-            <div class="dual-cd">
-                <div class="cd-half cd-imsak">
-                    <div class="cd-half-title">⏳ Until Imsak</div>
-                    <div class="cd-half-sub">Suhoor ends · stop eating</div>
-                    <div class="cd-badge">Fast Begins</div>
-                    <div class="mini-digits">
-                        <div class="md-block">
-                            <div class="md-val" id="i-h">--</div>
-                            <div class="md-lbl">Hr</div>
-                        </div>
-                        <div class="md-colon">:</div>
-                        <div class="md-block">
-                            <div class="md-val" id="i-m">--</div>
-                            <div class="md-lbl">Min</div>
-                        </div>
-                        <div class="md-colon">:</div>
-                        <div class="md-block">
-                            <div class="md-val accent" id="i-s">--</div>
-                            <div class="md-lbl">Sec</div>
-                        </div>
+            <!-- SMART COUNTDOWN -->
+            <div class="smart-cd" id="smart-cd">
+                <div class="cd-badge" id="cd-badge">Fast Begins</div>
+                <div class="cd-title" id="cd-title">⏳ Until Imsak</div>
+                <div class="cd-sub" id="cd-sub">Suhoor ends · Stop eating</div>
+                <div class="mini-digits">
+                    <div class="md-block">
+                        <div class="md-val" id="sc-h">--</div>
+                        <div class="md-lbl">Hr</div>
+                    </div>
+                    <div class="md-colon">:</div>
+                    <div class="md-block">
+                        <div class="md-val" id="sc-m">--</div>
+                        <div class="md-lbl">Min</div>
+                    </div>
+                    <div class="md-colon">:</div>
+                    <div class="md-block">
+                        <div class="md-val accent" id="sc-s">--</div>
+                        <div class="md-lbl">Sec</div>
                     </div>
                 </div>
-                <div class="cd-half cd-maghrib">
-                    <div class="cd-half-title">🌙 Until Iftar</div>
-                    <div class="cd-half-sub">Maghrib · Sunset + 15 min</div>
-                    <div class="cd-badge">Iftar</div>
-                    <div class="mini-digits">
-                        <div class="md-block">
-                            <div class="md-val" id="m-h">--</div>
-                            <div class="md-lbl">Hr</div>
-                        </div>
-                        <div class="md-colon">:</div>
-                        <div class="md-block">
-                            <div class="md-val" id="m-m">--</div>
-                            <div class="md-lbl">Min</div>
-                        </div>
-                        <div class="md-colon">:</div>
-                        <div class="md-block">
-                            <div class="md-val accent" id="m-s">--</div>
-                            <div class="md-lbl">Sec</div>
-                        </div>
-                    </div>
-                </div>
+                <div class="cd-next" id="cd-next"></div>
             </div>
+
             <!-- FEATURED CARDS -->
             <div class="featured-prayers">
                 <div class="prayer-card" id="imsak-card">
@@ -1349,25 +1387,55 @@
             document.getElementById('pb-pct').textContent = pct.toFixed(0) + '%';
             document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
 
-            function cd(tSec) { let d = tSec - nowSec; if (d < 0) d += 86400; return { hh: Math.floor(d / 3600), mm: Math.floor((d % 3600) / 60), ss: d % 60 }; }
-            const ci = cd(iSec), cm = cd(mSec);
-            ['i-h', 'i-m', 'i-s'].forEach((id, i) => document.getElementById(id).textContent = pad([ci.hh, ci.mm, ci.ss][i]));
-            ['m-h', 'm-m', 'm-s'].forEach((id, i) => document.getElementById(id).textContent = pad([cm.hh, cm.mm, cm.ss][i]));
+            // ── Smart primary countdown
+            const isFasting = nowSec >= iSec && nowSec < mSec;
+            const tSec = isFasting ? mSec : iSec;
+            let d = tSec - nowSec; if (d < 0) d += 86400;
+            document.getElementById('sc-h').textContent = pad(Math.floor(d / 3600));
+            document.getElementById('sc-m').textContent = pad(Math.floor((d % 3600) / 60));
+            document.getElementById('sc-s').textContent = pad(d % 60);
+
+            const scd = document.getElementById('smart-cd');
+            const badge = document.getElementById('cd-badge');
+            const title = document.getElementById('cd-title');
+            const sub = document.getElementById('cd-sub');
+            const next = document.getElementById('cd-next');
+
+            if (isFasting) {
+                scd.className = 'smart-cd fasting';
+                badge.textContent = 'Iftar';
+                title.textContent = '🌙 Until Iftar';
+                sub.textContent = 'Maghrib · Sunset + 15 min';
+                next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
+            } else {
+                scd.className = 'smart-cd pre-fast';
+                badge.textContent = 'Fast Begins';
+                title.textContent = '⏳ Until Imsak';
+                sub.textContent = 'Suhoor ends · Stop eating';
+                next.textContent = 'Iftar today at ' + fmt(G.times.maghrib);
+            }
 
             const nowMins = Math.floor(nowSec / 60);
             document.getElementById('imsak-card').className = 'prayer-card' + (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
             document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec ? ' active-g' : '');
 
-            // extra cities: compare against the CITY's own local time, not device time
-            document.querySelectorAll('.city-cd').forEach(el => {
-                const tSec = parseInt(el.dataset.target) || 0;
+            // extra cities: smart countdown using that city's own local time
+            document.querySelectorAll('.city-smart').forEach(el => {
+                const iS = parseInt(el.dataset.imsak) || 0;
+                const mS = parseInt(el.dataset.maghrib) || 0;
                 const tzOff = parseFloat(el.dataset.tz) || 0;
-                // Current time-of-day in the target city (UTC + city offset)
                 const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
-                let d = tSec - cityNowSec; if (d < 0) d += 86400;
-                const hh = Math.floor(d / 3600), mm = Math.floor((d % 3600) / 60), ss = Math.floor(d % 60);
-                el.textContent = `${pad(hh)}:${pad(mm)}:${pad(ss)}`;
+                const cityFasting = cityNowSec >= iS && cityNowSec < mS;
+                const target = cityFasting ? mS : iS;
+                let df = target - cityNowSec; if (df < 0) df += 86400;
+                const cdLabel = el.querySelector('.ct-label');
+                const cdTime = el.querySelector('.ct-time');
+                const cdSub = el.querySelector('.ct-sub');
+                if (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
+                if (cdTime) cdTime.textContent = `${pad(Math.floor(df / 3600))}:${pad(Math.floor((df % 3600) / 60))}:${pad(Math.floor(df % 60))}`;
+                el.className = 'city-smart ' + (cityFasting ? 'ct-maghrib' : 'ct-imsak');
             });
+
         }
 
         /* ═══ EXTRA CITY CARDS ═══ */
@@ -1386,9 +1454,10 @@
             div.className = 'city-card'; div.dataset.id = c.id;
             div.innerHTML = `
     <div class="city-card-header"><div class="city-card-name"><span>📍</span>${c.city}</div><div class="city-card-remove" onclick="removeCity('${c.id}')">✕</div></div>
-    <div class="city-times">
-      <div class="ct-block ct-imsak"><div class="ct-label">⏳ Until Imsak</div><div class="ct-time city-cd" data-target="${iSec}" data-tz="${c.tzOffset}">--:--:--</div><div class="ct-sub">Imsak ${fmt(t.imsak)}</div></div>
-      <div class="ct-block ct-maghrib"><div class="ct-label">🌙 Until Iftar</div><div class="ct-time city-cd" data-target="${mSec}" data-tz="${c.tzOffset}">--:--:--</div><div class="ct-sub">Maghrib ${fmt(t.maghrib)}</div></div>
+    <div class="city-smart ct-imsak" data-imsak="${iSec}" data-maghrib="${mSec}" data-tz="${c.tzOffset}">
+      <div class="ct-label">⏳ Until Imsak</div>
+      <div class="ct-time">--:--:--</div>
+      <div class="ct-sub">Imsak ${fmt(t.imsak)} · Iftar ${fmt(t.maghrib)}</div>
     </div>
     <div class="city-mini-prayers">${pRows}</div>`;
             return div;
