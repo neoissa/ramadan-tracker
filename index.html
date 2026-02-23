@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 
 <head>
     <meta charset="UTF-8" />
@@ -2034,52 +2034,65 @@
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
 
-            // progress
+            // progress bar
             const total = mSec - iSec; let pct = 0;
-            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100); else if
-                (nowSec > mSec) pct = 100;
+            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100);
+            else if (nowSec > mSec) pct = 100;
             document.getElementById('pb-fill').style.width = pct.toFixed(2) + '%';
             document.getElementById('pb-pct').textContent = pct.toFixed(0) + '%';
-            document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none'
-                ; // ── Smart primary countdown const isFasting=nowSec>= iSec && nowSec < mSec; const
-            tSec = isFasting ? mSec : iSec; let d = tSec - nowSec; if (d < 0) d += 86400;
+            document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
+
+            // smart primary countdown
+            const isFasting = nowSec >= iSec && nowSec < mSec;
+            const tSec = isFasting ? mSec : iSec;
+            let d = tSec - nowSec; if (d < 0) d += 86400;
             document.getElementById('sc-h').textContent = pad(Math.floor(d / 3600));
             document.getElementById('sc-m').textContent = pad(Math.floor((d % 3600) / 60));
-            document.getElementById('sc-s').textContent = pad(d % 60); const
-                scd = document.getElementById('smart-cd'); const
-                    badge = document.getElementById('cd-badge'); const
-                        title = document.getElementById('cd-title'); const
-                            sub = document.getElementById('cd-sub'); const
-                                next = document.getElementById('cd-next'); if (isFasting) {
-                                    scd.className = 'smart-cd fasting'; badge.textContent = 'Iftar';
-                                    title.textContent = '🌙 Until Iftar'; sub.textContent = 'Maghrib · Sunset + 15 min';
-                                    next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
-                                } else {
-                scd.className = 'smart-cd pre-fast'; badge.textContent = 'Fast Begins';
-                title.textContent = '⏳ Until Imsak'; sub.textContent = 'Suhoor ends · Stop eating';
+            document.getElementById('sc-s').textContent = pad(d % 60);
+
+            const scd = document.getElementById('smart-cd');
+            const badge = document.getElementById('cd-badge');
+            const title = document.getElementById('cd-title');
+            const sub = document.getElementById('cd-sub');
+            const next = document.getElementById('cd-next');
+            if (isFasting) {
+                scd.className = 'smart-cd fasting';
+                badge.textContent = 'Iftar';
+                title.textContent = '🌙 Until Iftar';
+                sub.textContent = 'Maghrib · Sunset + 15 min';
+                next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
+            } else {
+                scd.className = 'smart-cd pre-fast';
+                badge.textContent = 'Fast Begins';
+                title.textContent = '⏳ Until Imsak';
+                sub.textContent = 'Suhoor ends · Stop eating';
                 next.textContent = 'Iftar today at ' + fmt(G.times.maghrib);
-            } const
-                nowMins = Math.floor(nowSec / 60);
-            document.getElementById('imsak-card').className = 'prayer-card' +
-                (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
-            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec
-                ? ' active-g' : ''); // extra cities: smart countdown using that city's own local
-                                    time document.querySelectorAll('.city-smart').forEach(el => {
-                    const iS = parseInt(el.dataset.imsak) || 0;
-                    const mS = parseInt(el.dataset.maghrib) || 0;
-                    const tzOff = parseFloat(el.dataset.tz) || 0;
-                    const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
-                    const cityFasting = cityNowSec >= iS && cityNowSec < mS; const target = cityFasting ?
-                        mS : iS; let df = target - cityNowSec; if (df < 0) df += 86400; const
-                            cdLabel = el.querySelector('.ct-label'); const
-                                cdTime = el.querySelector('.ct-time'); const cdSub = el.querySelector('.ct-sub'); if
-                        (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
-                    if (cdTime) cdTime.textContent = `${pad(Math.floor(df /
-                        3600))}:${pad(Math.floor((df % 3600) / 60))}:${pad(Math.floor(df % 60))}`;
-                    el.className = 'city-smart ' + (cityFasting ? 'ct-maghrib' : 'ct-imsak');
-                });
+            }
+
+            const nowMins = Math.floor(nowSec / 60);
+            document.getElementById('imsak-card').className = 'prayer-card' + (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
+            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec ? ' active-g' : '');
+
+            // extra cities: smart countdown using city's own local time
+            document.querySelectorAll('.city-smart').forEach(el => {
+                const iS = parseInt(el.dataset.imsak) || 0;
+                const mS = parseInt(el.dataset.maghrib) || 0;
+                const tzOff = parseFloat(el.dataset.tz) || 0;
+                const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
+                const cityFasting = cityNowSec >= iS && cityNowSec < mS;
+                const target = cityFasting ? mS : iS;
+                let df = target - cityNowSec; if (df < 0) df += 86400;
+                const cdLabel = el.querySelector('.ct-label');
+                const cdTime = el.querySelector('.ct-time');
+                if (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
+                if (cdTime) cdTime.textContent = pad(Math.floor(df / 3600)) + ':' + pad(Math.floor((df % 3600) / 60)) + ':' + pad(Math.floor(df % 60));
+                el.className = 'city-smart ' + (cityFasting ? 'ct-maghrib' : 'ct-imsak');
+            });
         }
-                                        /* ═══ EXTRA CITY CARDS ═══ */ function buildCityCard(c) {
+
+
+        /* ═══ EXTRA CITY CARDS ═══ */
+        function buildCityCard(c) {
             const now = new Date(),
                 t = calcTimes(c.lat, c.lon, c.tzOffset); const nowMins = now.getHours() * 60 +
                     now.getMinutes(); const iSec = decToSec(t.imsak), mSec = decToSec(t.maghrib); const
