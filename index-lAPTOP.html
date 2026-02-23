@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" id="html-root">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>Ramadan Tracker 1447</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet" />
     <style>
         :root {
-            --bg: #04090f;
-            --card: #0b1a26;
-            --border: rgba(255, 255, 255, .08);
-            --green: #0ec98a;
-            --green2: #0aab76;
-            --gdim: rgba(14, 201, 138, .13);
-            --amber: #e4a114;
-            --adim: rgba(228, 161, 20, .13);
-            --muted: rgba(255, 255, 255, .38);
-            --gold: #c9922a;
-            --star: rgba(255, 255, 255, .55);
+            --bg: #060d18;
+            --card: #0d1f2d;
+            --border: rgba(255, 255, 255, .07);
+            --green: #10b981;
+            --green2: #059669;
+            --gdim: rgba(16, 185, 129, .12);
+            --amber: #f59e0b;
+            --adim: rgba(245, 158, 11, .12);
+            --muted: rgba(255, 255, 255, .4);
         }
 
         *,
@@ -34,16 +31,6 @@
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg);
-            background-image:
-                radial-gradient(1.5px 1.5px at 20% 15%, var(--star) 0%, transparent 100%),
-                radial-gradient(1px 1px at 75% 8%, var(--star) 0%, transparent 100%),
-                radial-gradient(1px 1px at 40% 35%, rgba(255, 255, 255, .3) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 88% 25%, var(--star) 0%, transparent 100%),
-                radial-gradient(1px 1px at 10% 55%, rgba(255, 255, 255, .25) 0%, transparent 100%),
-                radial-gradient(1px 1px at 55% 65%, rgba(255, 255, 255, .2) 0%, transparent 100%),
-                radial-gradient(1.5px 1.5px at 92% 70%, var(--star) 0%, transparent 100%),
-                radial-gradient(1px 1px at 30% 82%, rgba(255, 255, 255, .3) 0%, transparent 100%),
-                radial-gradient(1px 1px at 68% 90%, rgba(255, 255, 255, .2) 0%, transparent 100%);
             min-height: 100vh;
             display: flex;
             align-items: flex-start;
@@ -70,30 +57,17 @@
         /* HEADER */
         .header {
             position: relative;
-            background: linear-gradient(160deg, #030f08 0%, #071d0e 35%, #0a2918 65%, #0b2230 100%);
+            background: linear-gradient(145deg, #061c13, #0a2f20 50%, #0b2433);
             padding: 26px 22px 22px;
             text-align: center;
             overflow: hidden;
-            border-bottom: 1px solid rgba(228, 161, 20, .15);
-        }
-
-        /* Gold top accent line */
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--amber) 30%, var(--gold) 50%, var(--amber) 70%, transparent);
         }
 
         .header::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 60% 0%, rgba(228, 161, 20, .08), transparent 60%),
-                radial-gradient(ellipse at 10% 100%, rgba(14, 201, 138, .07), transparent 60%);
+            background: radial-gradient(ellipse at 75% 40%, rgba(16, 185, 129, .1), transparent 65%);
         }
 
         .crescent-deco {
@@ -1526,27 +1500,6 @@
         }
 
         /* RTL support */
-        /* RTL — keep all time displays LTR (so digits don't reverse) */
-        [dir=rtl] .mini-digits,
-        [dir=rtl] .ct-time,
-        [dir=rtl] #sc-h,
-        [dir=rtl] #sc-m,
-        [dir=rtl] #sc-s,
-        [dir=rtl] .md-val,
-        [dir=rtl] .md-colon,
-        [dir=rtl] .pr-time-val,
-        [dir=rtl] .p-time,
-        [dir=rtl] .cd-next,
-        [dir=rtl] .pb-meta,
-        [dir=rtl] .city-smart .ct-time {
-            direction: ltr;
-            unicode-bidi: embed;
-        }
-
-        [dir=rtl] .mini-digits {
-            justify-content: center;
-        }
-
         [dir=rtl] .location-badge,
         [dir=rtl] .pb-meta,
         [dir=rtl] .status-row,
@@ -1568,14 +1521,6 @@
         [dir=rtl] .pr-time-val,
         [dir=rtl] .p-time {
             text-align: left;
-        }
-
-        /* Arabic font for dua and labels */
-        [dir=rtl] .dua-ar,
-        [dir=rtl] h1,
-        [dir=rtl] .status-label,
-        [dir=rtl] .status-day {
-            font-family: 'Amiri', serif;
         }
     </style>
 </head>
@@ -1635,7 +1580,7 @@
                     </svg>
                     <span id="loc-display">Dearborn Heights, MI</span>
                 </div>
-                <h1>🌙 Ramadan Tracker</h1>
+                <h1>Ramadan Tracker</h1>
                 <div class="date-row">
                     <div class="date-pill">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1649,28 +1594,8 @@
                     </div>
                     <div class="date-pill hijri-pill" id="hijri-pill">🌙 —</div>
                 </div>
-                <!-- Mosque skyline deco -->
-                <svg class="mosque-deco" viewBox="0 0 460 52" preserveAspectRatio="none" fill="none"
-                    style="display:block;width:100%;margin-top:12px;opacity:.7">
-                    <ellipse cx="230" cy="46" rx="70" ry="20" fill="rgba(14,201,138,.12)" />
-                    <ellipse cx="230" cy="34" rx="34" ry="15" fill="rgba(14,201,138,.1)" />
-                    <ellipse cx="152" cy="48" rx="38" ry="13" fill="rgba(14,201,138,.08)" />
-                    <ellipse cx="308" cy="48" rx="38" ry="13" fill="rgba(14,201,138,.08)" />
-                    <rect x="42" y="18" width="12" height="42" rx="5" fill="rgba(14,201,138,.1)" />
-                    <ellipse cx="48" cy="18" rx="7" ry="10" fill="rgba(14,201,138,.1)" />
-                    <rect x="406" y="18" width="12" height="42" rx="5" fill="rgba(14,201,138,.1)" />
-                    <ellipse cx="412" cy="18" rx="7" ry="10" fill="rgba(14,201,138,.1)" />
-                    <rect x="93" y="32" width="8" height="28" rx="3" fill="rgba(14,201,138,.07)" />
-                    <ellipse cx="97" cy="32" rx="5" ry="7" fill="rgba(14,201,138,.07)" />
-                    <rect x="359" y="32" width="8" height="28" rx="3" fill="rgba(14,201,138,.07)" />
-                    <ellipse cx="363" cy="32" rx="5" ry="7" fill="rgba(14,201,138,.07)" />
-                    <line x1="230" y1="8" x2="230" y2="16" stroke="rgba(228,161,20,.6)" stroke-width="1.5" />
-                    <path d="M228 12 C226 8,221 9,223 13 C225 17,231 17,233 13 C231 17,226 16,228 12Z"
-                        fill="rgba(228,161,20,.55)" />
-                </svg>
             </div>
             <!-- STATUS -->
-
             <div class="status-row">
                 <div>
                     <div class="status-label">Ramadan Status</div>
@@ -2034,9 +1959,12 @@
             const now = new Date();
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             function sched(tSec, title, body) {
-                let diff = (tSec - nowSec) * 1000; if (diff < 0) diff += 86400000;
-                if (diff > 500 && diff < 86400000) notifTimers.push(setTimeout(() => new Notification(title, { body }), diff));
-            }
+                let diff = (tSec - nowSec) * 1000; if (diff < 0) diff += 86400000; if (diff > 500 && diff < 86400000)
+                    notifTimers.push(setTimeout(() => new Notification(title, {
+                        body, icon: 'data:image/svg+xml,<svg
+                        xmlns=% 22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22
+                            font - size=% 2290 % 22 >🌙</text ></svg > ' }), diff));
+                    }
             const iS = decToSec(G.times.imsak), mS = decToSec(G.times.maghrib);
             sched(iS - 900, '⚠️ Imsak in 15 min', 'Finish your Suhoor — fast starts soon');
             sched(iS, '☕ Imsak — Fast Begins!', 'Stop eating now. Ramadan Mubarak!');
@@ -2109,65 +2037,52 @@
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
 
-            // progress bar
+            // progress
             const total = mSec - iSec; let pct = 0;
-            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100);
-            else if (nowSec > mSec) pct = 100;
+            if (nowSec >= iSec && nowSec <= mSec) pct = Math.min(100, (nowSec - iSec) / total * 100); else if
+                (nowSec > mSec) pct = 100;
             document.getElementById('pb-fill').style.width = pct.toFixed(2) + '%';
             document.getElementById('pb-pct').textContent = pct.toFixed(0) + '%';
-            document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none';
-
-            // smart primary countdown
-            const isFasting = nowSec >= iSec && nowSec < mSec;
-            const tSec = isFasting ? mSec : iSec;
-            let d = tSec - nowSec; if (d < 0) d += 86400;
+            document.getElementById('pb-dot').style.display = (pct > 0 && pct < 100) ? 'block' : 'none'
+                ; // ── Smart primary countdown const isFasting=nowSec>= iSec && nowSec < mSec; const
+            tSec = isFasting ? mSec : iSec; let d = tSec - nowSec; if (d < 0) d += 86400;
             document.getElementById('sc-h').textContent = pad(Math.floor(d / 3600));
             document.getElementById('sc-m').textContent = pad(Math.floor((d % 3600) / 60));
-            document.getElementById('sc-s').textContent = pad(d % 60);
-
-            const scd = document.getElementById('smart-cd');
-            const badge = document.getElementById('cd-badge');
-            const title = document.getElementById('cd-title');
-            const sub = document.getElementById('cd-sub');
-            const next = document.getElementById('cd-next');
-            if (isFasting) {
-                scd.className = 'smart-cd fasting';
-                badge.textContent = 'Iftar';
-                title.textContent = '🌙 Until Iftar';
-                sub.textContent = 'Maghrib · Sunset + 15 min';
-                next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
-            } else {
-                scd.className = 'smart-cd pre-fast';
-                badge.textContent = 'Fast Begins';
-                title.textContent = '⏳ Until Imsak';
-                sub.textContent = 'Suhoor ends · Stop eating';
+            document.getElementById('sc-s').textContent = pad(d % 60); const
+                scd = document.getElementById('smart-cd'); const
+                    badge = document.getElementById('cd-badge'); const
+                        title = document.getElementById('cd-title'); const
+                            sub = document.getElementById('cd-sub'); const
+                                next = document.getElementById('cd-next'); if (isFasting) {
+                                    scd.className = 'smart-cd fasting'; badge.textContent = 'Iftar';
+                                    title.textContent = '🌙 Until Iftar'; sub.textContent = 'Maghrib · Sunset + 15 min';
+                                    next.textContent = 'Imsak was at ' + fmt(G.times.imsak);
+                                } else {
+                scd.className = 'smart-cd pre-fast'; badge.textContent = 'Fast Begins';
+                title.textContent = '⏳ Until Imsak'; sub.textContent = 'Suhoor ends · Stop eating';
                 next.textContent = 'Iftar today at ' + fmt(G.times.maghrib);
-            }
-
-            const nowMins = Math.floor(nowSec / 60);
-            document.getElementById('imsak-card').className = 'prayer-card' + (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
-            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec ? ' active-g' : '');
-
-            // extra cities: smart countdown using city's own local time
-            document.querySelectorAll('.city-smart').forEach(el => {
-                const iS = parseInt(el.dataset.imsak) || 0;
-                const mS = parseInt(el.dataset.maghrib) || 0;
-                const tzOff = parseFloat(el.dataset.tz) || 0;
-                const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
-                const cityFasting = cityNowSec >= iS && cityNowSec < mS;
-                const target = cityFasting ? mS : iS;
-                let df = target - cityNowSec; if (df < 0) df += 86400;
-                const cdLabel = el.querySelector('.ct-label');
-                const cdTime = el.querySelector('.ct-time');
-                if (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
-                if (cdTime) cdTime.textContent = pad(Math.floor(df / 3600)) + ':' + pad(Math.floor((df % 3600) / 60)) + ':' + pad(Math.floor(df % 60));
-                el.className = 'city-smart ' + (cityFasting ? 'ct-maghrib' : 'ct-imsak');
-            });
+            } const
+                nowMins = Math.floor(nowSec / 60);
+            document.getElementById('imsak-card').className = 'prayer-card' +
+                (nowMins === Math.floor(iSec / 60) ? ' active-a' : '');
+            document.getElementById('maghrib-card').className = 'prayer-card' + (nowSec < mSec
+                ? ' active-g' : ''); // extra cities: smart countdown using that city's own local
+                                    time document.querySelectorAll('.city-smart').forEach(el => {
+                    const iS = parseInt(el.dataset.imsak) || 0;
+                    const mS = parseInt(el.dataset.maghrib) || 0;
+                    const tzOff = parseFloat(el.dataset.tz) || 0;
+                    const cityNowSec = ((Date.now() / 1000 % 86400) + tzOff * 3600 + 86400) % 86400;
+                    const cityFasting = cityNowSec >= iS && cityNowSec < mS; const target = cityFasting ?
+                        mS : iS; let df = target - cityNowSec; if (df < 0) df += 86400; const
+                            cdLabel = el.querySelector('.ct-label'); const
+                                cdTime = el.querySelector('.ct-time'); const cdSub = el.querySelector('.ct-sub'); if
+                        (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
+                    if (cdTime) cdTime.textContent = `${pad(Math.floor(df /
+                        3600))}:${pad(Math.floor((df % 3600) / 60))}:${pad(Math.floor(df % 60))}`;
+                    el.className = 'city-smart ' + (cityFasting ? 'ct-maghrib' : 'ct-imsak');
+                });
         }
-
-
-        /* ═══ EXTRA CITY CARDS ═══ */
-        function buildCityCard(c) {
+                                        /* ═══ EXTRA CITY CARDS ═══ */ function buildCityCard(c) {
             const now = new Date(),
                 t = calcTimes(c.lat, c.lon, c.tzOffset); const nowMins = now.getHours() * 60 +
                     now.getMinutes(); const iSec = decToSec(t.imsak), mSec = decToSec(t.maghrib); const
@@ -2281,339 +2196,339 @@
         async function addCity() {
             const input = document.getElementById('city-input');
             const q = input.value.trim(); if (!q) return;
-            setStatus('Searching\u2026');
+            setStatus('Searching…');
             try {
                 const res = await geocode(q);
                 if (res) {
                     if (extraCities.find(c => Math.abs(c.lat - res.lat) < 0.01)) {
                         setStatus('City already added.', 'err'); return;
                     }
-                    setStatus('Getting timezone\u2026');
-                    const tzOffset = await fetchTzOffset(res.lat, res.lon);
-                    extraCities.push({ id: 'city_' + Date.now(), city: res.name || q, lat: res.lat, lon: res.lon, tzOffset });
-                    renderCities(); saveState();
-                    setStatus('\u2713 Added ' + res.name, 'ok');
-                    input.value = '';
-                    showToast('\ud83d\udccd ' + res.name + ' added');
-                } else {
-                    setStatus('City not found. Try "London, UK"', 'err');
-                }
-            } catch (e) {
-                setStatus('Network error.', 'err');
+                    setStatus('Getting timezone…'); const tzOffset = await
+                        fetchTzOffset(res.lat, res.lon); const id = 'city_' + Date.now();
+                    extraCities.push({
+                        id, city: res.name || q, lat: res.lat, lon:
+                            res.lon, tzOffset
+                    }); renderCities(); saveState(); setStatus('✓
+                                                    Added ' + res.name, ' ok'); input.value='' ;
+                                                    showToast('📍 ' + res.name + ' added');
+                } else setStatus('City not
+                                                    found.Try "London, UK"', ' err'); } catch (e) { setStatus('Network
+                                                    error.', 'err' ); } } async function autoLocate() { if
+                    (!navigator.geolocation) {
+                    alert('Geolocation not supported.');
+                                                    return;
+                } showToast('📡 Detecting location…');
+                navigator.geolocation.getCurrentPosition(async pos => {
+                    G.lat = pos.coords.latitude; G.lon = pos.coords.longitude;
+                    G.tzOffset = -(new Date().getTimezoneOffset() / 60);
+                    try {
+                        const r = await
+                            fetch(`https://nominatim.openstreetmap.org/reverse?lat=${G.lat}&lon=${G.lon}&format=json`,
+                                { headers: { 'Accept-Language': 'en' } });
+                        const d = await r.json(); const a = d.address;
+                        G.city = (a.city || a.town || a.village || 'Your Location') +
+                            (a.state ? ', ' + a.state : '');
+                    } catch (e) { G.city = 'Your Location'; }
+                    render(); renderCities(); saveState(); showToast('📍 ' + G.city);
+                }, () => showToast('❌ Location denied'));
             }
-        }
 
-        async function autoLocate() {
-            if (!navigator.geolocation) { alert('Geolocation not supported.'); return; }
-            showToast('\ud83d\udce1 Detecting location\u2026');
-            navigator.geolocation.getCurrentPosition(async pos => {
-                G.lat = pos.coords.latitude; G.lon = pos.coords.longitude;
-                G.tzOffset = -(new Date().getTimezoneOffset() / 60);
-                try {
-                    const r = await fetch('https://nominatim.openstreetmap.org/reverse?lat=' + G.lat + '&lon=' + G.lon + '&format=json', { headers: { 'Accept-Language': 'en' } });
-                    const d = await r.json(); const a = d.address;
-                    G.city = (a.city || a.town || a.village || 'Your Location') + (a.state ? ', ' + a.state : '');
-                } catch (e) { G.city = 'Your Location'; }
-                render(); renderCities(); saveState(); showToast('\ud83d\udccd ' + G.city);
-            }, () => showToast('\u274c Location denied'));
-        }
-
-        function setStatus(txt, cls) {
-            const el = document.getElementById('status-msg');
-            el.textContent = txt; el.className = 'status-msg ' + (cls || '');
-        }
-
-        let toastT;
-        function showToast(msg) {
-            const t =
-                document.getElementById('toast'); t.textContent = msg;
-            t.classList.add('show'); clearTimeout(toastT); toastT =
-                setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
-
-        /* ═══ CALC METHODS ═══ */
-        const METHODS = {
-            jafari: { fajr: 16, isha: 14, mOff: 15 },
-            isna: { fajr: 15, isha: 15, mOff: 0 },
-            mwl: { fajr: 18, isha: 17, mOff: 0 },
-            egypt: { fajr: 19.5, isha: 17.5, mOff: 0 },
-            karachi: { fajr: 18, isha: 18, mOff: 0 },
-            makkah: { fajr: 18.5, ishaFixed: 90, mOff: 0 },
-        };
-        let currentMethod = localStorage.getItem('rm_method') || 'jafari';
-
-        // Override calcTimes to use selected method
-        const _origCalcTimes = calcTimes;
-        function calcTimesM(lat, lon, tzOffset, dayOffset = 0) {
-            const m = METHODS[currentMethod] || METHODS.jafari;
-            const cityMs = Date.now() + dayOffset * 86400000 + tzOffset * 3600000;
-            const cd = new Date(cityMs);
-            const Y = cd.getUTCFullYear(), M = cd.getUTCMonth() + 1, D = cd.getUTCDate();
-            let Yj = Y, Mj = M; if (Mj <= 2) { Yj--; Mj += 12; }
-            const A = Math.floor(Yj / 100), B = 2 - A + Math.floor(A / 4);
-            const JD = Math.floor(365.25 * (Yj + 4716)) + Math.floor(30.6001 * (Mj + 1)) + D + 0.5 + B - 1524.5;
-            const Dv = JD - 2451545.0;
-            const g = rad((357.529 + 0.98560028 * Dv) % 360);
-            const q = (280.459 + 0.98564736 * Dv) % 360;
-            const L = rad((q + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) % 360);
-            const e = rad(23.439 - 0.00000036 * Dv);
-            const RA = deg(Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L))) / 15;
-            const sinDec = Math.sin(e) * Math.sin(L);
-            const dec = Math.asin(sinDec), cosDec = Math.cos(dec);
-            const EqT = q / 15 - ((RA + 360 / 15) % 24);
-            const noonUTC = 12 - EqT - lon / 15;
-            function ha(z) { const c = (Math.cos(rad(z)) - Math.sin(rad(lat)) * sinDec) / (Math.cos(rad(lat)) * cosDec); return c < -1 ? 12 : c > 1 ? 0 : deg(Math.acos(c)); }
-            const H0 = ha(90.8333);
-            const sunriseUTC = noonUTC - H0 / 15, sunsetUTC = noonUTC + H0 / 15;
-            const fajrUTC = noonUTC - ha(90 + m.fajr) / 15;
-            const ishaUTC = m.ishaFixed ? sunsetUTC + m.mOff / 60 + m.ishaFixed / 60 : noonUTC + ha(90 + m.isha) / 15;
-            const asrA = deg(Math.atan(1 + Math.tan(Math.abs(rad(lat) - dec))));
-            const asrUTC = noonUTC + ha(asrA) / 15;
-            const maghribUTC = sunsetUTC + m.mOff / 60;
-            const imsakUTC = fajrUTC - 10 / 60;
-            const s = t => t + tzOffset;
-            return { imsak: s(imsakUTC), fajr: s(fajrUTC), sunrise: s(sunriseUTC), noon: s(noonUTC), asr: s(asrUTC), sunset: s(sunsetUTC), maghrib: s(maghribUTC), isha: s(ishaUTC) };
-        }
-        // Monkey-patch calcTimes to use method-aware version
-        window.calcTimes = calcTimesM;
-
-        function setMethod(m) {
-            currentMethod = m;
-            localStorage.setItem('rm_method', m);
-            render(); renderCities();
-            showToast('Method changed');
-        }
-
-        /* ═══ DUAS ═══ */
-        const DUAS = [
-            { ar: 'اللَّهُمَّ لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ', en: 'O Allah! For You I fasted, in You I believed, upon You I relied, and with Your provision I break my fast.' },
-            { ar: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ', en: 'O Allah! Bless what You have provided us and protect us from the punishment of Hell.' },
-            { ar: 'اللَّهُمَّ اغْفِرْ لِي وَارْحَمْنِي وَاهْدِنِي وَارْزُقْنِي', en: 'O Allah! Forgive me, have mercy on me, guide me, and provide for me.' },
-            { ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', en: 'Our Lord! Grant us good in this world, good in the hereafter, and protect us from the punishment of Fire.' },
-            { ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ', en: 'O Allah! I ask You for forgiveness and wellbeing in this world and the next.' },
-            { ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', en: 'O Allah! You are the Most Forgiving and You love forgiveness, so forgive me.' },
-            { ar: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ', en: 'Glory be to Allah and praise Him; Glory be to Allah the Magnificent.' },
-            { ar: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ', en: 'O Allah, help me to remember You, thank You, and worship You in the best manner.' },
-            { ar: 'رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ', en: 'My Lord, make me and my offspring constant in prayer. Our Lord, accept my supplication.' },
-            { ar: 'اللَّهُمَّ اجْعَلْ رَمَضَانَ شَهْرَ الْمَغْفِرَةِ وَالْعِتْقِ مِنَ النَّارِ', en: 'O Allah, make this Ramadan a month of forgiveness and freedom from the Hellfire.' },
-        ];
-
-        function renderDua() {
-            const { day } = ramadanStatus();
-            if (!day) return;
-            const d = DUAS[(day - 1) % DUAS.length];
-            const el = document.getElementById('dua-section');
-            if (!el) return;
-            el.innerHTML = '<div class="dua-label">🤲 Dua of the Day — Day ' + day + '</div>' +
-                '<div class="dua-ar">' + d.ar + '</div>' +
-                '<div class="dua-en">' + d.en + '</div>';
-        }
-
-        /* ═══ LAYLAT AL-QADR ═══ */
-        function updateLaylat() {
-            const { day } = ramadanStatus();
-            const banner = document.getElementById('laylat-banner');
-            if (!banner || !day || day < 20) { if (banner) banner.classList.remove('visible'); return; }
-            const night27 = new Date('2026-03-17T00:00:00');
-            const now = new Date();
-            const diff = night27 - now;
-            let msg;
-            if (diff <= 0) msg = '✨ Laylat al-Qadr has passed. May Allah accept.';
-            else {
-                const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000);
-                msg = (d > 0 ? d + ' day' + (d > 1 ? 's' : '') + ' ' : '') + h + 'h until Night 27 (Laylat al-Qadr)';
+                                                    function setStatus(txt, cls) {
+                const el =
+                    document.getElementById('status-msg'); el.textContent = txt;
+                el.className = 'status-msg ' + (cls || '');
             }
-            banner.classList.add('visible');
-            banner.innerHTML = '<div class="laylat-title">🌟 Last 10 Nights — Laylat al-Qadr</div><div class="laylat-sub">' + msg + '</div>';
-        }
-
-        /* ═══ FAST STREAK ═══ */
-        let completedFasts = {};
-        function loadFasts() { try { completedFasts = JSON.parse(localStorage.getItem('rm_fasts') || '{}'); } catch (e) { } }
-        function saveFasts() { localStorage.setItem('rm_fasts', JSON.stringify(completedFasts)); }
-        function getStreak() {
-            const { day } = ramadanStatus(); if (!day) return 0;
-            for (var s = 0, d = day; d >= 1; d--) { if (completedFasts[d]) s++; else break; }
-            return s;
-        }
-        function toggleFast() {
-            const { day } = ramadanStatus(); if (!day) return;
-            completedFasts[day] = !completedFasts[day];
-            saveFasts(); updateStreak();
-        }
-        function updateStreak() {
-            const { day } = ramadanStatus();
-            const s = getStreak();
-            const el = document.getElementById('streak-num'); if (el) el.textContent = s;
-            const btn = document.getElementById('streak-btn');
-            if (btn) {
-                const done = day && completedFasts[day];
-                btn.textContent = done ? '✅ Fasted!' : 'Mark Today ✓';
-                btn.className = 'streak-check' + (done ? ' done' : '');
+            let toastT;
+            function showToast(msg) {
+                const t =
+                    document.getElementById('toast'); t.textContent = msg;
+                t.classList.add('show'); clearTimeout(toastT); toastT =
+                    setTimeout(() => t.classList.remove('show'), 3000);
             }
-        }
 
-        /* ═══ QURAN TRACKER ═══ */
-        let quranData = {};
-        function todayKey() { return new Date().toISOString().split('T')[0]; }
-        function loadQuran() { try { quranData = JSON.parse(localStorage.getItem('rm_quran') || '{}'); } catch (e) { } }
-        function addQuranPages(n) {
-            const k = todayKey();
-            quranData[k] = Math.max(0, (quranData[k] || 0) + n);
-            localStorage.setItem('rm_quran', JSON.stringify(quranData));
-            renderQuran();
-        }
-        function renderQuran() {
-            const total = Object.values(quranData).reduce((a, b) => a + b, 0);
-            const today = quranData[todayKey()] || 0;
-            const pct = Math.min(100, total / 604 * 100);
-            const te = document.getElementById('quran-today'); if (te) te.textContent = today;
-            const tot = document.getElementById('quran-total'); if (tot) tot.textContent = total;
-            const bar = document.getElementById('quran-bar'); if (bar) bar.style.width = pct.toFixed(1) + '%';
-            const pp = document.getElementById('quran-pct'); if (pp) pp.textContent = pct.toFixed(0) + '%';
-        }
 
-        /* ═══ ADHAN SOUND ═══ */
-        let adhanEnabled = localStorage.getItem('rm_adhan') === '1';
-        function toggleAdhan() {
-            adhanEnabled = !adhanEnabled;
-            localStorage.setItem('rm_adhan', adhanEnabled ? '1' : '0');
-            document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
-            showToast(adhanEnabled ? '🔔 Adhan sound ON' : '🔕 Adhan sound OFF');
-        }
-        function playAdhan() {
-            if (!adhanEnabled) return;
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                [[392, 0, .7], [440, .8, .7], [523, 1.6, 1], [440, 2.7, .7], [392, 3.5, 1.2], [329, 4.8, 1.5]].forEach(([f, t, d]) => {
-                    const o = ctx.createOscillator(), g = ctx.createGain();
-                    o.connect(g); g.connect(ctx.destination); o.frequency.value = f; o.type = 'sine';
-                    g.gain.setValueAtTime(0, ctx.currentTime + t);
-                    g.gain.linearRampToValueAtTime(0.25, ctx.currentTime + t + .1);
-                    g.gain.linearRampToValueAtTime(0, ctx.currentTime + t + d);
-                    o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + d + .1);
-                });
-            } catch (e) { }
-        }
+            /* ═══ CALC METHODS ═══ */
+            const METHODS = {
+                jafari: { fajr: 16, isha: 14, mOff: 15 },
+                isna: { fajr: 15, isha: 15, mOff: 0 },
+                mwl: { fajr: 18, isha: 17, mOff: 0 },
+                egypt: { fajr: 19.5, isha: 17.5, mOff: 0 },
+                karachi: { fajr: 18, isha: 18, mOff: 0 },
+                makkah: { fajr: 18.5, ishaFixed: 90, mOff: 0 },
+            };
+            let currentMethod = localStorage.getItem('rm_method') || 'jafari';
 
-        /* ═══ QIBLA ═══ */
-        function qiblaBearing(lat, lon) {
-            const mLat = rad(21.3891), mLon = rad(39.8579), dLon = mLon - rad(lon);
-            const b = Math.atan2(Math.sin(dLon) * Math.cos(mLat), Math.cos(rad(lat)) * Math.sin(mLat) - Math.sin(rad(lat)) * Math.cos(mLat) * Math.cos(dLon));
-            return ((deg(b) + 360) % 360);
-        }
-        function openQibla() {
-            const bearing = qiblaBearing(G.lat, G.lon);
-            document.getElementById('qibla-deg').textContent = bearing.toFixed(1);
-            document.getElementById('qibla-from').textContent = bearing.toFixed(1) + '° from North (clockwise)';
-            document.getElementById('qibla-needle').style.transform = 'rotate(' + bearing + 'deg)';
-            document.getElementById('qibla-overlay').classList.add('open');
-        }
-        function closeQibla() { document.getElementById('qibla-overlay').classList.remove('open'); }
-
-        /* ═══ SETTINGS ═══ */
-        function openSettings() {
-            document.getElementById('method-select').value = currentMethod;
-            document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
-            document.getElementById('lang-toggle').className = 'toggle' + (currentLang === 'ar' ? ' on' : '');
-            document.getElementById('settings-overlay').classList.add('open');
-        }
-        function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
-
-        /* ═══ LANGUAGE ═══ */
-        let currentLang = localStorage.getItem('rm_lang') || 'en';
-        const LABELS = {
-            en: { title: 'Ramadan Tracker', prayers: 'Today\'s Prayer Times', addCity: 'Add City to Compare', calBtn: '📅 30-Day Schedule', qiblaBtn: '🧭 Qibla', streak: 'Fast Streak', quranTitle: '📖 Quran Reading', markFast: 'Mark Today ✓', fasted: '✅ Fasted!', imsak: 'Imsak', iftar: 'Maghrib (Iftar)', untilImsak: '⏳ Until Imsak', untilIftar: '🌙 Until Iftar', day: 'Day' },
-            ar: { title: 'متتبع رمضان', prayers: 'أوقات الصلاة اليوم', addCity: 'إضافة مدينة', calBtn: '📅 جدول 30 يوماً', qiblaBtn: '🧭 القبلة', streak: 'سلسلة الصيام', quranTitle: '📖 تلاوة القرآن', markFast: 'تأكيد الصيام ✓', fasted: '✅ صمت!', imsak: 'الإمساك', iftar: 'المغرب (إفطار)', untilImsak: '⏳ حتى الإمساك', untilIftar: '🌙 حتى الإفطار', day: 'يوم' },
-        };
-        function toggleLang() {
-            currentLang = currentLang === 'en' ? 'ar' : 'en';
-            localStorage.setItem('rm_lang', currentLang);
-            document.getElementById('html-root').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            document.getElementById('lang-toggle').className = 'toggle' + (currentLang === 'ar' ? ' on' : '');
-            applyLabels();
-        }
-        function applyLabels() {
-            const L = LABELS[currentLang];
-            const set = (id, v) => { const e = document.getElementById(id); if (e && v) e.textContent = v; };
-            document.querySelector('h1') && (document.querySelector('h1').textContent = L.title);
-            set('prayers-section-title', L.prayers);
-            set('streak-label-el', L.streak);
-            set('quran-section-title', L.quranTitle);
-            document.getElementById('html-root').lang = currentLang;
-            const btn = document.querySelector('.cal-btn-wrap button:first-child');
-            if (btn) btn.textContent = L.calBtn;
-        }
-
-        /* ═══ SHARE URL ═══ */
-        function shareURL() {
-            const base = location.origin + location.pathname;
-            const url = base + '?city=' + encodeURIComponent(G.city) + '&lat=' + G.lat + '&lon=' + G.lon + '&tz=' + G.tzOffset;
-            navigator.clipboard ? navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied!')) : (prompt('Copy this link:', url));
-        }
-        function loadFromURL() {
-            const p = new URLSearchParams(location.search);
-            if (p.get('lat') && p.get('lon')) {
-                G.lat = +p.get('lat'); G.lon = +p.get('lon');
-                G.tzOffset = +(p.get('tz') || 0); G.city = p.get('city') || 'Custom City';
+            // Override calcTimes to use selected method
+            const _origCalcTimes = calcTimes;
+            function calcTimesM(lat, lon, tzOffset, dayOffset = 0) {
+                const m = METHODS[currentMethod] || METHODS.jafari;
+                const cityMs = Date.now() + dayOffset * 86400000 + tzOffset * 3600000;
+                const cd = new Date(cityMs);
+                const Y = cd.getUTCFullYear(), M = cd.getUTCMonth() + 1, D = cd.getUTCDate();
+                let Yj = Y, Mj = M; if (Mj <= 2) { Yj--; Mj += 12; }
+                const A = Math.floor(Yj / 100), B = 2 - A + Math.floor(A / 4);
+                const JD = Math.floor(365.25 * (Yj + 4716)) + Math.floor(30.6001 * (Mj + 1)) + D + 0.5 + B - 1524.5;
+                const Dv = JD - 2451545.0;
+                const g = rad((357.529 + 0.98560028 * Dv) % 360);
+                const q = (280.459 + 0.98564736 * Dv) % 360;
+                const L = rad((q + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) % 360);
+                const e = rad(23.439 - 0.00000036 * Dv);
+                const RA = deg(Math.atan2(Math.cos(e) * Math.sin(L), Math.cos(L))) / 15;
+                const sinDec = Math.sin(e) * Math.sin(L);
+                const dec = Math.asin(sinDec), cosDec = Math.cos(dec);
+                const EqT = q / 15 - ((RA + 360 / 15) % 24);
+                const noonUTC = 12 - EqT - lon / 15;
+                function ha(z) { const c = (Math.cos(rad(z)) - Math.sin(rad(lat)) * sinDec) / (Math.cos(rad(lat)) * cosDec); return c < -1 ? 12 : c > 1 ? 0 : deg(Math.acos(c)); }
+                const H0 = ha(90.8333);
+                const sunriseUTC = noonUTC - H0 / 15, sunsetUTC = noonUTC + H0 / 15;
+                const fajrUTC = noonUTC - ha(90 + m.fajr) / 15;
+                const ishaUTC = m.ishaFixed ? sunsetUTC + m.mOff / 60 + m.ishaFixed / 60 : noonUTC + ha(90 + m.isha) / 15;
+                const asrA = deg(Math.atan(1 + Math.tan(Math.abs(rad(lat) - dec))));
+                const asrUTC = noonUTC + ha(asrA) / 15;
+                const maghribUTC = sunsetUTC + m.mOff / 60;
+                const imsakUTC = fajrUTC - 10 / 60;
+                const s = t => t + tzOffset;
+                return { imsak: s(imsakUTC), fajr: s(fajrUTC), sunrise: s(sunriseUTC), noon: s(noonUTC), asr: s(asrUTC), sunset: s(sunsetUTC), maghrib: s(maghribUTC), isha: s(ishaUTC) };
             }
-        }
+            // Monkey-patch calcTimes to use method-aware version
+            window.calcTimes = calcTimesM;
 
-        /* ═══ SHARE CARD (Canvas) ═══ */
-        function downloadShareCard() {
-            const c = document.createElement('canvas'); c.width = 540; c.height = 680;
-            const x = c.getContext('2d');
-            const g = x.createLinearGradient(0, 0, 0, 680); g.addColorStop(0, '#060d18'); g.addColorStop(1, '#0d1f2d');
-            x.fillStyle = g; x.fillRect(0, 0, 540, 680);
-            x.fillStyle = '#10b981'; x.fillRect(0, 0, 540, 5);
-            x.fillStyle = '#10b981'; x.font = 'bold 12px Arial'; x.textAlign = 'center'; x.fillText('📍 ' + G.city.toUpperCase(), 270, 35);
-            x.fillStyle = '#fff'; x.font = 'bold 26px Arial'; x.fillText('Ramadan Tracker 1447', 270, 68);
-            x.fillStyle = 'rgba(255,255,255,.5)'; x.font = '13px Arial';
-            x.fillText(new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }), 270, 95);
-            x.fillStyle = 'rgba(255,255,255,.08)'; x.fillRect(30, 115, 480, 5);
-            const rows = [['Imsak', G.times && fmt(G.times.imsak), '#f59e0b'], ['Fajr', G.times && fmt(G.times.fajr), '#fff'], ['Dhuhr', G.times && fmt(G.times.noon), '#fff'], ['Asr', G.times && fmt(G.times.asr), '#fff'], ["Maghrib (Iftar)", G.times && fmt(G.times.maghrib), '#10b981'], ["Isha'a", G.times && fmt(G.times.isha), '#fff']];
-            rows.forEach(([n, t, col], i) => {
-                const y = 140 + i * 82;
-                x.fillStyle = 'rgba(255,255,255,.04)'; x.fillRect(30, y, 480, 70);
-                x.fillStyle = 'rgba(255,255,255,.4)'; x.font = '13px Arial'; x.textAlign = 'left'; x.fillText(n, 52, y + 28);
-                x.fillStyle = col; x.font = 'bold 22px Arial'; x.textAlign = 'right'; x.fillText(t || '--', 508, y + 28);
+            function setMethod(m) {
+                currentMethod = m;
+                localStorage.setItem('rm_method', m);
+                render(); renderCities();
+                showToast('Method changed');
+            }
+
+            /* ═══ DUAS ═══ */
+            const DUAS = [
+                { ar: 'اللَّهُمَّ لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ', en: 'O Allah! For You I fasted, in You I believed, upon You I relied, and with Your provision I break my fast.' },
+                { ar: 'اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ', en: 'O Allah! Bless what You have provided us and protect us from the punishment of Hell.' },
+                { ar: 'اللَّهُمَّ اغْفِرْ لِي وَارْحَمْنِي وَاهْدِنِي وَارْزُقْنِي', en: 'O Allah! Forgive me, have mercy on me, guide me, and provide for me.' },
+                { ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', en: 'Our Lord! Grant us good in this world, good in the hereafter, and protect us from the punishment of Fire.' },
+                { ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالآخِرَةِ', en: 'O Allah! I ask You for forgiveness and wellbeing in this world and the next.' },
+                { ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', en: 'O Allah! You are the Most Forgiving and You love forgiveness, so forgive me.' },
+                { ar: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ', en: 'Glory be to Allah and praise Him; Glory be to Allah the Magnificent.' },
+                { ar: 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ', en: 'O Allah, help me to remember You, thank You, and worship You in the best manner.' },
+                { ar: 'رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ', en: 'My Lord, make me and my offspring constant in prayer. Our Lord, accept my supplication.' },
+                { ar: 'اللَّهُمَّ اجْعَلْ رَمَضَانَ شَهْرَ الْمَغْفِرَةِ وَالْعِتْقِ مِنَ النَّارِ', en: 'O Allah, make this Ramadan a month of forgiveness and freedom from the Hellfire.' },
+            ];
+
+            function renderDua() {
                 const { day } = ramadanStatus();
-                x.fillStyle = 'rgba(255,255,255,.12)'; x.font = '10px Arial'; x.textAlign = 'left';
-                if (i === 0 && day) x.fillText('Ramadan Day ' + day, 52, y + 50);
+                if (!day) return;
+                const d = DUAS[(day - 1) % DUAS.length];
+                const el = document.getElementById('dua-section');
+                if (!el) return;
+                el.innerHTML = '<div class="dua-label">🤲 Dua of the Day — Day ' + day + '</div>' +
+                    '<div class="dua-ar">' + d.ar + '</div>' +
+                    '<div class="dua-en">' + d.en + '</div>';
+            }
+
+            /* ═══ LAYLAT AL-QADR ═══ */
+            function updateLaylat() {
+                const { day } = ramadanStatus();
+                const banner = document.getElementById('laylat-banner');
+                if (!banner || !day || day < 20) { if (banner) banner.classList.remove('visible'); return; }
+                const night27 = new Date('2026-03-17T00:00:00');
+                const now = new Date();
+                const diff = night27 - now;
+                let msg;
+                if (diff <= 0) msg = '✨ Laylat al-Qadr has passed. May Allah accept.';
+                else {
+                    const d = Math.floor(diff / 86400000), h = Math.floor((diff % 86400000) / 3600000);
+                    msg = (d > 0 ? d + ' day' + (d > 1 ? 's' : '') + ' ' : '') + h + 'h until Night 27 (Laylat al-Qadr)';
+                }
+                banner.classList.add('visible');
+                banner.innerHTML = '<div class="laylat-title">🌟 Last 10 Nights — Laylat al-Qadr</div><div class="laylat-sub">' + msg + '</div>';
+            }
+
+            /* ═══ FAST STREAK ═══ */
+            let completedFasts = {};
+            function loadFasts() { try { completedFasts = JSON.parse(localStorage.getItem('rm_fasts') || '{}'); } catch (e) { } }
+            function saveFasts() { localStorage.setItem('rm_fasts', JSON.stringify(completedFasts)); }
+            function getStreak() {
+                const { day } = ramadanStatus(); if (!day) return 0;
+                for (var s = 0, d = day; d >= 1; d--) { if (completedFasts[d]) s++; else break; }
+                return s;
+            }
+            function toggleFast() {
+                const { day } = ramadanStatus(); if (!day) return;
+                completedFasts[day] = !completedFasts[day];
+                saveFasts(); updateStreak();
+            }
+            function updateStreak() {
+                const { day } = ramadanStatus();
+                const s = getStreak();
+                const el = document.getElementById('streak-num'); if (el) el.textContent = s;
+                const btn = document.getElementById('streak-btn');
+                if (btn) {
+                    const done = day && completedFasts[day];
+                    btn.textContent = done ? '✅ Fasted!' : 'Mark Today ✓';
+                    btn.className = 'streak-check' + (done ? ' done' : '');
+                }
+            }
+
+            /* ═══ QURAN TRACKER ═══ */
+            let quranData = {};
+            function todayKey() { return new Date().toISOString().split('T')[0]; }
+            function loadQuran() { try { quranData = JSON.parse(localStorage.getItem('rm_quran') || '{}'); } catch (e) { } }
+            function addQuranPages(n) {
+                const k = todayKey();
+                quranData[k] = Math.max(0, (quranData[k] || 0) + n);
+                localStorage.setItem('rm_quran', JSON.stringify(quranData));
+                renderQuran();
+            }
+            function renderQuran() {
+                const total = Object.values(quranData).reduce((a, b) => a + b, 0);
+                const today = quranData[todayKey()] || 0;
+                const pct = Math.min(100, total / 604 * 100);
+                const te = document.getElementById('quran-today'); if (te) te.textContent = today;
+                const tot = document.getElementById('quran-total'); if (tot) tot.textContent = total;
+                const bar = document.getElementById('quran-bar'); if (bar) bar.style.width = pct.toFixed(1) + '%';
+                const pp = document.getElementById('quran-pct'); if (pp) pp.textContent = pct.toFixed(0) + '%';
+            }
+
+            /* ═══ ADHAN SOUND ═══ */
+            let adhanEnabled = localStorage.getItem('rm_adhan') === '1';
+            function toggleAdhan() {
+                adhanEnabled = !adhanEnabled;
+                localStorage.setItem('rm_adhan', adhanEnabled ? '1' : '0');
+                document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
+                showToast(adhanEnabled ? '🔔 Adhan sound ON' : '🔕 Adhan sound OFF');
+            }
+            function playAdhan() {
+                if (!adhanEnabled) return;
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    [[392, 0, .7], [440, .8, .7], [523, 1.6, 1], [440, 2.7, .7], [392, 3.5, 1.2], [329, 4.8, 1.5]].forEach(([f, t, d]) => {
+                        const o = ctx.createOscillator(), g = ctx.createGain();
+                        o.connect(g); g.connect(ctx.destination); o.frequency.value = f; o.type = 'sine';
+                        g.gain.setValueAtTime(0, ctx.currentTime + t);
+                        g.gain.linearRampToValueAtTime(0.25, ctx.currentTime + t + .1);
+                        g.gain.linearRampToValueAtTime(0, ctx.currentTime + t + d);
+                        o.start(ctx.currentTime + t); o.stop(ctx.currentTime + t + d + .1);
+                    });
+                } catch (e) { }
+            }
+
+            /* ═══ QIBLA ═══ */
+            function qiblaBearing(lat, lon) {
+                const mLat = rad(21.3891), mLon = rad(39.8579), dLon = mLon - rad(lon);
+                const b = Math.atan2(Math.sin(dLon) * Math.cos(mLat), Math.cos(rad(lat)) * Math.sin(mLat) - Math.sin(rad(lat)) * Math.cos(mLat) * Math.cos(dLon));
+                return ((deg(b) + 360) % 360);
+            }
+            function openQibla() {
+                const bearing = qiblaBearing(G.lat, G.lon);
+                document.getElementById('qibla-deg').textContent = bearing.toFixed(1);
+                document.getElementById('qibla-from').textContent = bearing.toFixed(1) + '° from North (clockwise)';
+                document.getElementById('qibla-needle').style.transform = 'rotate(' + bearing + 'deg)';
+                document.getElementById('qibla-overlay').classList.add('open');
+            }
+            function closeQibla() { document.getElementById('qibla-overlay').classList.remove('open'); }
+
+            /* ═══ SETTINGS ═══ */
+            function openSettings() {
+                document.getElementById('method-select').value = currentMethod;
+                document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
+                document.getElementById('lang-toggle').className = 'toggle' + (currentLang === 'ar' ? ' on' : '');
+                document.getElementById('settings-overlay').classList.add('open');
+            }
+            function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
+
+            /* ═══ LANGUAGE ═══ */
+            let currentLang = localStorage.getItem('rm_lang') || 'en';
+            const LABELS = {
+                en: { title: 'Ramadan Tracker', prayers: 'Today\'s Prayer Times', addCity: 'Add City to Compare', calBtn: '📅 30-Day Schedule', qiblaBtn: '🧭 Qibla', streak: 'Fast Streak', quranTitle: '📖 Quran Reading', markFast: 'Mark Today ✓', fasted: '✅ Fasted!', imsak: 'Imsak', iftar: 'Maghrib (Iftar)', untilImsak: '⏳ Until Imsak', untilIftar: '🌙 Until Iftar', day: 'Day' },
+                ar: { title: 'متتبع رمضان', prayers: 'أوقات الصلاة اليوم', addCity: 'إضافة مدينة', calBtn: '📅 جدول 30 يوماً', qiblaBtn: '🧭 القبلة', streak: 'سلسلة الصيام', quranTitle: '📖 تلاوة القرآن', markFast: 'تأكيد الصيام ✓', fasted: '✅ صمت!', imsak: 'الإمساك', iftar: 'المغرب (إفطار)', untilImsak: '⏳ حتى الإمساك', untilIftar: '🌙 حتى الإفطار', day: 'يوم' },
+            };
+            function toggleLang() {
+                currentLang = currentLang === 'en' ? 'ar' : 'en';
+                localStorage.setItem('rm_lang', currentLang);
+                document.getElementById('html-root').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                document.getElementById('lang-toggle').className = 'toggle' + (currentLang === 'ar' ? ' on' : '');
+                applyLabels();
+            }
+            function applyLabels() {
+                const L = LABELS[currentLang];
+                const set = (id, v) => { const e = document.getElementById(id); if (e && v) e.textContent = v; };
+                document.querySelector('h1') && (document.querySelector('h1').textContent = L.title);
+                set('prayers-section-title', L.prayers);
+                set('streak-label-el', L.streak);
+                set('quran-section-title', L.quranTitle);
+                document.getElementById('html-root').lang = currentLang;
+                const btn = document.querySelector('.cal-btn-wrap button:first-child');
+                if (btn) btn.textContent = L.calBtn;
+            }
+
+            /* ═══ SHARE URL ═══ */
+            function shareURL() {
+                const base = location.origin + location.pathname;
+                const url = base + '?city=' + encodeURIComponent(G.city) + '&lat=' + G.lat + '&lon=' + G.lon + '&tz=' + G.tzOffset;
+                navigator.clipboard ? navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied!')) : (prompt('Copy this link:', url));
+            }
+            function loadFromURL() {
+                const p = new URLSearchParams(location.search);
+                if (p.get('lat') && p.get('lon')) {
+                    G.lat = +p.get('lat'); G.lon = +p.get('lon');
+                    G.tzOffset = +(p.get('tz') || 0); G.city = p.get('city') || 'Custom City';
+                }
+            }
+
+            /* ═══ SHARE CARD (Canvas) ═══ */
+            function downloadShareCard() {
+                const c = document.createElement('canvas'); c.width = 540; c.height = 680;
+                const x = c.getContext('2d');
+                const g = x.createLinearGradient(0, 0, 0, 680); g.addColorStop(0, '#060d18'); g.addColorStop(1, '#0d1f2d');
+                x.fillStyle = g; x.fillRect(0, 0, 540, 680);
+                x.fillStyle = '#10b981'; x.fillRect(0, 0, 540, 5);
+                x.fillStyle = '#10b981'; x.font = 'bold 12px Arial'; x.textAlign = 'center'; x.fillText('📍 ' + G.city.toUpperCase(), 270, 35);
+                x.fillStyle = '#fff'; x.font = 'bold 26px Arial'; x.fillText('Ramadan Tracker 1447', 270, 68);
+                x.fillStyle = 'rgba(255,255,255,.5)'; x.font = '13px Arial';
+                x.fillText(new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }), 270, 95);
+                x.fillStyle = 'rgba(255,255,255,.08)'; x.fillRect(30, 115, 480, 5);
+                const rows = [['Imsak', G.times && fmt(G.times.imsak), '#f59e0b'], ['Fajr', G.times && fmt(G.times.fajr), '#fff'], ['Dhuhr', G.times && fmt(G.times.noon), '#fff'], ['Asr', G.times && fmt(G.times.asr), '#fff'], ["Maghrib (Iftar)", G.times && fmt(G.times.maghrib), '#10b981'], ["Isha'a", G.times && fmt(G.times.isha), '#fff']];
+                rows.forEach(([n, t, col], i) => {
+                    const y = 140 + i * 82;
+                    x.fillStyle = 'rgba(255,255,255,.04)'; x.fillRect(30, y, 480, 70);
+                    x.fillStyle = 'rgba(255,255,255,.4)'; x.font = '13px Arial'; x.textAlign = 'left'; x.fillText(n, 52, y + 28);
+                    x.fillStyle = col; x.font = 'bold 22px Arial'; x.textAlign = 'right'; x.fillText(t || '--', 508, y + 28);
+                    const { day } = ramadanStatus();
+                    x.fillStyle = 'rgba(255,255,255,.12)'; x.font = '10px Arial'; x.textAlign = 'left';
+                    if (i === 0 && day) x.fillText('Ramadan Day ' + day, 52, y + 50);
+                });
+                x.fillStyle = 'rgba(255,255,255,.2)'; x.font = '11px Arial'; x.textAlign = 'center';
+                x.fillText('neoissa.github.io/ramadan-tracker', 270, 665);
+                const a = document.createElement('a'); a.download = 'ramadan-prayer-times.png'; a.href = c.toDataURL(); a.click();
+                showToast('🖼 Image downloaded!');
+            }
+
+            /* ═══ SHARE MODAL ═══ */
+            function openShare() { document.getElementById('share-overlay').classList.add('open'); }
+            function closeShare() { document.getElementById('share-overlay').classList.remove('open'); }
+
+            /* ═══ INIT ═══ */
+            loadFromURL();
+            loadState();
+            loadFasts();
+            loadQuran();
+            render(); tick();
+            renderCities();
+            renderDua();
+            renderQuran();
+            updateStreak();
+            updateLaylat();
+            applyLabels();
+            // Apply saved settings UI state
+            document.getElementById('html-root').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            if (currentMethod) { document.getElementById('method-select') && (document.getElementById('method-select').value = currentMethod); }
+
+            setInterval(tick, 1000);
+            setInterval(() => { render(); renderCities(); renderDua(); updateStreak(); updateLaylat(); }, 60000);
+            document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCity(); });
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') { closeCalendar(); closeQibla(); closeSettings(); closeShare(); }
             });
-            x.fillStyle = 'rgba(255,255,255,.2)'; x.font = '11px Arial'; x.textAlign = 'center';
-            x.fillText('neoissa.github.io/ramadan-tracker', 270, 665);
-            const a = document.createElement('a'); a.download = 'ramadan-prayer-times.png'; a.href = c.toDataURL(); a.click();
-            showToast('🖼 Image downloaded!');
-        }
-
-        /* ═══ SHARE MODAL ═══ */
-        function openShare() { document.getElementById('share-overlay').classList.add('open'); }
-        function closeShare() { document.getElementById('share-overlay').classList.remove('open'); }
-
-        /* ═══ INIT ═══ */
-        loadFromURL();
-        loadState();
-        loadFasts();
-        loadQuran();
-        render(); tick();
-        renderCities();
-        renderDua();
-        renderQuran();
-        updateStreak();
-        updateLaylat();
-        applyLabels();
-        // Apply saved settings UI state
-        document.getElementById('html-root').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-        if (currentMethod) { document.getElementById('method-select') && (document.getElementById('method-select').value = currentMethod); }
-
-        setInterval(tick, 1000);
-        setInterval(() => { render(); renderCities(); renderDua(); updateStreak(); updateLaylat(); }, 60000);
-        document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCity(); });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') { closeCalendar(); closeQibla(); closeSettings(); closeShare(); }
-        });
     </script>
 
 </body>
