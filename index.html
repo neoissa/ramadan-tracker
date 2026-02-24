@@ -1854,8 +1854,10 @@
                         <span id="greg-date">—</span>
                     </div>
                     <div class="date-pill hijri-pill" id="hijri-pill">🌙 —</div>
-                    <div class="date-pill" style="background: rgba(16, 185, 129, .1); border-color: rgba(16, 185, 129, .25); color: #6ee7b7;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="date-pill"
+                        style="background: rgba(16, 185, 129, .1); border-color: rgba(16, 185, 129, .25); color: #6ee7b7;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                         </svg>
@@ -2370,11 +2372,12 @@
             const t = calcTimes(G.lat, G.lon, G.tzOffset);
             G.times = t;
 
-            document.getElementById('greg-date').textContent = now.toLocaleDateString('en-US', {
+            const cityNow = new Date(Date.now() + (G.tzOffset + new Date().getTimezoneOffset() / 60) * 3600000);
+            document.getElementById('greg-date').textContent = cityNow.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric', year: 'numeric'
             });
-            document.getElementById('hijri-pill').textContent = '🌙 ' + toHijri(now);
+            document.getElementById('hijri-pill').textContent = '🌙 ' + toHijri(cityNow);
             document.getElementById('loc-display').textContent = G.city;
             document.getElementById('info-city').textContent = G.city;
 
@@ -2503,13 +2506,18 @@
                 let df = target - cityNowSec; if (df < 0) df += 86400;
                 const cdLabel = el.querySelector('.ct-label');
                 const cdTime = el.querySelector('.ct-time');
-                const cityTimeDisplay = el.closest('.city-card')?.querySelector('.city-now-time');
-                
+                const cityCard = el.closest('.city-card');
+                const cityTimeDisplay = cityCard?.querySelector('.city-now-time');
+                const cityDateDisplay = cityCard?.querySelector('.city-now-date');
+
                 // Format city's local time HH:MM:SS AM/PM
-                const cityDate = new Date(Date.now() + (tzOff + new Date().getTimezoneOffset()/60) * 3600000);
+                const cityDate = new Date(Date.now() + (tzOff + new Date().getTimezoneOffset() / 60) * 3600000);
                 const h = cityDate.getHours(), m = cityDate.getMinutes(), s = cityDate.getSeconds();
                 if (cityTimeDisplay) {
                     cityTimeDisplay.textContent = (h % 12 || 12) + ':' + pad(m) + ':' + pad(s) + ' ' + (h >= 12 ? 'PM' : 'AM');
+                }
+                if (cityDateDisplay) {
+                    cityDateDisplay.textContent = cityDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 }
 
                 if (cdLabel) cdLabel.textContent = cityFasting ? '🌙 Until Iftar' : '⏳ Until Imsak';
@@ -2518,11 +2526,17 @@
             });
 
             // Update Main City Local Time
-            const mainCityDate = new Date(Date.now() + (G.tzOffset + new Date().getTimezoneOffset()/60) * 3600000);
+            const mainCityDate = new Date(Date.now() + (G.tzOffset + new Date().getTimezoneOffset() / 60) * 3600000);
             const mh = mainCityDate.getHours(), mm = mainCityDate.getMinutes(), ms = mainCityDate.getSeconds();
             const mainTimeStr = (mh % 12 || 12) + ':' + pad(mm) + ':' + pad(ms) + ' ' + (mh >= 12 ? 'PM' : 'AM');
             const mainTimeEl = document.getElementById('local-time-display');
             if (mainTimeEl) mainTimeEl.textContent = mainTimeStr;
+
+            // Update Main City Local Date (Gregorian & Hijri)
+            document.getElementById('greg-date').textContent = mainCityDate.toLocaleDateString('en-US', {
+                month: 'long', day: 'numeric', year: 'numeric'
+            });
+            document.getElementById('hijri-pill').textContent = '🌙 ' + toHijri(mainCityDate);
         }
 
 
@@ -2547,8 +2561,11 @@
             div.innerHTML = `
                                             <div class="city-card-header">
                                                 <div class="city-card-name"><span>📍</span>${c.city}</div>
-                                                <div style="display:flex; align-items:center; gap:10px;">
-                                                    <div class="city-now-time" style="font-size:11px; font-weight:700; color:var(--green); background:rgba(16,185,129,.1); padding:2px 8px; border-radius:6px; font-variant-numeric:tabular-nums;">--:--:-- --</div>
+                                                <div style="display:flex; align-items:center; gap:12px;">
+                                                    <div style="text-align:right;">
+                                                        <div class="city-now-time" style="font-size:11px; font-weight:700; color:var(--green); background:rgba(16,185,129,.1); padding:2px 8px; border-radius:6px; font-variant-numeric:tabular-nums; line-height:1.2;">--:--:-- --</div>
+                                                        <div class="city-now-date" style="font-size:9px; font-weight:700; color:var(--muted); margin-top:2px; letter-spacing:0.5px; text-transform:uppercase;">--- --</div>
+                                                    </div>
                                                     <div class="city-card-remove" onclick="event.stopPropagation(); removeCity('${c.id}')">✕</div>
                                                 </div>
                                             </div>
