@@ -71,80 +71,26 @@
         .header {
             position: relative;
             background: linear-gradient(160deg, #030f08 0%, #071d0e 35%, #0a2918 65%, #0b2230 100%);
-            padding: 26px 22px 22px;
+            padding: 18px 18px 22px;
             text-align: center;
             overflow: hidden;
             border-bottom: 1px solid rgba(228, 161, 20, .15);
             transition: background 2s ease;
         }
 
-        /* --- THEMES --- */
-        body {
-            transition: background-color 2s ease;
-        }
-
-        body.theme-dawn {
-            --bg: #0a1128;
-            --card: #151f38;
-        }
-
-        body.theme-dawn .header {
-            background: linear-gradient(160deg, #10163a 0%, #1a2a47 35%, #2a3c5a 65%, #465a7e 100%);
-        }
-
-        body.theme-day {
-            --bg: #0b1a1c;
-            --card: #132a2a;
-        }
-
-        body.theme-day .header {
-            background: linear-gradient(160deg, #0e2920 0%, #154233 35%, #1a5944 65%, #1e6b52 100%);
-        }
-
-        body.theme-sunset {
-            --bg: #1a0b12;
-            --card: #28151c;
-        }
-
-        body.theme-sunset .header {
-            background: linear-gradient(160deg, #2b111a 0%, #4a2122 35%, #6a3424 65%, #8b4522 100%);
-        }
-
-        /* Gold top accent line */
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--amber) 30%, var(--gold) 50%, var(--amber) 70%, transparent);
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 60% 0%, rgba(228, 161, 20, .08), transparent 60%),
-                radial-gradient(ellipse at 10% 100%, rgba(14, 201, 138, .07), transparent 60%);
-        }
-
-        .crescent-deco {
-            position: absolute;
-            right: -8px;
-            top: -8px;
-            width: 108px;
-            opacity: .14;
-            z-index: 0;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+            gap: 10px;
         }
 
         .hdr-btns {
-            position: absolute;
-            top: 14px;
-            right: 14px;
-            z-index: 2;
             display: flex;
-            gap: 7px;
+            gap: 6px;
         }
 
         .icon-btn {
@@ -176,13 +122,16 @@
             align-items: center;
             gap: 5px;
             color: var(--green);
-            font-size: 10.5px;
+            font-size: 10px;
             font-weight: 700;
-            letter-spacing: 1.8px;
+            letter-spacing: 1.2px;
             text-transform: uppercase;
-            margin-bottom: 9px;
             position: relative;
             z-index: 1;
+            background: rgba(16, 185, 129, .08);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, .2);
         }
 
         .location-badge svg {
@@ -1112,14 +1061,59 @@
             transform: translateX(-50%) translateY(0);
         }
 
+        /* QURAN AYA CARD */
+        .quran-aya-card {
+            margin: 16px 22px 0;
+            background: linear-gradient(135deg, rgba(228, 161, 20, .08), rgba(6, 13, 24, .5));
+            border: 1px solid rgba(228, 161, 20, .2);
+            border-radius: 16px;
+            padding: 14px 16px;
+        }
+
+        .quran-aya-label {
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quran-aya-ar {
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.8;
+            text-align: right;
+            direction: rtl;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-family: 'Amiri', serif;
+        }
+
+        .quran-aya-en {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .quran-aya-ref {
+            font-size: 9px;
+            color: var(--amber);
+            font-weight: 700;
+            margin-top: 5px;
+            text-align: right;
+        }
+
         /* DUA OF THE DAY */
         .dua-card {
-            margin: 0 22px 0;
+            margin: 12px 22px 0;
             background: linear-gradient(135deg, rgba(16, 185, 129, .08), rgba(6, 13, 24, .5));
             border: 1px solid rgba(16, 185, 129, .2);
             border-radius: 16px;
             padding: 14px 16px;
-            border-bottom: none;
         }
 
         .dua-label {
@@ -1799,47 +1793,50 @@
                     <circle cx="100" cy="40" r="3" fill="white" opacity=".6" />
                     <circle cx="112" cy="55" r="2" fill="white" opacity=".4" />
                 </svg>
-                <div class="hdr-btns">
-                    <button class="icon-btn" onclick="openShare()" title="Share">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                <div class="header-top">
+                    <div class="location-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
                             stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="18" cy="5" r="3" />
-                            <circle cx="6" cy="12" r="3" />
-                            <circle cx="18" cy="19" r="3" />
-                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
                         </svg>
-                    </button>
-                    <button class="icon-btn" onclick="openSettings()" title="Settings">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3" />
-                            <path
-                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                    </button>
-                    <button class="icon-btn" onclick="toggleNotifications()" id="bell-btn" title="Toggle notifications">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-                        </svg>
-                    </button>
-                    <button class="icon-btn" onclick="autoLocate()" title="Detect my location">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
-                        </svg>
-                    </button>
-                </div>
-                <div class="location-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                        <circle cx="12" cy="10" r="3" />
-                    </svg>
-                    <span id="loc-display">Dearborn Heights, MI</span>
+                        <span id="loc-display">Dearborn Heights, MI</span>
+                    </div>
+                    <div class="hdr-btns">
+                        <button class="icon-btn" onclick="openShare()" title="Share">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="5" r="3" />
+                                <circle cx="6" cy="12" r="3" />
+                                <circle cx="18" cy="19" r="3" />
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                            </svg>
+                        </button>
+                        <button class="icon-btn" onclick="openSettings()" title="Settings">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3" />
+                                <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                            </svg>
+                        </button>
+                        <button class="icon-btn" onclick="toggleNotifications()" id="bell-btn"
+                            title="Toggle notifications">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                        </button>
+                        <button class="icon-btn" onclick="autoLocate()" title="Detect my location">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M12 2v3m0 14v3M2 12h3m14 0h3" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
                 <h1>🌙 Ramadan Tracker</h1>
                 <div class="date-row">
@@ -1911,6 +1908,9 @@
             </div>
             <!-- LAYLAT AL-QADR (shown from day 20+) -->
             <div class="laylat-banner" id="laylat-banner"></div>
+
+            <!-- QURAN AYA OF THE DAY -->
+            <div class="quran-aya-card" id="quran-aya-section"></div>
 
             <!-- DUA OF THE DAY -->
             <div class="dua-card" id="dua-section"></div>
@@ -2796,6 +2796,52 @@
             showToast('Method changed');
         }
 
+        /* ═══ QURAN AYAS ═══ */
+        const QURAN_AYAS = [
+            { ar: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ', en: 'And when My servants ask you concerning Me, indeed I am near. I respond to the invocation of the supplicant when he calls upon Me.', ref: '2:186' },
+            { ar: 'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ', en: 'O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.', ref: '2:153' },
+            { ar: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا . إِنَّ مَعَ الْعُسْرِ يُسْرًا', en: 'For indeed, with hardship [will be] ease. Indeed, with hardship [will be] ease.', ref: '94:5-6' },
+            { ar: 'قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ', en: 'Say, "O My servants who have transgressed against themselves, do not despair of the mercy of Allah."', ref: '39:53' },
+            { ar: 'وَنَحْنُ أَقْرَبُ إِلَيْهِ مِنْ حَبْلِ الْوَرِيدِ', en: 'And We are closer to him than [his] jugular vein.', ref: '50:16' },
+            { ar: 'شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ هُدًى لِّلنَّاسِ وَبَيِّنَاتٍ مِّنَ الْهُدَىٰ وَالْفُرْقَانِ', en: 'The month of Ramadan [is that] in which was revealed the Qur\'an, a guidance for the people and clear proofs of guidance and criterion.', ref: '2:185' },
+            { ar: 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ', en: 'And whoever relies upon Allah - then He is sufficient for him.', ref: '65:3' },
+            { ar: 'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ', en: 'So remember Me; I will remember you. And be grateful to Me and do not deny Me.', ref: '2:152' },
+            { ar: 'إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ', en: 'Indeed, Allah does not fail in His promise.', ref: '3:9' },
+            { ar: 'وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا', en: 'And whoever fears Allah - He will make for him a way out.', ref: '65:2' },
+            { ar: 'إِنَّ رَبِّي قَرِيبٌ مُّجِيبٌ', en: 'Indeed, my Lord is near and responsive.', ref: '11:61' },
+            { ar: 'وَقُل رَّبِّ زِدْنِي عِلْمًا', en: 'And say, "My Lord, increase me in knowledge."', ref: '20:114' },
+            { ar: 'إِنَّ اللَّهَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ', en: 'Indeed, Allah is over all things competent.', ref: '2:20' },
+            { ar: 'وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ', en: 'And my success is not but through Allah.', ref: '11:88' },
+            { ar: 'وَأَحْسِنُوا ۛ إِنَّ اللَّهَ يُحِبُّ الْمُحْسِنِينَ', en: 'And do good; indeed, Allah loves the doers of good.', ref: '2:195' },
+            { ar: 'رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا', en: 'Our Lord, let not our hearts deviate after You have guided us.', ref: '3:8' },
+            { ar: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ', en: 'Unquestionably, by the remembrance of Allah hearts are assured.', ref: '13:28' },
+            { ar: 'وَقُولُوا لِلنَّاسِ حُسْنًا', en: 'And speak to people good [words].', ref: '2:83' },
+            { ar: 'إِنَّ اللَّهَ مَعَ الَّذِينَ اتَّقَوا وَّالَّذِينَ هُم مُّحْسِنُونَ', en: 'Indeed, Allah is with those who fear Him and those who are doers of good.', ref: '16:128' },
+            { ar: 'وَاللَّهُ يَهْدِي مَن يَشَاءُ إِلَىٰ صِرَاطٍ مُّسْتَقِيمٍ', en: 'And Allah guides whom He wills to a straight path.', ref: '2:213' },
+            { ar: 'وَقُل لِّعِبَادِي يَقُولُوا الَّتِي هِيَ أَحْسَنُ', en: 'And tell My servants to say that which is best.', ref: '17:53' },
+            { ar: 'إِنَّ رَبِّي لَسَمِيعُ الدُّعَاءِ', en: 'Indeed, my Lord is the Hearer of supplication.', ref: '14:39' },
+            { ar: 'وَتَزَوَّدُوا فَإِنَّ خَيْرَ الزَّادِ التَّقْوَىٰ', en: 'And take provisions, but indeed, the best provision is fear of Allah.', ref: '2:197' },
+            { ar: 'وَرَحْمَتِي وَسِعَتْ كُلَّ شَيْءٍ', en: 'But My mercy encompasses all things.', ref: '7:156' },
+            { ar: 'عَسَىٰ أَن يَهْدِيَنِ رَبِّي لِأَقْرَبَ مِنْ هَٰذَا رَشَدًا', en: 'Perhaps my Lord will guide me to what is nearer than this to right conduct.', ref: '18:24' },
+            { ar: 'كُلُّ نَفْسٍ ذَائِقَةُ الْمَوْتِ', en: 'Every soul will taste death.', ref: '3:185' },
+            { ar: 'وَاسْجُدْ وَاقْتَرِب', en: 'And prostrate and draw near [to Allah].', ref: '96:19' },
+            { ar: 'يَا أَيُّهَا النَّاسُ أَنتُمُ الْفُقَرَاءُ إِلَى اللَّهِ ۖ وَاللَّهُ هُوَ الْغَنِيُّ الْحَمِيدُ', en: 'O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy.', ref: '35:15' },
+            { ar: 'إِنَّ اللَّهَ يَرْزُقُ مَن يَشَاءُ بِغَيْرِ حِسَابٍ', en: 'Indeed, Allah provides for whom He wills without account.', ref: '3:37' },
+            { ar: 'فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ', en: 'Then exalt [him] with praise of your Lord and ask forgiveness of Him.', ref: '110:3' },
+        ];
+
+        function renderQuranAya() {
+            const { day } = ramadanStatus();
+            if (!day) return;
+            const a = QURAN_AYAS[(day - 1) % QURAN_AYAS.length];
+            const el = document.getElementById('quran-aya-section');
+            if (!el) return;
+            el.innerHTML = '<div class="quran-aya-label">📖 Quran Ayah — Day ' + day + '</div>' +
+                '<div class="quran-aya-ar">' + a.ar + '</div>' +
+                '<div class="quran-aya-en">' + a.en + '</div>' +
+                '<div class="quran-aya-ref">Surah ' + a.ref + '</div>';
+        }
+
         /* ═══ DUAS ═══ */
         const DUAS = [
             { ar: 'اللَّهُمَّ لَكَ صُمْتُ وَبِكَ آمَنْتُ وَعَلَيْكَ تَوَكَّلْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ', en: 'O Allah! For You I fasted, in You I believed, upon You I relied, and with Your provision I break my fast.' },
@@ -3051,6 +3097,7 @@
         loadQuran();
         render(); tick();
         renderCities();
+        renderQuranAya();
         renderDua();
         renderQuran();
         updateStreak();
@@ -3061,7 +3108,7 @@
         if (currentMethod) { document.getElementById('method-select') && (document.getElementById('method-select').value = currentMethod); }
 
         setInterval(tick, 1000);
-        setInterval(() => { render(); renderCities(); renderDua(); updateStreak(); updateLaylat(); }, 60000);
+        setInterval(() => { render(); renderCities(); renderQuranAya(); renderDua(); updateStreak(); updateLaylat(); }, 60000);
         document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCity(); });
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') { closeCalendar(); closeQibla(); closeSettings(); closeShare(); }
