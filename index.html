@@ -2431,18 +2431,36 @@
             document.getElementById('rem-days').textContent = day ? `${remaining} Days` : '—';
 
             // Calculate differences in minutes
-            const imsakDiff = Math.round((t.imsak - tYesterday.imsak) * 60);
-            const maghribDiff = Math.round((t.maghrib - tYesterday.maghrib) * 60);
+            const imsakDiffYest = Math.round((t.imsak - tYesterday.imsak) * 60);
+            const maghribDiffYest = Math.round((t.maghrib - tYesterday.maghrib) * 60);
 
-            const formatDiff = (diff) => {
-                if (diff === 0) return '';
-                const sign = diff > 0 ? '+' : '';
-                const color = diff > 0 ? '#f87171' : '#6ee7b7'; // Latest is redder, earlier is greener - or just neutral
-                return `<span style="font-size:10px; color:${color}; margin-left:6px; font-weight:600; vertical-align:middle;">(${sign}${diff}m)</span>`;
+            const tTomorrow = calcTimes(G.lat, G.lon, G.tzOffset, 1);
+            const imsakDiffTom = Math.round((tTomorrow.imsak - t.imsak) * 60);
+            const maghribDiffTom = Math.round((tTomorrow.maghrib - t.maghrib) * 60);
+
+            const formatDiff = (diffYest, diffTom) => {
+                const f = (d) => {
+                    if (d === 0) return `<span style="color:var(--muted)">0m</span>`;
+                    const sign = d > 0 ? '+' : '';
+                    const color = d > 0 ? '#f87171' : '#6ee7b7';
+                    return `<span style="color:${color}">${sign}${d}m</span>`;
+                };
+                return `<div style="font-size:9.5px; font-weight:700; line-height:1.4; color:rgba(255,255,255,0.4); margin-top:3px; letter-spacing:0.5px">
+                    YEST: ${f(diffYest)} <span style="margin:0 4px;opacity:0.3">|</span> TOM: ${f(diffTom)}
+                </div>`;
             };
 
-            document.getElementById('imsak-time').innerHTML = fmt(t.imsak) + formatDiff(imsakDiff);
-            document.getElementById('maghrib-time').innerHTML = fmt(t.maghrib) + formatDiff(maghribDiff);
+            document.getElementById('imsak-time').innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right;">
+                    <div>${fmt(t.imsak)}</div>
+                    ${formatDiff(imsakDiffYest, imsakDiffTom)}
+                </div>`;
+
+            document.getElementById('maghrib-time').innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right;">
+                    <div>${fmt(t.maghrib)}</div>
+                    ${formatDiff(maghribDiffYest, maghribDiffTom)}
+                </div>`;
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
 
