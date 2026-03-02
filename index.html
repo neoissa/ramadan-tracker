@@ -2430,36 +2430,25 @@
             document.getElementById('ram-day').textContent = day ? `Day ${day}` : 'Not Ramadan';
             document.getElementById('rem-days').textContent = day ? `${remaining} Days` : '—';
 
-            // Calculate differences in minutes
-            const imsakDiffYest = Math.round((t.imsak - tYesterday.imsak) * 60);
-            const maghribDiffYest = Math.round((t.maghrib - tYesterday.maghrib) * 60);
-
+            // Projection times
             const tTomorrow = calcTimes(G.lat, G.lon, G.tzOffset, 1);
-            const imsakDiffTom = Math.round((tTomorrow.imsak - t.imsak) * 60);
-            const maghribDiffTom = Math.round((tTomorrow.maghrib - t.maghrib) * 60);
 
-            const formatDiff = (diffYest, diffTom) => {
-                const f = (d) => {
-                    if (d === 0) return `<span style="color:var(--muted)">0m</span>`;
-                    const sign = d > 0 ? '+' : '';
-                    const color = d > 0 ? '#f87171' : '#6ee7b7';
-                    return `<span style="color:${color}">${sign}${d}m</span>`;
-                };
-                return `<div style="font-size:9.5px; font-weight:700; line-height:1.4; color:rgba(255,255,255,0.4); margin-top:3px; letter-spacing:0.5px">
-                    YEST: ${f(diffYest)} <span style="margin:0 4px;opacity:0.3">|</span> TOM: ${f(diffTom)}
+            const formatProj = (yestTime, tomTime) => {
+                return `<div style="font-size:9.5px; font-weight:700; line-height:1.4; color:rgba(255,255,255,0.45); margin-top:4px; letter-spacing:0.5px">
+                    YEST: <span style="color:#fff">${fmt(yestTime)}</span> <span style="margin:0 4px;opacity:0.3">|</span> TOM: <span style="color:#fff">${fmt(tomTime)}</span>
                 </div>`;
             };
 
             document.getElementById('imsak-time').innerHTML = `
                 <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right;">
                     <div>${fmt(t.imsak)}</div>
-                    ${formatDiff(imsakDiffYest, imsakDiffTom)}
+                    ${formatProj(tYesterday.imsak, tTomorrow.imsak)}
                 </div>`;
 
             document.getElementById('maghrib-time').innerHTML = `
                 <div style="display:flex; flex-direction:column; align-items:flex-end; text-align:right;">
                     <div>${fmt(t.maghrib)}</div>
-                    ${formatDiff(maghribDiffYest, maghribDiffTom)}
+                    ${formatProj(tYesterday.maghrib, tTomorrow.maghrib)}
                 </div>`;
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
@@ -2635,20 +2624,29 @@
             div.innerHTML = `
                                             <div class="city-card-header">
                                                 <div class="city-card-name"><span>📍</span>${c.city}</div>
-                                                <div style="display:flex; align-items:center; gap:12px;">
+                                                <div style="display:flex; align-items:flex-end; gap:12px;">
                                                     <div style="text-align:right;">
+                                                        <div style="font-size:8px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:2px; letter-spacing:0.5px">Local Time</div>
                                                         <div class="city-now-time" style="font-size:11px; font-weight:700; color:var(--green); background:rgba(16,185,129,.1); padding:2px 8px; border-radius:6px; font-variant-numeric:tabular-nums; line-height:1.2;">--:--:-- --</div>
                                                         <div class="city-now-date" style="font-size:9px; font-weight:700; color:var(--muted); margin-top:2px; letter-spacing:0.5px; text-transform:uppercase;">--- --</div>
                                                     </div>
-                                                    <div class="city-card-remove" onclick="event.stopPropagation(); removeCity('${c.id}')">✕</div>
+                                                    <div class="city-card-remove" onclick="event.stopPropagation(); removeCity('${c.id}')" style="margin-bottom:2px">✕</div>
+                                                </div>
+                                            </div>
+                                            <div class="city-times" style="border-bottom: 1px solid var(--border)">
+                                                <div class="ct-block ct-imsak">
+                                                    <div class="ct-label">Imsak</div>
+                                                    <div class="ct-time">${fmt(t.imsak)}</div>
+                                                </div>
+                                                <div class="ct-block ct-maghrib">
+                                                    <div class="ct-label">Iftar</div>
+                                                    <div class="ct-time">${fmt(t.maghrib)}</div>
                                                 </div>
                                             </div>
                                             <div class="city-smart ct-imsak" data-imsak="${iSec}" data-maghrib="${mSec}"
-                                                data-tz="${c.tzOffset}">
-                                                <div class="ct-label">⏳ Until Imsak</div>
-                                                <div class="ct-time">--:--:--</div>
-                                                <div class="ct-sub">Imsak ${fmt(t.imsak)} · Iftar ${fmt(t.maghrib)}
-                                                </div>
+                                                data-tz="${c.tzOffset}" style="padding:10px 16px; border-bottom: 1px solid var(--border)">
+                                                <div class="ct-label" style="text-align:left; font-size:10px">⏳ Until Imsak</div>
+                                                <div class="ct-time" style="text-align:left; font-size:22px">--:--:--</div>
                                             </div>
                                             <div class="city-mini-prayers">${pRows}</div>`;
             return div;
