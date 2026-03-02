@@ -2187,12 +2187,20 @@
             <div class="qibla-wrap">
                 <div class="qibla-kaaba">🕋</div>
                 <div class="qibla-compass">
-                    <div class="compass-ring">
+                    <div class="compass-ring" id="compass-ring">
                         <div class="qibla-needle" id="qibla-needle"></div>
                     </div>
                 </div>
                 <div class="qibla-deg"><span id="qibla-deg">--</span>°</div>
                 <div class="qibla-from" id="qibla-from">from North (clockwise)</div>
+
+                <button id="qibla-start-btn" onclick="startCompass()"
+                    style="margin-top:20px; background:var(--green); color:#fff; border:none; padding:10px 20px; border-radius:12px; font-weight:700; cursor:pointer; width:100%; max-width:250px; font-family:inherit; transition:background .2s;">Start
+                    Interactive Compass</button>
+                <div id="qibla-status"
+                    style="margin-top:10px; font-size:11px; color:#f59e0b; font-weight:600; display:none;">
+                    Calibrating... Please move device in a figure 8.</div>
+
                 <p style="margin-top:16px;font-size:11px;color:rgba(255,255,255,.3)">Based on great-circle bearing from
                     your location to the Kaaba (21.3891° N, 39.8579° E)</p>
             </div>
@@ -2406,6 +2414,7 @@
         function render() {
             const now = new Date();
             const t = calcTimes(G.lat, G.lon, G.tzOffset);
+            const tYesterday = calcTimes(G.lat, G.lon, G.tzOffset, -1);
             G.times = t;
 
             const cityNow = new Date(Date.now() + (G.tzOffset + new Date().getTimezoneOffset() / 60) * 3600000);
@@ -2421,8 +2430,19 @@
             document.getElementById('ram-day').textContent = day ? `Day ${day}` : 'Not Ramadan';
             document.getElementById('rem-days').textContent = day ? `${remaining} Days` : '—';
 
-            document.getElementById('imsak-time').textContent = fmt(t.imsak);
-            document.getElementById('maghrib-time').textContent = fmt(t.maghrib);
+            // Calculate differences in minutes
+            const imsakDiff = Math.round((t.imsak - tYesterday.imsak) * 60);
+            const maghribDiff = Math.round((t.maghrib - tYesterday.maghrib) * 60);
+
+            const formatDiff = (diff) => {
+                if (diff === 0) return '';
+                const sign = diff > 0 ? '+' : '';
+                const color = diff > 0 ? '#f87171' : '#6ee7b7'; // Latest is redder, earlier is greener - or just neutral
+                return `<span style="font-size:10px; color:${color}; margin-left:6px; font-weight:600; vertical-align:middle;">(${sign}${diff}m)</span>`;
+            };
+
+            document.getElementById('imsak-time').innerHTML = fmt(t.imsak) + formatDiff(imsakDiff);
+            document.getElementById('maghrib-time').innerHTML = fmt(t.maghrib) + formatDiff(maghribDiff);
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
 
@@ -3007,19 +3027,94 @@
         }
 
         /* ═══ QIBLA ═══ */
+        let compassWatchId = null;
+        let targetBearing = 0;
+
         function qiblaBearing(lat, lon) {
             const mLat = rad(21.3891), mLon = rad(39.8579), dLon = mLon - rad(lon);
             const b = Math.atan2(Math.sin(dLon) * Math.cos(mLat), Math.cos(rad(lat)) * Math.sin(mLat) - Math.sin(rad(lat)) * Math.cos(mLat) * Math.cos(dLon));
             return ((deg(b) + 360) % 360);
         }
+
         function openQibla() {
-            const bearing = qiblaBearing(G.lat, G.lon);
-            document.getElementById('qibla-deg').textContent = bearing.toFixed(1);
-            document.getElementById('qibla-from').textContent = bearing.toFixed(1) + '° from North (clockwise)';
-            document.getElementById('qibla-needle').style.transform = 'rotate(' + bearing + 'deg)';
+            targetBearing = qiblaBearing(G.lat, G.lon);
+            document.getElementById('qibla-deg').textContent = targetBearing.toFixed(1);
+            document.getElementById('qibla-from').textContent = targetBearing.toFixed(1) + '° from North (clockwise)';
+
+            // Look fixed at target bearing initially
+            document.getElementById('compass-ring').style.transform = 'rotate(0deg)';
+            document.getElementById('qibla-needle').style.transform = 'rotate(' + targetBearing + 'deg)';
+
+            // Check if we need to show the start button
+            const btn = document.getElementById('qibla-start-btn');
+            const status = document.getElementById('qibla-status');
+
+            if (window.DeviceOrientationEvent) {
+                btn.style.display = 'inline-block';
+                status.style.display = 'none';
+                btn.textContent = 'Start Interactive Compass';
+            } else {
+                btn.style.display = 'none';
+            }
+
             document.getElementById('qibla-overlay').classList.add('open');
         }
-        function closeQibla() { document.getElementById('qibla-overlay').classList.remove('open'); }
+
+        function handleOrientation(e) {
+            let heading = null;
+            if (e.webkitCompassHeading) {
+                heading = e.webkitCompassHeading; // iOS
+            } else if (e.absolute && e.alpha !== null) {
+                heading = 360 - e.alpha; // Android (often needs calibration)
+            }
+
+            if (heading !== null) {
+                document.getElementById('qibla-status').style.display = 'none';
+                document.getElementById('qibla-start-btn').style.display = 'none';
+
+                // Rotate the entire compass ring opposite to the heading so North always points up
+                document.getElementById('compass-ring').style.transform = `rotate(${-heading}deg)`;
+                // The needle stays locked relative to the ring, pointing at the target bearing.
+                document.getElementById('qibla-needle').style.transform = `rotate(${targetBearing}deg)`;
+
+                // Flash green if pointing correctly (within 5 degrees)
+                const diff = Math.abs((heading - targetBearing + 360) % 360);
+                const isAligned = diff < 5 || diff > 355;
+                document.getElementById('qibla-needle').style.background = isAligned ? 'linear-gradient(to bottom, #10b981, #0ec98a)' : 'linear-gradient(to bottom, rgba(16,185,129,0.5), transparent)';
+            }
+        }
+
+        async function startCompass() {
+            const btn = document.getElementById('qibla-start-btn');
+            const status = document.getElementById('qibla-status');
+
+            if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                try {
+                    const permission = await DeviceOrientationEvent.requestPermission();
+                    if (permission === 'granted') {
+                        btn.style.display = 'none';
+                        status.style.display = 'block';
+                        window.addEventListener('deviceorientation', handleOrientation, true);
+                    } else {
+                        btn.textContent = 'Permission Denied';
+                    }
+                } catch (err) {
+                    btn.textContent = 'Error: ' + err.message;
+                }
+            } else {
+                // Non-iOS 13+ devices
+                btn.style.display = 'none';
+                status.style.display = 'block';
+                window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+                window.addEventListener('deviceorientation', handleOrientation, true);
+            }
+        }
+
+        function closeQibla() {
+            window.removeEventListener('deviceorientation', handleOrientation, true);
+            window.removeEventListener('deviceorientationabsolute', handleOrientation, true);
+            document.getElementById('qibla-overlay').classList.remove('open');
+        }
 
         /* ═══ SETTINGS ═══ */
         function openSettings() {
