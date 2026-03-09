@@ -2443,6 +2443,34 @@
                 </div>
             </div>
 
+            <!-- CONTEXTUAL DUA (Iftar/Suhoor) -->
+            <div class="dua-card" id="contextual-dua" style="margin:8px 22px; display:none;">
+                <div class="dua-label" id="ctx-dua-label">🤲 Dua</div>
+                <div class="dua-ar" id="ctx-dua-ar" style="font-family:'Amiri',serif;"></div>
+                <div class="dua-en" id="ctx-dua-en"></div>
+            </div>
+
+            <!-- TAHAJJUD WINDOW -->
+            <div id="tahajjud-banner" style="margin:8px 22px; padding:12px 16px; background:linear-gradient(135deg, rgba(99,102,241,.1), rgba(6,13,24,.5)); border:1px solid rgba(99,102,241,.25); border-radius:14px; display:none;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                    <span style="font-size:14px;">🌃</span>
+                    <span style="font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#818cf8;">Tahajjud / Night Prayer Window</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div style="font-size:10px; color:rgba(255,255,255,.4);">From Shar'i Midnight</div>
+                        <div style="font-size:16px; font-weight:800; color:#a5b4fc;" id="tahajjud-start">--:--</div>
+                    </div>
+                    <div style="font-size:18px; color:rgba(129,140,248,.3);">→</div>
+                    <div>
+                        <div style="font-size:10px; color:rgba(255,255,255,.4);">Until Fajr</div>
+                        <div style="font-size:16px; font-weight:800; color:#a5b4fc;" id="tahajjud-end">--:--</div>
+                    </div>
+                    <div style="padding:4px 10px; border-radius:8px; font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;" id="tahajjud-status-badge">
+                    </div>
+                </div>
+            </div>
+
             <!-- FEATURED CARDS -->
             <div class="featured-prayers">
                 <div class="prayer-card" id="imsak-card" onclick="selectEvent('imsak')">
@@ -2551,6 +2579,68 @@
                     <div class="quran-pct" id="quran-pct">0%</div>
                 </div>
             </div>
+            <!-- KHATM AL-QURAN GOAL -->
+            <div id="quran-goal-section" style="padding:12px 22px; border-bottom:1px solid var(--border);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                    <div style="font-size:9.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted);">🎯 Khatm al-Quran Goal</div>
+                    <div style="font-size:10px; color:var(--green); font-weight:700;" id="quran-goal-status">On track</div>
+                </div>
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <div style="flex:1; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:10px 14px; text-align:center;">
+                        <div style="font-size:20px; font-weight:900; color:#fff;" id="quran-goal-needed">20</div>
+                        <div style="font-size:8px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px;">pages/day needed</div>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:10px 14px; text-align:center;">
+                        <div style="font-size:20px; font-weight:900; color:var(--green);" id="quran-goal-days-left">30</div>
+                        <div style="font-size:8px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px;">days remaining</div>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:10px 14px; text-align:center;">
+                        <div style="font-size:20px; font-weight:900; color:var(--amber);" id="quran-goal-remaining">604</div>
+                        <div style="font-size:8px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px;">pages left</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ZAKAT AL-FITR CALCULATOR -->
+            <div style="padding:14px 22px; border-bottom:1px solid var(--border);">
+                <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleZakatSection()">
+                    <div style="font-size:9.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--muted);">💰 Zakat al-Fitr Calculator</div>
+                    <div style="font-size:12px; color:var(--muted);" id="zakat-toggle-icon">▼</div>
+                </div>
+                <div id="zakat-section" style="display:none; margin-top:12px;">
+                    <div style="font-size:11px; color:var(--muted); margin-bottom:10px; line-height:1.5;">
+                        Zakat al-Fitr is obligatory on every Muslim who has sustenance for themselves and their family. It must be paid <strong style="color:rgba(255,255,255,.65);">before Eid prayer</strong>.
+                    </div>
+                    <div style="margin-bottom:8px;">
+                        <div style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Household members</div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="q-btn" onclick="changeZakatMembers(-1)">−</button>
+                            <span style="font-size:18px; font-weight:800; color:#fff; min-width:30px; text-align:center;" id="zakat-members">1</span>
+                            <button class="q-btn" onclick="changeZakatMembers(1)">+</button>
+                        </div>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <div style="font-size:9px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Staple food type</div>
+                        <select class="setting-select" id="zakat-food" onchange="calcZakat()" style="font-size:12px; padding:8px 12px;">
+                            <option value="wheat">Wheat ($7/3kg — ~$7 per person)</option>
+                            <option value="rice">Rice ($10/3kg — ~$10 per person)</option>
+                            <option value="barley">Barley ($8/3kg — ~$8 per person)</option>
+                            <option value="dates">Dates ($15/3kg — ~$15 per person)</option>
+                            <option value="raisins">Raisins ($18/3kg — ~$18 per person)</option>
+                            <option value="cash" selected>Cash equivalent (~$12 per person)</option>
+                        </select>
+                    </div>
+                    <div style="background:rgba(16,185,129,.08); border:1px solid rgba(16,185,129,.25); border-radius:12px; padding:14px; text-align:center;">
+                        <div style="font-size:10px; color:var(--green); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Total Zakat al-Fitr</div>
+                        <div style="font-size:28px; font-weight:900; color:var(--green);" id="zakat-total">$12.00</div>
+                        <div style="font-size:10px; color:var(--muted); margin-top:4px;" id="zakat-detail">1 person × $12.00 (cash equivalent)</div>
+                    </div>
+                    <div style="font-size:9.5px; color:var(--muted); margin-top:8px; line-height:1.5; font-style:italic;">
+                        Based on ~3kg of staple food per person (Sa'a). Amounts are approximate for North America — consult your Marja for exact rulings.
+                    </div>
+                </div>
+            </div>
+
             <!-- CALENDAR BTN -->
             <div class="cal-btn-wrap" style="display:flex;gap:8px;">
                 <button class="cal-btn" style="flex:1" onclick="openCalendar()">📅 30-Day Schedule</button>
@@ -3158,6 +3248,8 @@
             // Update new indicators
             updateFastingIndicator();
             updateSuhoorReminder();
+            updateContextualDua();
+            updateTahajjud();
         }
 
 
@@ -3518,7 +3610,7 @@
         function updateLaylat() {
             const { day } = ramadanStatus();
             const banner = document.getElementById('laylat-banner');
-            if (!banner || !day || day < 20) { if (banner) banner.classList.remove('visible'); return; }
+            if (!banner || !day || day < 19) { if (banner) banner.classList.remove('visible'); return; }
             const night27 = new Date('2026-03-17T00:00:00');
             const now = new Date();
             const diff = night27 - now;
@@ -3577,6 +3669,7 @@
             quranData[k] = Math.max(0, (quranData[k] || 0) + n);
             localStorage.setItem('rm_quran', JSON.stringify(quranData));
             renderQuran();
+            updateQuranGoal();
         }
         function renderQuran() {
             const total = Object.values(quranData).reduce((a, b) => a + b, 0);
@@ -3705,7 +3798,9 @@
         function openSettings() {
             document.getElementById('method-select').value = currentMethod;
             document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
-            document.getElementById('lang-toggle').className = 'toggle' + (currentLang === 'ar' ? ' on' : '');
+            // lang-select dropdown (replaces old lang-toggle button)
+            const ls = document.getElementById('lang-select');
+            if (ls) ls.value = currentLang;
             document.getElementById('settings-overlay').classList.add('open');
         }
         function closeSettings() { document.getElementById('settings-overlay').classList.remove('open'); }
@@ -3853,6 +3948,7 @@
             render(); renderCities(); renderQuranAya(); renderDua(); updateStreak(); updateLaylat();
             updateFastingIndicator(); updateSuhoorReminder(); updateEid(); updateAmaal();
             renderChecklist(); renderSadaqah();
+            updateContextualDua(); updateTahajjud(); updateQuranGoal();
             saveState();
             setTimeout(() => btn.querySelector('svg').classList.remove('refresh-spin'), 800);
             showToast('🔄 Times refreshed!');
@@ -4116,7 +4212,10 @@
                     if (typeof data.lightMode === 'boolean') { lightMode = data.lightMode; localStorage.setItem('rm_light', lightMode ? '1' : '0'); }
                     saveState();
                     render(); renderCities(); renderChecklist(); renderSadaqah(); renderQuran();
-                    updateStreak(); applyLightMode(); applyFontSize(); applyLabels();
+                    updateStreak(); updateLaylat(); updateEid(); updateAmaal();
+                    updateFastingIndicator(); updateSuhoorReminder();
+                    updateContextualDua(); updateTahajjud(); updateQuranGoal();
+                    applyLightMode(); applyFontSize(); applyLabels();
                     showToast('✅ Data imported successfully!');
                 } catch (err) {
                     showToast('❌ Invalid backup file');
@@ -4156,6 +4255,150 @@
             ur: { title: '🌙 رمضان ٹریکر <span class="ramadan-year">١٤٤٧</span>', prayers: 'آج کے نماز اوقات', addCity: 'شہر شامل کریں', calBtn: '📅 ٣٠ دن کا شیڈول', qiblaBtn: '🧭 قبلہ', streak: 'روزے کی سیریز', quranTitle: '📖 قرآن پڑھنا', markFast: 'آج کا روزہ ✓', fasted: '✅ روزہ رکھا!', imsak: 'امساک', iftar: 'مغرب (افطار)', untilImsak: '⏳ امساک تک', untilIftar: '🌙 افطار تک', day: 'دن' },
         };
 
+        /* ═══ CONTEXTUAL DUA DISPLAY ═══ */
+        function updateContextualDua() {
+            if (!G.times) return;
+            const { day } = ramadanStatus();
+            const el = document.getElementById('contextual-dua');
+            const label = document.getElementById('ctx-dua-label');
+            const ar = document.getElementById('ctx-dua-ar');
+            const en = document.getElementById('ctx-dua-en');
+            if (!el || !day) { if (el) el.style.display = 'none'; return; }
+
+            const now = new Date();
+            const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
+
+            let dua = null;
+            // 30 min before imsak to imsak = suhoor dua
+            if (nowSec >= iSec - 1800 && nowSec < iSec) {
+                dua = PRAYER_DUAS.suhoor;
+            }
+            // Maghrib -5min to maghrib +30min = iftar dua
+            else if (nowSec >= mSec - 300 && nowSec < mSec + 1800) {
+                dua = PRAYER_DUAS.iftar;
+            }
+            // Fajr to sunrise = fajr dua
+            else if (nowSec >= iSec && nowSec < decToSec(G.times.sunrise)) {
+                dua = PRAYER_DUAS.fajr;
+            }
+            // Maghrib +30min to isha = maghrib dua
+            else if (nowSec >= mSec + 1800 && nowSec < decToSec(G.times.isha)) {
+                dua = PRAYER_DUAS.maghrib;
+            }
+
+            if (dua) {
+                el.style.display = '';
+                label.innerHTML = '🤲 ' + dua.title;
+                ar.textContent = dua.ar;
+                en.textContent = dua.en;
+            } else {
+                el.style.display = 'none';
+            }
+        }
+
+        /* ═══ TAHAJJUD WINDOW ═══ */
+        function updateTahajjud() {
+            if (!G.times) return;
+            const { day } = ramadanStatus();
+            const banner = document.getElementById('tahajjud-banner');
+            if (!banner || !day) { if (banner) banner.style.display = 'none'; return; }
+
+            const tTom = calcTimes(G.lat, G.lon, G.tzOffset, 1);
+            const midnightDec = calcMidnight(G.times.sunset, tTom.fajr);
+
+            banner.style.display = '';
+            document.getElementById('tahajjud-start').textContent = fmt(midnightDec);
+            document.getElementById('tahajjud-end').textContent = fmt(tTom.fajr);
+
+            // Check if we're currently in Tahajjud window
+            const now = new Date();
+            const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+            const midSec = decToSec(midnightDec);
+            const fajrSec = decToSec(G.times.fajr);
+            const badge = document.getElementById('tahajjud-status-badge');
+
+            // Tahajjud is from midnight to fajr - so either late at night (after midnight dec) or early morning (before fajr)
+            const inWindow = (nowSec >= midSec) || (nowSec < fajrSec);
+            if (inWindow && (nowSec >= midSec || nowSec < fajrSec)) {
+                badge.textContent = '● NOW OPEN';
+                badge.style.background = 'rgba(99,102,241,.15)';
+                badge.style.color = '#818cf8';
+                banner.style.borderColor = 'rgba(99,102,241,.5)';
+            } else {
+                badge.textContent = 'UPCOMING';
+                badge.style.background = 'rgba(255,255,255,.05)';
+                badge.style.color = 'var(--muted)';
+                banner.style.borderColor = 'rgba(99,102,241,.25)';
+            }
+        }
+
+        /* ═══ ZAKAT AL-FITR CALCULATOR ═══ */
+        let zakatMembers = parseInt(localStorage.getItem('rm_zakat_members') || '1');
+        let zakatOpen = false;
+        const ZAKAT_RATES = {
+            wheat: { price: 7, label: 'wheat' },
+            rice: { price: 10, label: 'rice' },
+            barley: { price: 8, label: 'barley' },
+            dates: { price: 15, label: 'dates' },
+            raisins: { price: 18, label: 'raisins' },
+            cash: { price: 12, label: 'cash equivalent' }
+        };
+        function toggleZakatSection() {
+            zakatOpen = !zakatOpen;
+            document.getElementById('zakat-section').style.display = zakatOpen ? '' : 'none';
+            document.getElementById('zakat-toggle-icon').textContent = zakatOpen ? '▲' : '▼';
+        }
+        function changeZakatMembers(n) {
+            zakatMembers = Math.max(1, zakatMembers + n);
+            localStorage.setItem('rm_zakat_members', zakatMembers);
+            document.getElementById('zakat-members').textContent = zakatMembers;
+            calcZakat();
+        }
+        function calcZakat() {
+            const food = document.getElementById('zakat-food').value;
+            const rate = ZAKAT_RATES[food] || ZAKAT_RATES.cash;
+            const total = zakatMembers * rate.price;
+            document.getElementById('zakat-total').textContent = '$' + total.toFixed(2);
+            document.getElementById('zakat-detail').textContent =
+                zakatMembers + ' person' + (zakatMembers > 1 ? 's' : '') + ' × $' + rate.price.toFixed(2) + ' (' + rate.label + ')';
+            document.getElementById('zakat-members').textContent = zakatMembers;
+        }
+
+        /* ═══ KHATM AL-QURAN GOAL ═══ */
+        function updateQuranGoal() {
+            const { day, remaining } = ramadanStatus();
+            const totalRead = Object.values(quranData).reduce((a, b) => a + b, 0);
+            const pagesLeft = Math.max(0, 604 - totalRead);
+            const daysLeft = remaining + 1; // including today
+            const neededPerDay = daysLeft > 0 ? Math.ceil(pagesLeft / daysLeft) : 0;
+
+            const elNeeded = document.getElementById('quran-goal-needed');
+            const elDaysLeft = document.getElementById('quran-goal-days-left');
+            const elRemaining = document.getElementById('quran-goal-remaining');
+            const elStatus = document.getElementById('quran-goal-status');
+
+            if (elNeeded) elNeeded.textContent = neededPerDay;
+            if (elDaysLeft) elDaysLeft.textContent = daysLeft;
+            if (elRemaining) elRemaining.textContent = pagesLeft;
+
+            if (elStatus) {
+                if (pagesLeft === 0) {
+                    elStatus.textContent = '🎉 Khatm Complete!';
+                    elStatus.style.color = 'var(--green)';
+                } else if (neededPerDay <= 20) {
+                    elStatus.textContent = '✅ On track';
+                    elStatus.style.color = 'var(--green)';
+                } else if (neededPerDay <= 30) {
+                    elStatus.textContent = '⚠️ Behind pace';
+                    elStatus.style.color = 'var(--amber)';
+                } else {
+                    elStatus.textContent = '🔴 Needs catch-up';
+                    elStatus.style.color = '#f87171';
+                }
+            }
+        }
+
         /* ═══ INIT ═══ */
         loadFromURL();
         loadState();
@@ -4177,6 +4420,10 @@
         updateAmaal();
         updateFastingIndicator();
         updateSuhoorReminder();
+        updateContextualDua();
+        updateTahajjud();
+        calcZakat();
+        updateQuranGoal();
         applyLabels();
         applyLightMode();
         applyFontSize();
@@ -4190,6 +4437,7 @@
         setInterval(() => {
             render(); renderCities(); renderQuranAya(); renderDua(); updateStreak();
             updateLaylat(); updateEid(); updateAmaal(); renderChecklist(); renderSadaqah();
+            updateContextualDua(); updateTahajjud(); updateQuranGoal();
         }, 60000);
         document.getElementById('city-input').addEventListener('keydown', e => { if (e.key === 'Enter') addCity(); });
         document.getElementById('sadaqah-input').addEventListener('keydown', e => { if (e.key === 'Enter') addSadaqah(); });

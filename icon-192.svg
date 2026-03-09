@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="32" fill="#04090f"/>
+  <circle cx="96" cy="76" r="40" fill="none"/>
+  <path d="M120 76c0 22-13 40-33 40s-33-18-33-40 13-40 33-40c-15 16-15 64 33 40z" fill="#10b981"/>
+  <line x1="135" y1="30" x2="135" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+  <line x1="126" y1="39" x2="144" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="130" cy="60" r="3" fill="#f59e0b" opacity=".6"/>
+  <text x="96" y="160" text-anchor="middle" font-size="22" fill="#10b981" font-weight="bold" font-family="Arial, sans-serif">RAMADAN 1447</text>
+</svg>
