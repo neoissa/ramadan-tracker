@@ -1,0 +1,20 @@
+{
+  "name": "Ramadan Tracker 1447 — Shia Jafari",
+  "short_name": "Ramadan 1447",
+  "description": "Prayer times, fasting tracker, Quran reading log, and daily checklist for Ramadan 1447 — Shia Jafari (Leva Research, Qum)",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#04090f",
+  "theme_color": "#04090f",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "utilities"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
