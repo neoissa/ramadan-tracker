@@ -13,6 +13,17 @@ A modern, high-precision, zero-dependency Progressive Web App (PWA) supporting *
   - Interactive Year Switcher to view past and future 30-day Ramadan schedules anytime.
 - **🔭 Regional Moon Sighting Offset**
   - Adjust Ramadan start dates by `−2` to `+2` days in Settings to align with local crescent observation and Marja' announcements.
+- **🔊 Audio Adhan & Dua Recitations**
+  - Authentic Shia Adhan recordings (Abu Dhar al-Halawaji, Sheikh Hussein Ghadiri, Sheikh Abdul Basit) with resilient offline synthesized chime fallback.
+  - Audio playback for daily duas, Suhoor intention (*Niyyah*), and Iftar prayers.
+- **📚 Major Shia Duas Library**
+  - Dedicated reader for **Dua al-Iftitah**, **Dua Abu Hamza al-Thumali**, **Dua al-Mujeer**, and **Dua Jawshan al-Kabeer** with font scaler and transliteration toggles.
+- **⚖️ Qadha (Missed Fast) & Fidyah Tracker**
+  - Persistent counter for missed fasts with one-click "Fasted a Qadha Day Today" checkoff and dynamic Fidyah/Kaffarah calculations.
+- **🖼️ Social Story & WhatsApp Card Studio**
+  - HTML5 Canvas exporter generating **9:16 Instagram Stories** and **1:1 Square Cards** of today's timetable for social sharing.
+- **⏰ Pre-Suhoor Wake-Up Alarm**
+  - Configurable alarm (30, 45, 60, or 90 minutes before Imsak) with chime audio, test button, and home screen indicator.
 - **⏱️ Dual Smart Countdown**
   - Real-time countdown to **Imsak** (Suhoor ends) when not fasting and **Iftar** (Maghrib) during fasting.
   - Progress bar showing elapsed daily fasting percentage with zero digit jitter.
@@ -24,11 +35,10 @@ A modern, high-precision, zero-dependency Progressive Web App (PWA) supporting *
 - **📅 Apple / Google Calendar (.ics) Export**
   - Download a standard `.ics` calendar file with daily Imsak and Maghrib alarms for iOS, Android, and desktop calendars.
 - **📖 Daily Duas & Ayahs with Transliteration**
-  - Arabic text, phonetic English transliteration, and English translation for all daily supplications, Suhoor intention (*Niyyah*), and Iftar prayers.
-  - Dedicated Amaal for the Nights of Qadr (*Laylat al-Qadr* — 19th, 21st, 23rd).
+  - Arabic text, phonetic English transliteration, and English translation for all daily supplications.
 - **🧭 Qibla Compass & 📿 Smart Tasbih**
   - Interactive compass using device orientation sensors and Kaaba great-circle bearing.
-  - Full-screen digital Tasbih counter with haptic vibration feedback.
+  - Digital Tasbih counter with haptic vibration feedback.
 - **💧 Hydration Tracker & 🪙 Zakat al-Fitr Calculator**
   - 8-glass water tracker active during non-fasting night hours.
   - Interactive Zakat al-Fitr calculator with commodity presets (wheat, rice, dates, cash).
@@ -73,7 +83,7 @@ cd ramadan-tracker
 - Pure **HTML5 / CSS3 / Vanilla JavaScript**
 - [OpenStreetMap Nominatim](https://nominatim.org/) — Geocoding & GPS reverse lookup
 - [TimeAPI.io](https://timeapi.io/) — Timezone coordinate lookup
-- Native **Web Audio API** & **DeviceOrientation API**
+- Native **Web Audio API**, **Canvas API**, & **DeviceOrientation API**
 
 ---
 

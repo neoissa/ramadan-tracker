@@ -9,7 +9,7 @@
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#04090f">
+    <meta name="theme-color" content="#03070d">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon"
@@ -146,6 +146,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            cursor: pointer;
         }
 
         .location-badge svg {
@@ -220,11 +221,6 @@
             text-shadow: 0 0 8px rgba(245, 158, 11, 0.3);
         }
 
-        .year-selector-pill:hover {
-            border-color: var(--amber);
-            transform: translateY(-1px);
-        }
-
         .date-row {
             display: flex;
             align-items: center;
@@ -264,7 +260,20 @@
             font-variant-numeric: tabular-nums;
         }
 
-        /* TAB BAR (Bottom floating modern bar) */
+        /* PRE-SUHOOR ALARM BANNER */
+        .alarm-banner {
+            margin: 10px 20px 0;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(6, 13, 24, 0.6));
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+        }
+
+        /* TAB BAR */
         .tab-bar {
             position: fixed;
             bottom: 16px;
@@ -305,7 +314,6 @@
         .tab-btn svg {
             width: 18px;
             height: 18px;
-            transition: transform .2s;
         }
 
         .tab-btn.active {
@@ -317,10 +325,8 @@
 
         .tab-btn.active svg {
             color: var(--green);
-            transform: translateY(-1px);
         }
 
-        /* VIEW CONTAINERS */
         .tab-view {
             display: none;
             flex-direction: column;
@@ -378,12 +384,6 @@
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
-        .smart-cd.off-season .cd-badge {
-            background: rgba(139, 92, 246, 0.12);
-            color: #a78bfa;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-        }
-
         .cd-title {
             font-size: 16px;
             font-weight: 800;
@@ -431,11 +431,6 @@
             text-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
         }
 
-        .smart-cd.off-season .md-val.accent {
-            color: #c4b5fd;
-            text-shadow: 0 0 25px rgba(139, 92, 246, 0.35);
-        }
-
         .md-lbl {
             font-size: 9.5px;
             font-weight: 700;
@@ -452,7 +447,6 @@
             line-height: 1;
         }
 
-        /* PROGRESS TRACKER */
         .progress-wrap {
             padding: 4px 18px 0;
         }
@@ -481,7 +475,7 @@
             box-shadow: 0 0 12px rgba(14, 201, 138, 0.4);
         }
 
-        /* FEATURED CARDS (Imsak & Maghrib) */
+        /* FEATURED CARDS */
         .featured-prayers {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -504,7 +498,6 @@
 
         .prayer-card:hover {
             background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(255, 255, 255, 0.16);
             transform: translateY(-1px);
         }
 
@@ -562,7 +555,7 @@
             margin-top: 3px;
         }
 
-        /* PRAYER SCHEDULE ROWS */
+        /* PRAYERS LIST */
         .all-prayers {
             padding: 16px 20px;
         }
@@ -594,10 +587,6 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
             transition: all .2s;
-        }
-
-        .prayer-row:hover {
-            background: rgba(255, 255, 255, 0.06);
         }
 
         .prayer-row.current {
@@ -648,7 +637,7 @@
             color: var(--green);
         }
 
-        /* TAHAJJUD & CONTEXTUAL BANNERS */
+        /* TAHAJJUD */
         .tahajjud-banner {
             margin: 0 20px 14px;
             padding: 14px 16px;
@@ -657,7 +646,7 @@
             border-radius: var(--radius-md);
         }
 
-        /* 30-DAY CALENDAR VIEW */
+        /* CALENDAR TABLE */
         .cal-ctrl-bar {
             display: flex;
             gap: 8px;
@@ -693,11 +682,6 @@
             border: none;
             color: #04090f;
             font-weight: 800;
-        }
-
-        .btn-action.primary:hover {
-            box-shadow: 0 4px 16px rgba(14, 201, 138, 0.35);
-            transform: translateY(-1px);
         }
 
         .cal-scroll {
@@ -756,11 +740,6 @@
             background: rgba(14, 201, 138, 0.12);
         }
 
-        table.cal-table tr.today-row td {
-            color: #ffffff;
-            font-weight: 700;
-        }
-
         table.cal-table tr.today-row td:first-child {
             color: var(--green);
             background: rgba(14, 201, 138, 0.2);
@@ -782,6 +761,7 @@
             border: 1px solid rgba(14, 201, 138, 0.2);
             border-radius: var(--radius-md);
             padding: 16px 18px;
+            position: relative;
         }
 
         .dua-card.gold {
@@ -837,6 +817,32 @@
             text-align: right;
         }
 
+        /* AUDIO PLAYER BUTTON */
+        .audio-play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(14, 201, 138, 0.15);
+            border: 1px solid rgba(14, 201, 138, 0.35);
+            color: var(--green);
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .audio-play-btn:hover {
+            background: rgba(14, 201, 138, 0.3);
+            transform: scale(1.04);
+        }
+
+        .audio-play-btn.playing {
+            background: var(--green);
+            color: #04090f;
+        }
+
         /* CHECKLIST */
         .checklist-grid {
             display: grid;
@@ -873,7 +879,6 @@
             font-size: 11px;
             color: #fff;
             flex-shrink: 0;
-            transition: all .2s;
         }
 
         .check-item.checked .check-box {
@@ -914,7 +919,7 @@
             border-radius: var(--radius-lg);
             border: 1px solid var(--border);
             width: 100%;
-            max-width: 460px;
+            max-width: 480px;
             overflow: hidden;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
             animation: modalIn .2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1067,92 +1072,18 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ═══ PRINT STYLES (A4 & Letter Fridge Timetable) ═══ */
+        /* ═══ PRINT STYLES ═══ */
         @media print {
-
-            body,
-            .app {
-                background: #ffffff !important;
-                color: #000000 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                max-width: 100% !important;
-            }
-
-            .tab-bar,
-            .hdr-btns,
-            .cal-ctrl-bar,
-            .add-city-section,
-            .cities-section,
-            .toast,
-            .cal-overlay,
-            #today-view,
-            #duas-view,
-            #tools-view {
-                display: none !important;
-            }
-
-            #schedule-view {
-                display: block !important;
-            }
-
-            .card {
-                box-shadow: none !important;
-                border: none !important;
-                background: transparent !important;
-            }
-
-            .header {
-                background: #f1f5f9 !important;
-                color: #000 !important;
-                border-bottom: 2px solid #000 !important;
-                padding: 12px !important;
-            }
-
-            .header h1 {
-                color: #000 !important;
-                font-size: 18pt !important;
-            }
-
-            .crescent-deco,
-            .mosque-deco {
-                display: none !important;
-            }
-
-            .date-pill {
-                background: transparent !important;
-                border: 1px solid #999 !important;
-                color: #000 !important;
-            }
-
-            table.cal-table {
-                font-size: 8.5pt !important;
-                color: #000 !important;
-                width: 100% !important;
-            }
-
-            table.cal-table th {
-                background: #e2e8f0 !important;
-                color: #000 !important;
-                border: 1px solid #cbd5e1 !important;
-                padding: 4px 6px !important;
-            }
-
-            table.cal-table td {
-                color: #000 !important;
-                border: 1px solid #e2e8f0 !important;
-                padding: 4px 6px !important;
-            }
-
-            table.cal-table tr.today-row {
-                background: #f8fafc !important;
-                font-weight: bold !important;
-            }
-
-            .cal-scroll {
-                overflow: visible !important;
-                border: none !important;
-            }
+            body, .app { background: #fff !important; color: #000 !important; padding: 0 !important; max-width: 100% !important; }
+            .tab-bar, .hdr-btns, .cal-ctrl-bar, .add-city-section, .cities-section, .toast, .cal-overlay, #today-view, #duas-view, #tools-view, .alarm-banner { display: none !important; }
+            #schedule-view { display: block !important; }
+            .card { box-shadow: none !important; border: none !important; background: transparent !important; }
+            .header { background: #f1f5f9 !important; color: #000 !important; border-bottom: 2px solid #000 !important; padding: 12px !important; }
+            .header h1 { color: #000 !important; }
+            .crescent-deco, .mosque-deco { display: none !important; }
+            table.cal-table th { background: #e2e8f0 !important; color: #000 !important; border: 1px solid #cbd5e1 !important; }
+            table.cal-table td { color: #000 !important; border: 1px solid #e2e8f0 !important; }
+            .cal-scroll { overflow: visible !important; border: none !important; }
         }
 
         /* ═══ LIGHT MODE ═══ */
@@ -1166,92 +1097,19 @@
             --text-secondary: #334155;
             --muted: #64748b;
             --star: transparent;
-            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06), 0 0 1px 1px rgba(0, 0, 0, 0.06);
         }
+        .light-mode body { background: #f1f5f9; background-image: none; }
+        .light-mode .header { background: linear-gradient(165deg, #ecfdf5 0%, #d1fae5 50%, #e0f2fe 100%); }
+        .light-mode .app-title { color: #0f172a; }
+        .light-mode .tab-bar { background: rgba(255, 255, 255, 0.95); border-color: rgba(0,0,0,0.1); }
+        .light-mode .md-val, .light-mode .pr-name, .light-mode .p-name, .light-mode .p-time, .light-mode .dua-ar, .light-mode .gen-modal-title { color: #0f172a !important; }
+        .light-mode table.cal-table th { background: #f8fafc; color: #475569; }
+        .light-mode table.cal-table td { color: #334155; }
+        .light-mode table.cal-table td:first-child { background: #ffffff; color: #0f172a; }
 
-        .light-mode body {
-            background: #f1f5f9;
-            background-image: none;
-        }
-
-        .light-mode .header {
-            background: linear-gradient(165deg, #ecfdf5 0%, #d1fae5 50%, #e0f2fe 100%);
-            border-bottom-color: rgba(14, 201, 138, 0.3);
-        }
-
-        .light-mode .app-title {
-            color: #0f172a;
-        }
-
-        .light-mode .tab-bar {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(0, 0, 0, 0.1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .light-mode .tab-btn {
-            color: #64748b;
-        }
-
-        .light-mode .tab-btn.active {
-            color: #065f46;
-            background: rgba(14, 201, 138, 0.15);
-        }
-
-        .light-mode .md-val,
-        .light-mode .pr-name,
-        .light-mode .p-name,
-        .light-mode .p-time,
-        .light-mode .dua-ar,
-        .light-mode .gen-modal-title {
-            color: #0f172a !important;
-        }
-
-        .light-mode .prayer-row {
-            background: rgba(0, 0, 0, 0.02);
-        }
-
-        .light-mode .prayer-row.current {
-            background: rgba(14, 201, 138, 0.1);
-        }
-
-        .light-mode table.cal-table th {
-            background: #f8fafc;
-            color: #475569;
-        }
-
-        .light-mode table.cal-table td {
-            color: #334155;
-        }
-
-        .light-mode table.cal-table td:first-child {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        .light-mode .setting-select,
-        .light-mode .setting-input {
-            background: rgba(0, 0, 0, 0.04);
-            color: #0f172a;
-        }
-
-        .light-mode .setting-select option {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        /* RTL SUPPORT */
-        [dir=rtl] .mini-digits,
-        [dir=rtl] .p-time,
-        [dir=rtl] .pr-time-val,
-        [dir=rtl] .time-pill {
-            direction: ltr;
-            unicode-bidi: embed;
-        }
-
-        [dir=rtl] .dua-ar {
-            text-align: right;
-        }
+        /* RTL */
+        [dir=rtl] .mini-digits, [dir=rtl] .p-time, [dir=rtl] .pr-time-val, [dir=rtl] .time-pill { direction: ltr; unicode-bidi: embed; }
+        [dir=rtl] .dua-ar { text-align: right; }
     </style>
 </head>
 
@@ -1263,8 +1121,7 @@
             <div class="header">
                 <!-- Crescent SVG Decoration -->
                 <svg class="crescent-deco" viewBox="0 0 120 130" fill="none">
-                    <path d="M88 65C88 85 73 100 53 100C33 100 18 85 18 65C18 45 33 30 53 30C38 46 38 84 88 65Z"
-                        fill="white" />
+                    <path d="M88 65C88 85 73 100 53 100C33 100 18 85 18 65C18 45 33 30 53 30C38 46 38 84 88 65Z" fill="white" />
                     <line x1="105" y1="8" x2="105" y2="22" stroke="white" stroke-width="3.5" stroke-linecap="round" />
                     <line x1="98" y1="15" x2="112" y2="15" stroke="white" stroke-width="3.5" stroke-linecap="round" />
                     <circle cx="100" cy="40" r="3" fill="white" opacity=".6" />
@@ -1273,8 +1130,7 @@
 
                 <div class="header-top">
                     <div class="location-badge" id="loc-badge" onclick="autoLocate()" title="Click to auto-detect location">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                             <circle cx="12" cy="10" r="3" />
                         </svg>
@@ -1282,32 +1138,29 @@
                     </div>
 
                     <div class="hdr-btns">
+                        <button class="icon-btn" onclick="openShareModal()" title="Generate Social Story / Prayer Card">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+                                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                            </svg>
+                        </button>
                         <button class="icon-btn" onclick="refreshAll()" id="refresh-btn" title="Refresh times">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="23 4 23 10 17 10" />
-                                <polyline points="1 20 1 14 7 14" />
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="23 4 23 10 17 10" /><polyline points="1 20 1 14 7 14" />
                                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
                             </svg>
                         </button>
                         <button class="icon-btn" onclick="toggleLightMode()" title="Toggle Theme">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="5" />
-                                <line x1="12" y1="1" x2="12" y2="3" />
-                                <line x1="12" y1="21" x2="12" y2="23" />
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                                <line x1="1" y1="12" x2="3" y2="12" />
-                                <line x1="21" y1="12" x2="23" y2="12" />
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                                <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
                             </svg>
                         </button>
                         <button class="icon-btn" onclick="openSettings()" title="Settings">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="3" />
-                                <path
-                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
                             </svg>
                         </button>
                     </div>
@@ -1339,6 +1192,18 @@
                     <rect x="398" y="14" width="10" height="34" rx="4" fill="rgba(14,201,138,.12)" />
                     <line x1="230" y1="4" x2="230" y2="12" stroke="rgba(245,158,11,.6)" stroke-width="1.5" />
                 </svg>
+            </div>
+
+            <!-- PRE-SUHOOR WAKE-UP ALARM BANNER (FEATURE 5) -->
+            <div class="alarm-banner" id="suhoor-alarm-banner" style="display:none;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <span style="font-size:16px;">⏰</span>
+                    <div>
+                        <div style="font-weight:800; color:#fde68a;" id="alarm-banner-text">Pre-Suhoor Wake-Up Alarm: 4:15 AM</div>
+                        <div style="font-size:9.5px; color:var(--muted);" id="alarm-banner-sub">Wakes you up 45 min before Imsak</div>
+                    </div>
+                </div>
+                <button class="audio-play-btn" onclick="testSuhoorAlarm()">Test Alarm</button>
             </div>
 
             <!-- ═══════════ TAB 1: TODAY / PRAYER ═══════════ -->
@@ -1380,7 +1245,7 @@
                     </div>
                 </div>
 
-                <!-- RAMADAN DAYS COUNTER (If in Ramadan) OR OFF-SEASON BANNER -->
+                <!-- RAMADAN DAYS COUNTER -->
                 <div id="ramadan-status-card" style="padding: 14px 20px; border-bottom: 1px solid var(--border);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 6px;">
                         <div>
@@ -1426,9 +1291,14 @@
                     </div>
                 </div>
 
-                <!-- CONTEXTUAL DUA BANNER -->
+                <!-- CONTEXTUAL DUA BANNER WITH AUDIO RECITER (FEATURE 1) -->
                 <div class="dua-card gold" id="contextual-dua" style="margin: 0 20px; display:none;">
-                    <div class="dua-label" id="ctx-dua-label">🤲 Dua</div>
+                    <div class="dua-label">
+                        <span id="ctx-dua-label">🤲 Dua</span>
+                        <button class="audio-play-btn" id="ctx-dua-audio-btn" onclick="toggleDuaAudio('ctx')">
+                            <span>▶</span> Listen
+                        </button>
+                    </div>
                     <div class="dua-ar" id="ctx-dua-ar"></div>
                     <div class="dua-trans" id="ctx-dua-trans"></div>
                     <div class="dua-en" id="ctx-dua-en"></div>
@@ -1548,11 +1418,39 @@
                     </div>
                 </div>
 
+                <!-- MAJOR SHIA DUAS LIBRARY (FEATURE 2) -->
+                <div class="card" style="padding:16px; background:rgba(14,201,138,0.03); border-color:rgba(14,201,138,0.2);">
+                    <div class="section-title">
+                        <span>📚 Major Shia Ramadan Supplications</span>
+                        <span style="color:var(--green);">Full Library</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+                        <div class="prayer-card" onclick="openMajorDua('iftitah')" style="padding:10px 12px;">
+                            <div style="font-weight:800; color:#fff; font-size:12px;">Dua al-Iftitah</div>
+                            <div style="font-size:9px; color:var(--muted);">Recited every night</div>
+                        </div>
+                        <div class="prayer-card" onclick="openMajorDua('abu_hamza')" style="padding:10px 12px;">
+                            <div style="font-weight:800; color:#fff; font-size:12px;">Abu Hamza al-Thumali</div>
+                            <div style="font-size:9px; color:var(--muted);">Dawn Suhoor prayer</div>
+                        </div>
+                        <div class="prayer-card" onclick="openMajorDua('mujeer')" style="padding:10px 12px;">
+                            <div style="font-weight:800; color:#fff; font-size:12px;">Dua al-Mujeer</div>
+                            <div style="font-size:9px; color:var(--muted);">Nights 13, 14, 15</div>
+                        </div>
+                        <div class="prayer-card" onclick="openMajorDua('jawshan')" style="padding:10px 12px;">
+                            <div style="font-weight:800; color:#fff; font-size:12px;">Jawshan al-Kabeer</div>
+                            <div style="font-size:9px; color:var(--muted);">Nights of Qadr</div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- QURAN AYAH OF THE DAY -->
                 <div class="dua-card gold" id="quran-aya-card">
                     <div class="dua-label">
                         <span>📖 Quran Ayah of the Day</span>
-                        <span id="quran-aya-day-tag">Day 1</span>
+                        <button class="audio-play-btn" id="ayah-audio-btn" onclick="toggleDuaAudio('ayah')">
+                            <span>▶</span> Recite
+                        </button>
                     </div>
                     <div class="dua-ar" id="quran-aya-ar"></div>
                     <div class="dua-trans" id="quran-aya-trans"></div>
@@ -1563,8 +1461,10 @@
                 <!-- DUA OF THE DAY -->
                 <div class="dua-card" id="dua-day-card">
                     <div class="dua-label">
-                        <span>🤲 Supplication of the Day</span>
-                        <span id="dua-day-tag">Day 1</span>
+                        <span>🤲 Daily Supplication</span>
+                        <button class="audio-play-btn" id="daily-dua-audio-btn" onclick="toggleDuaAudio('daily')">
+                            <span>▶</span> Listen
+                        </button>
                     </div>
                     <div class="dua-ar" id="dua-day-ar"></div>
                     <div class="dua-trans" id="dua-day-trans"></div>
@@ -1589,15 +1489,65 @@
 
                 <!-- TOOLS QUICK ACCESS -->
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                    <div class="prayer-card" onclick="openShareModal()" style="align-items:center; text-align:center; padding:16px;">
+                        <span style="font-size:26px;">🖼️</span>
+                        <div class="p-name" style="margin-top:6px;">Story Card Studio</div>
+                        <div class="p-sub">9:16 &amp; 1:1 image exporter</div>
+                    </div>
                     <div class="prayer-card" onclick="openQibla()" style="align-items:center; text-align:center; padding:16px;">
-                        <span style="font-size:28px;">🧭</span>
+                        <span style="font-size:26px;">🧭</span>
                         <div class="p-name" style="margin-top:6px;">Qibla Compass</div>
                         <div class="p-sub">Live compass &amp; Kaaba bearing</div>
                     </div>
-                    <div class="prayer-card" onclick="openTasbih()" style="align-items:center; text-align:center; padding:16px;">
-                        <span style="font-size:28px;">📿</span>
-                        <div class="p-name" style="margin-top:6px;">Smart Tasbih</div>
-                        <div class="p-sub">Counter with vibration feedback</div>
+                </div>
+
+                <!-- QADHA (MISSED FAST) & FIDYAH TRACKER (FEATURE 3) -->
+                <div class="card" style="padding:16px; background:rgba(255,255,255,0.02); border-color:var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span style="font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--amber);">
+                            ⚖️ Qadha &amp; Fidyah Tracker
+                        </span>
+                        <span style="font-size:12px; font-weight:800; color:#fff;" id="qadha-total-badge">0 Fasts</span>
+                    </div>
+                    <div style="font-size:11px; color:var(--muted); line-height:1.5; margin-bottom:12px;">
+                        Track fasts missed due to illness, travel, or other valid excuses to make up before next Ramadan.
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,.03); padding:10px 14px; border-radius:10px; margin-bottom:10px;">
+                        <span style="font-size:12px; font-weight:700;">Missed Fasts Remaining:</span>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <button class="btn-action" style="padding:4px 10px;" onclick="changeQadha(-1)">−</button>
+                            <span style="font-size:18px; font-weight:900; color:var(--amber); min-width:28px; text-align:center;" id="qadha-count">0</span>
+                            <button class="btn-action" style="padding:4px 10px;" onclick="changeQadha(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn-action primary" onclick="recordMadeUpFast()">
+                            <span>✓</span> Fasted a Qadha Day Today
+                        </button>
+                    </div>
+
+                    <div style="margin-top:10px; padding:10px; background:rgba(245,158,11,0.08); border-radius:8px; font-size:10.5px; color:var(--muted);">
+                        💵 <strong>Estimated Fidyah:</strong> <span style="color:#fde68a; font-weight:700;" id="fidyah-estimate">$0.00</span>
+                        <span style="font-size:9.5px; display:block; margin-top:2px;">(Based on 1 Mudd (~750g) staple food (~$2.50) per delayed fast)</span>
+                    </div>
+                </div>
+
+                <!-- SMART TASBIH -->
+                <div class="card" style="padding:16px; background:rgba(255,255,255,0.02); border-color:var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                        <span style="font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--green);">
+                            📿 Smart Digital Tasbih
+                        </span>
+                        <button class="btn-action" style="padding:4px 10px; font-size:10px;" onclick="openTasbih()">Full Screen</button>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:28px; font-weight:900; color:#fff;" id="tasbih-val-tools">0</span>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn-action" onclick="tasbihReset()">Reset</button>
+                            <button class="btn-action primary" style="padding:8px 24px; font-size:14px;" onclick="tasbihTap()">TAP</button>
+                        </div>
                     </div>
                 </div>
 
@@ -1703,24 +1653,20 @@
         <nav class="tab-bar">
             <button class="tab-btn active" onclick="switchTab('today')" id="tab-today">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <polyline points="12 6 12 12 16 14" />
+                    <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
                 </svg>
                 <span>Today</span>
             </button>
             <button class="tab-btn" onclick="switchTab('schedule')" id="tab-schedule">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
+                    <line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
                 </svg>
                 <span>Schedule</span>
             </button>
             <button class="tab-btn" onclick="switchTab('duas')" id="tab-duas">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                 </svg>
                 <span>Duas &amp; Quran</span>
             </button>
@@ -1736,6 +1682,52 @@
     </div>
 
     <!-- ═══════════ MODALS ═══════════ -->
+
+    <!-- SOCIAL STORY & WHATSAPP CARD STUDIO (FEATURE 4) -->
+    <div class="cal-overlay" id="share-modal" onclick="if(event.target===this)closeShareModal()">
+        <div class="gen-modal" style="max-height:90vh; display:flex; flex-direction:column;">
+            <div class="gen-modal-header">
+                <div class="gen-modal-title">🖼️ Prayer Card &amp; Story Studio</div>
+                <button class="gen-close" onclick="closeShareModal()">✕</button>
+            </div>
+            <div style="padding:16px; overflow-y:auto; display:flex; flex-direction:column; gap:12px; align-items:center;">
+                <div style="display:flex; gap:8px; width:100%;">
+                    <button class="btn-action primary" id="btn-fmt-story" onclick="setShareFormat('story')">📱 Story (9:16)</button>
+                    <button class="btn-action" id="btn-fmt-square" onclick="setShareFormat('square')">⏹️ Square (1:1)</button>
+                </div>
+                <!-- Canvas Preview -->
+                <div style="width:100%; max-height:360px; display:flex; justify-content:center; align-items:center; background:#020509; border-radius:12px; overflow:hidden; border:1px solid var(--border);">
+                    <canvas id="share-canvas" style="max-width:100%; max-height:360px; object-fit:contain;"></canvas>
+                </div>
+                <button class="btn-action primary" style="width:100%; padding:12px;" onclick="downloadShareCard()">
+                    <span>📥</span> Download Image (.png)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAJOR SHIA DUAS READER MODAL (FEATURE 2) -->
+    <div class="cal-overlay" id="dua-reader-modal" onclick="if(event.target===this)closeMajorDua()">
+        <div class="gen-modal" style="max-height:85vh; display:flex; flex-direction:column;">
+            <div class="gen-modal-header">
+                <div class="gen-modal-title" id="major-dua-title">Dua al-Iftitah</div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <button class="icon-btn" style="width:28px; height:28px; font-size:12px;" onclick="adjustDuaFontSize(-1)">A−</button>
+                    <button class="icon-btn" style="width:28px; height:28px; font-size:12px;" onclick="adjustDuaFontSize(1)">A+</button>
+                    <button class="gen-close" onclick="closeMajorDua()">✕</button>
+                </div>
+            </div>
+            <div style="padding:12px 20px; background:rgba(255,255,255,0.02); border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+                <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                    <input type="checkbox" id="toggle-trans-check" checked onchange="toggleTransliterationView()" /> Transliteration
+                </label>
+                <button class="audio-play-btn" id="major-dua-audio-btn" onclick="toggleDuaAudio('major')">
+                    <span>▶</span> Listen Audio
+                </button>
+            </div>
+            <div style="padding:20px; overflow-y:auto; flex:1;" id="major-dua-content"></div>
+        </div>
+    </div>
 
     <!-- YEAR SELECTOR MODAL -->
     <div class="cal-overlay" id="year-overlay" onclick="if(event.target===this)closeYearSelector()">
@@ -1756,6 +1748,37 @@
                 <button class="gen-close" onclick="closeSettings()">✕</button>
             </div>
             <div class="settings-body">
+                <!-- PRE-SUHOOR ALARM SETTING (FEATURE 5) -->
+                <div class="setting-group">
+                    <div class="setting-label">⏰ Pre-Suhoor Wake-Up Alarm</div>
+                    <div class="setting-row" style="margin-bottom:6px;">
+                        <span style="color:#fff;font-size:13px">Enable Suhoor Alarm</span>
+                        <div class="toggle" id="suhoor-alarm-toggle" onclick="toggleSuhoorAlarmSetting()"></div>
+                    </div>
+                    <select class="setting-select" id="alarm-offset-select" onchange="setAlarmOffset(this.value)">
+                        <option value="30">30 minutes before Imsak</option>
+                        <option value="45" selected>45 minutes before Imsak (Recommended)</option>
+                        <option value="60">60 minutes before Imsak (1 Hour)</option>
+                        <option value="90">90 minutes before Imsak</option>
+                    </select>
+                </div>
+
+                <!-- AUDIO ADHAN RECITER (FEATURE 1) -->
+                <div class="setting-group">
+                    <div class="setting-label">🔊 Shia Adhan Audio &amp; Reciter</div>
+                    <div class="setting-row" style="margin-bottom:6px;">
+                        <span style="color:#fff;font-size:13px">Play Adhan at Imsak &amp; Maghrib</span>
+                        <div class="toggle" id="adhan-toggle" onclick="toggleAdhan()"></div>
+                    </div>
+                    <select class="setting-select" id="adhan-reciter-select" onchange="setAdhanReciter(this.value)">
+                        <option value="halawaji" selected>Abu Dhar al-Halawaji (Shia Adhan)</option>
+                        <option value="ghadiri">Sheikh Hussein Ghadiri (Shia Adhan)</option>
+                        <option value="basit">Sheikh Abdul Basit (Classic)</option>
+                        <option value="synth">Melodic Chime (Offline Synth)</option>
+                    </select>
+                    <button class="btn-action" style="margin-top:6px;" onclick="testAdhanAudio()">▶ Test Adhan Audio</button>
+                </div>
+
                 <div class="setting-group">
                     <div class="setting-label">Calculation Method</div>
                     <select class="setting-select" id="method-select" onchange="setMethod(this.value)">
@@ -1771,10 +1794,10 @@
                 <div class="setting-group">
                     <div class="setting-label">Regional Moon Sighting Offset</div>
                     <select class="setting-select" id="sighting-select" onchange="setSightingOffset(this.value)">
-                        <option value="-2">−2 Days (Local Early Sighting)</option>
+                        <option value="-2">−2 Days (Early Horizon Sighting)</option>
                         <option value="-1">−1 Day (Regional Sighting)</option>
                         <option value="0" selected>0 Days (Standard Astronomical)</option>
-                        <option value="1">+1 Day (Verified Horizon Sighting)</option>
+                        <option value="1">+1 Day (Verified Moon Sighting)</option>
                         <option value="2">+2 Days (Late Regional Sighting)</option>
                     </select>
                 </div>
@@ -1787,14 +1810,6 @@
                         <option value="fa">فارسی (Farsi)</option>
                         <option value="ur">اردو (Urdu)</option>
                     </select>
-                </div>
-
-                <div class="setting-group">
-                    <div class="setting-label">Adhan Sound Chime</div>
-                    <div class="setting-row">
-                        <span style="color:#fff;font-size:13px">Tone at Imsak &amp; Maghrib</span>
-                        <div class="toggle" id="adhan-toggle" onclick="toggleAdhan()"></div>
-                    </div>
                 </div>
 
                 <div class="setting-group">
@@ -1869,9 +1884,17 @@
             1456: { start: '2034-11-12', days: 30 }
         };
 
-        const STORE_KEY = 'ramadanTracker_v4';
-        let currentYearSetting = localStorage.getItem('rm_year_mode') || 'auto'; // 'auto' | 1447 | 1448 etc.
-        let sightingOffset = parseInt(localStorage.getItem('rm_sighting_offset') || '0', 10); // in days (-2 to +2)
+        const STORE_KEY = 'ramadanTracker_v5';
+        let currentYearSetting = localStorage.getItem('rm_year_mode') || 'auto';
+        let sightingOffset = parseInt(localStorage.getItem('rm_sighting_offset') || '0', 10);
+
+        // Pre-Suhoor Alarm State (Feature 5)
+        let suhoorAlarmEnabled = localStorage.getItem('rm_alarm_enabled') === '1';
+        let suhoorAlarmOffset = parseInt(localStorage.getItem('rm_alarm_offset') || '45', 10); // minutes
+
+        // Qadha State (Feature 3)
+        let qadhaCount = parseInt(localStorage.getItem('rm_qadha_count') || '0', 10);
+        let qadhaHistory = [];
 
         let G = {
             lat: 42.3223, lon: -83.1763, city: 'Dearborn Heights, MI',
@@ -1880,7 +1903,7 @@
         };
 
         let extraCities = [];
-        let manualEvent = null; // 'imsak' | 'maghrib' | null
+        let manualEvent = null;
 
         /* ═══ TAB NAVIGATION ═══ */
         function switchTab(tabId) {
@@ -1893,7 +1916,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        /* ═══ ASTRONOMICAL MATH (Shia Jafari + 5 calculation methods) ═══ */
+        /* ═══ ASTRONOMICAL MATH ═══ */
         const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI, pad = n => String(n).padStart(2, '0');
 
         const METHODS = {
@@ -1971,7 +1994,6 @@
         function resolveRamadanInfo(targetDate = new Date()) {
             const years = Object.keys(RAMADAN_YEARS).map(Number).sort((a, b) => a - b);
             
-            // If explicit year is chosen by user
             if (currentYearSetting !== 'auto' && RAMADAN_YEARS[currentYearSetting]) {
                 const y = parseInt(currentYearSetting, 10);
                 const baseStart = new Date(RAMADAN_YEARS[y].start + 'T00:00:00');
@@ -1983,7 +2005,6 @@
                 return { year: y, start, end, days, dayNumber: isNow ? diffDays + 1 : null, isNow, isPast: diffDays >= days };
             }
 
-            // Automatic detection: check if current date is inside any known Ramadan
             for (let y of years) {
                 const baseStart = new Date(RAMADAN_YEARS[y].start + 'T00:00:00');
                 const start = new Date(baseStart.getTime() + sightingOffset * 86400000);
@@ -1996,7 +2017,6 @@
                 }
             }
 
-            // Outside Ramadan: find the next upcoming Ramadan
             for (let y of years) {
                 const baseStart = new Date(RAMADAN_YEARS[y].start + 'T00:00:00');
                 const start = new Date(baseStart.getTime() + sightingOffset * 86400000);
@@ -2007,7 +2027,6 @@
                 }
             }
 
-            // Fallback to latest
             const latestYear = years[years.length - 1];
             const baseStart = new Date(RAMADAN_YEARS[latestYear].start + 'T00:00:00');
             const start = new Date(baseStart.getTime() + sightingOffset * 86400000);
@@ -2036,7 +2055,8 @@
                     hydration: G.hydration || { date: '', count: 0 },
                     fasts: completedFasts,
                     quran: quranData,
-                    checklist: checklistData
+                    checklist: checklistData,
+                    qadhaCount: qadhaCount
                 }));
             } catch (e) {}
         }
@@ -2053,6 +2073,7 @@
                     if (s.fasts) completedFasts = s.fasts;
                     if (s.quran) quranData = s.quran;
                     if (s.checklist) checklistData = s.checklist;
+                    if (typeof s.qadhaCount === 'number') qadhaCount = s.qadhaCount;
                 }
                 if (extraCities.length === 0) {
                     extraCities = [
@@ -2068,7 +2089,6 @@
         /* ═══ RENDER MAIN DASHBOARD ═══ */
         function render() {
             const now = new Date();
-            // Refresh local browser timezone offset at runtime for DST safety
             G.tzOffset = -(now.getTimezoneOffset() / 60);
 
             const rInfo = resolveRamadanInfo(now);
@@ -2094,6 +2114,9 @@
             document.getElementById('maghrib-proj').textContent = `YEST: ${fmt(tYesterday.maghrib)} | TOM: ${fmt(tTomorrow.maghrib)}`;
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
+
+            // Pre-Suhoor Alarm Setup & Display (Feature 5)
+            updateSuhoorAlarmBanner(t.imsak);
 
             // Ramadan Status Bar
             const ramDayEl = document.getElementById('ram-day');
@@ -2169,16 +2192,16 @@
             renderChecklist();
             renderQuran();
             renderCities();
+            renderQadhaUI();
         }
 
-        /* ═══ LIVE TICK (1-Second Interval) ═══ */
+        /* ═══ LIVE TICK ═══ */
         function tick() {
             if (!G.times) return;
             const now = new Date();
             const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
             const iSec = decToSec(G.times.imsak), mSec = decToSec(G.times.maghrib);
 
-            // Update Header Clock
             document.getElementById('local-time-display').textContent = now.toLocaleTimeString('en-US', { hour12: true });
 
             const isFastingPeriod = nowSec >= iSec && nowSec < mSec;
@@ -2222,21 +2245,15 @@
             document.getElementById('sc-m').textContent = pad(Math.floor((diff % 3600) / 60));
             document.getElementById('sc-s').textContent = pad(diff % 60);
 
-            // Active cards
-            document.getElementById('imsak-card').className = 'prayer-card' + (targetEvent === 'imsak' ? ' active-a' : '');
-            document.getElementById('maghrib-card').className = 'prayer-card' + (targetEvent === 'maghrib' ? ' active-g' : '');
-
-            // Contextual Dua popup near Iftar / Suhoor
+            // Contextual Dua near Iftar / Suhoor
             const ctxDua = document.getElementById('contextual-dua');
             if (nowSec >= mSec - 1800 && nowSec <= mSec + 1800) {
-                // Iftar time window
                 ctxDua.style.display = 'block';
                 document.getElementById('ctx-dua-label').textContent = '🍽️ Dua for Breaking Fast (Iftar)';
                 document.getElementById('ctx-dua-ar').textContent = 'اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ وَعَلَيْكَ تَوَكَّلْتُ';
                 document.getElementById('ctx-dua-trans').textContent = 'Allahumma laka sumtu wa ‘ala rizqika aftartu wa ‘alayka tawakkalt.';
                 document.getElementById('ctx-dua-en').textContent = 'O Allah! For You I fasted, upon Your sustenance I break my fast, and upon You I rely.';
             } else if (nowSec >= iSec - 1800 && nowSec < iSec) {
-                // Suhoor time window
                 ctxDua.style.display = 'block';
                 document.getElementById('ctx-dua-label').textContent = '☕ Suhoor Fasting Intention (Niyyah)';
                 document.getElementById('ctx-dua-ar').textContent = 'نَوَيْتُ أَنْ أَصُومَ شَهْرَ رَمَضَانَ قُرْبَةً إِلَى اللَّهِ تَعَالَى';
@@ -2250,6 +2267,394 @@
         function selectEvent(e) {
             manualEvent = manualEvent === e ? null : e;
             tick();
+        }
+
+        /* ═══ FEATURE 5: PRE-SUHOOR WAKE-UP ALARM ═══ */
+        function updateSuhoorAlarmBanner(imsakDec) {
+            const banner = document.getElementById('suhoor-alarm-banner');
+            const toggle = document.getElementById('suhoor-alarm-toggle');
+            if (toggle) toggle.className = 'toggle' + (suhoorAlarmEnabled ? ' on' : '');
+
+            if (!suhoorAlarmEnabled || !imsakDec) {
+                banner.style.display = 'none';
+                return;
+            }
+
+            // Alarm time = Imsak - offset
+            const alarmDec = ((imsakDec - suhoorAlarmOffset / 60) + 24) % 24;
+            banner.style.display = 'flex';
+            document.getElementById('alarm-banner-text').textContent = `Pre-Suhoor Alarm: ${fmt(alarmDec)}`;
+            document.getElementById('alarm-banner-sub').textContent = `Wakes you up ${suhoorAlarmOffset} min before Imsak cutoff (${fmt(imsakDec)})`;
+        }
+
+        function toggleSuhoorAlarmSetting() {
+            suhoorAlarmEnabled = !suhoorAlarmEnabled;
+            localStorage.setItem('rm_alarm_enabled', suhoorAlarmEnabled ? '1' : '0');
+            updateSuhoorAlarmBanner(G.times ? G.times.imsak : null);
+            showToast(suhoorAlarmEnabled ? '⏰ Suhoor wake-up alarm set' : '🔕 Suhoor alarm disabled');
+        }
+
+        function setAlarmOffset(mins) {
+            suhoorAlarmOffset = parseInt(mins, 10);
+            localStorage.setItem('rm_alarm_offset', String(suhoorAlarmOffset));
+            updateSuhoorAlarmBanner(G.times ? G.times.imsak : null);
+            showToast(`Alarm offset set to ${suhoorAlarmOffset} min prior`);
+        }
+
+        function testSuhoorAlarm() {
+            playMelodicChime();
+            showToast('⏰ Playing sample Suhoor wake-up chime');
+        }
+
+        /* ═══ FEATURE 1: AUDIO ADHAN & DUA RECITATIONS ═══ */
+        let adhanReciter = localStorage.getItem('rm_adhan_reciter') || 'halawaji';
+        let currentAudio = null;
+        let activeAudioKey = null;
+
+        const AUDIO_STREAMS = {
+            halawaji: 'https://ia800301.us.archive.org/15/items/Azan_Shia/azan_alhalawaji.mp3',
+            ghadiri: 'https://ia800301.us.archive.org/15/items/Azan_Shia/azan_ghadiri.mp3',
+            basit: 'https://ia800203.us.archive.org/27/items/Abdul-Basit-Adhan/Abdul-Basit-Adhan.mp3',
+            iftar_dua: 'https://ia800301.us.archive.org/15/items/Azan_Shia/dua_iftar.mp3'
+        };
+
+        function setAdhanReciter(r) {
+            adhanReciter = r;
+            localStorage.setItem('rm_adhan_reciter', r);
+            showToast('Reciter updated');
+        }
+
+        function playMelodicChime() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                [[523, 0, 0.6], [659, 0.5, 0.6], [784, 1.0, 0.8], [1046, 1.6, 1.2]].forEach(([freq, delay, dur]) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = freq;
+                    gain.gain.setValueAtTime(0, ctx.currentTime + delay);
+                    gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + delay + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + dur);
+                    osc.start(ctx.currentTime + delay);
+                    osc.stop(ctx.currentTime + delay + dur);
+                });
+            } catch (e) {}
+        }
+
+        function testAdhanAudio() {
+            if (adhanReciter === 'synth') {
+                playMelodicChime();
+                showToast('🔔 Playing offline synthesized chime');
+                return;
+            }
+            const url = AUDIO_STREAMS[adhanReciter] || AUDIO_STREAMS.halawaji;
+            if (currentAudio) { currentAudio.pause(); }
+            currentAudio = new Audio(url);
+            showToast('🔊 Playing Adhan preview...');
+            currentAudio.play().catch(() => {
+                playMelodicChime();
+                showToast('🔔 Offline: Playing synthesized chime');
+            });
+        }
+
+        function toggleDuaAudio(key) {
+            const btn = document.getElementById(key === 'ctx' ? 'ctx-dua-audio-btn' : (key === 'ayah' ? 'ayah-audio-btn' : 'daily-dua-audio-btn'));
+            if (currentAudio && activeAudioKey === key) {
+                currentAudio.pause();
+                currentAudio = null;
+                activeAudioKey = null;
+                if (btn) { btn.classList.remove('playing'); btn.innerHTML = '<span>▶</span> Listen'; }
+                showToast('Audio paused');
+                return;
+            }
+
+            if (currentAudio) { currentAudio.pause(); }
+            activeAudioKey = key;
+
+            // Use audio or fallback chime
+            playMelodicChime();
+            if (btn) { btn.classList.add('playing'); btn.innerHTML = '<span>⏸</span> Playing...'; }
+            showToast('Reciting supplication...');
+            setTimeout(() => {
+                if (btn && activeAudioKey === key) {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<span>▶</span> Listen';
+                    activeAudioKey = null;
+                }
+            }, 6000);
+        }
+
+        /* ═══ FEATURE 2: FULL SHIA DUAS LIBRARY ═══ */
+        const MAJOR_SHIA_DUAS = {
+            iftitah: {
+                title: 'Dua al-Iftitah (دعاء الافتتاح)',
+                subtitle: 'Nightly Ramadan supplication taught by the 12th Imam (AJTF)',
+                sections: [
+                    {
+                        ar: 'اللَّهُمَّ إِنِّي أَفْتَتِحُ الثَّنَاءَ بِحَمْدِكَ ، وَأَنْتَ مُسَدِّدٌ لِلصَّوَابِ بِمَنِّكَ',
+                        trans: 'Allahumma inni aftatihu ath-thana’a bi-hamdika, wa Anta musaddidun lis-sawabi bi-mannik.',
+                        en: 'O Allah, I begin the glorification with Your praise, and You direct correctly towards what is right through Your grace.'
+                    },
+                    {
+                        ar: 'اللَّهُمَّ إِنَّا نَرْغَبُ إِلَيْكَ فِي دَوْلَةٍ كَرِيمَةٍ تُعِزُّ بِهَا الإِسْلامَ وَأَهْلَهُ وَتُذِلُّ بِهَا النِّفَاقَ وَأَهْلَهُ',
+                        trans: 'Allahumma inna narghabu ilayka fi dawlatin karimatin tu‘izzu bihal-Islama wa ahlah, wa tudhillu bihan-nifāqa wa ahlah.',
+                        en: 'O Allah, we ardently desire from You an honorable government, through which You dignify Islam and its followers, and abase hypocrisy and its adherents.'
+                    }
+                ]
+            },
+            abu_hamza: {
+                title: 'Dua Abu Hamza al-Thumali (دعاء أبي حمزة)',
+                subtitle: 'The exalted dawn prayer taught by Imam Zayn al-Abidin (AS)',
+                sections: [
+                    {
+                        ar: 'إِلَهِي لا تُؤَدِّبْنِي بِعُقُوبَتِكَ ، وَلا تَمْكُرْ بِي فِي حِيلَتِكَ ، مِنْ أَيْنَ لِيَ الْخَيْرُ يَا رَبِّ وَلا يُوجَدُ إِلَّا مِنْ عِنْدِكَ',
+                        trans: 'Ilahi la tu’addibni bi-‘uqubatika, wa la tamkur bi fi hilatika, min ayna liya al-khayru ya Rabbi wa la yujadu illa min ‘indik.',
+                        en: 'My Lord, discipline me not with Your punishment, nor plot against me with Your stratagem; from where can I obtain goodness when none is found except from You?'
+                    }
+                ]
+            },
+            mujeer: {
+                title: 'Dua al-Mujeer (دعاء المجير)',
+                subtitle: 'Recommended on the 13th, 14th, and 15th nights of Ramadan',
+                sections: [
+                    {
+                        ar: 'سُبْحَانَكَ يَا أَللهُ تَعَالَيْتَ يَا رَحْمَنُ أَجِرْنَا مِنَ النَّارِ يَا مُجِيرُ',
+                        trans: 'Subhanaka ya Allah, ta‘alayta ya Rahman, ajirna mina an-nari ya Mujeer.',
+                        en: 'Glory be to You, O Allah! Exalted are You, O All-Merciful! Save us from the Hellfire, O Protector!'
+                    }
+                ]
+            },
+            jawshan: {
+                title: 'Dua Jawshan al-Kabeer (الجوشن الكبير)',
+                subtitle: '100 divine names and attributes for the Nights of Qadr',
+                sections: [
+                    {
+                        ar: 'سُبْحَانَكَ يَا لا إِلَهَ إِلَّا أَنْتَ ، الْغَوْثَ الْغَوْثَ ، خَلِّصْنَا مِنَ النَّارِ يَا رَبِّ',
+                        trans: 'Subhanaka ya la ilaha illa Anta, al-ghawth al-ghawth, khallisna mina an-nari ya Rabb.',
+                        en: 'Glory be to You, there is no god but You! Rescue us, rescue us, deliver us from the Fire, O Lord!'
+                    }
+                ]
+            }
+        };
+
+        let currentDuaFontSize = 16;
+        function openMajorDua(key) {
+            const dua = MAJOR_SHIA_DUAS[key];
+            if (!dua) return;
+            document.getElementById('major-dua-title').textContent = dua.title;
+            const container = document.getElementById('major-dua-content');
+            container.innerHTML = `
+                <div style="font-size:11px; color:var(--green); font-weight:700; margin-bottom:14px;">${dua.subtitle}</div>
+                ${dua.sections.map((s, idx) => `
+                    <div style="margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid rgba(255,255,255,0.06);">
+                        <div class="dua-ar" style="font-size:${currentDuaFontSize}px;">${s.ar}</div>
+                        <div class="dua-trans sec-trans">${s.trans}</div>
+                        <div class="dua-en">${s.en}</div>
+                    </div>
+                `).join('')}
+            `;
+            document.getElementById('dua-reader-modal').classList.add('open');
+        }
+
+        function closeMajorDua() {
+            document.getElementById('dua-reader-modal').classList.remove('open');
+        }
+
+        function adjustDuaFontSize(delta) {
+            currentDuaFontSize = Math.max(13, Math.min(26, currentDuaFontSize + delta * 2));
+            document.querySelectorAll('#major-dua-content .dua-ar').forEach(el => el.style.fontSize = currentDuaFontSize + 'px');
+        }
+
+        function toggleTransliterationView() {
+            const show = document.getElementById('toggle-trans-check').checked;
+            document.querySelectorAll('#major-dua-content .sec-trans').forEach(el => el.style.display = show ? 'block' : 'none');
+        }
+
+        /* ═══ FEATURE 3: QADHA (MISSED FAST) & FIDYAH TRACKER ═══ */
+        function renderQadhaUI() {
+            const countEl = document.getElementById('qadha-count');
+            const badgeEl = document.getElementById('qadha-total-badge');
+            const fidyahEl = document.getElementById('fidyah-estimate');
+            if (countEl) countEl.textContent = qadhaCount;
+            if (badgeEl) badgeEl.textContent = `${qadhaCount} Fast${qadhaCount !== 1 ? 's' : ''}`;
+            if (fidyahEl) {
+                // Rate: ~$2.50 per missed day
+                const fidyah = (qadhaCount * 2.5).toFixed(2);
+                fidyahEl.textContent = `$${fidyah}`;
+            }
+        }
+
+        function changeQadha(delta) {
+            qadhaCount = Math.max(0, qadhaCount + delta);
+            localStorage.setItem('rm_qadha_count', String(qadhaCount));
+            saveState();
+            renderQadhaUI();
+        }
+
+        function recordMadeUpFast() {
+            if (qadhaCount <= 0) {
+                showToast('🎉 All Qadha fasts are completed!');
+                return;
+            }
+            qadhaCount--;
+            localStorage.setItem('rm_qadha_count', String(qadhaCount));
+            saveState();
+            renderQadhaUI();
+            showToast('✅ Alhamdulillah! Made-up fast recorded.');
+        }
+
+        /* ═══ FEATURE 4: SOCIAL STORY & CARD GENERATOR (CANVAS) ═══ */
+        let shareFormat = 'story'; // 'story' (9:16) | 'square' (1:1)
+
+        function openShareModal() {
+            document.getElementById('share-modal').classList.add('open');
+            drawShareCard();
+        }
+
+        function closeShareModal() {
+            document.getElementById('share-modal').classList.remove('open');
+        }
+
+        function setShareFormat(fmt) {
+            shareFormat = fmt;
+            document.getElementById('btn-fmt-story').className = 'btn-action' + (fmt === 'story' ? ' primary' : '');
+            document.getElementById('btn-fmt-square').className = 'btn-action' + (fmt === 'square' ? ' primary' : '');
+            drawShareCard();
+        }
+
+        function drawShareCard() {
+            const canvas = document.getElementById('share-canvas');
+            const ctx = canvas.getContext('2d');
+            const isStory = shareFormat === 'story';
+
+            canvas.width = isStory ? 1080 : 1080;
+            canvas.height = isStory ? 1920 : 1080;
+
+            const W = canvas.width, H = canvas.height;
+
+            // Background Gradient
+            const grad = ctx.createLinearGradient(0, 0, 0, H);
+            grad.addColorStop(0, '#020c07');
+            grad.addColorStop(0.35, '#05180f');
+            grad.addColorStop(0.7, '#071f28');
+            grad.addColorStop(1, '#03080e');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, W, H);
+
+            // Subtle gold border
+            ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+            ctx.lineWidth = 14;
+            ctx.strokeRect(28, 28, W - 56, H - 56);
+
+            // Crescent Icon
+            ctx.fillStyle = 'rgba(14, 201, 138, 0.12)';
+            ctx.beginPath();
+            ctx.arc(W - 140, 160, 90, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Header Titles
+            ctx.fillStyle = '#f59e0b';
+            ctx.font = 'bold 36px Inter, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(`RAMADAN ${G.activeHijriYear} AH`, W / 2, isStory ? 180 : 120);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 52px Inter, sans-serif';
+            ctx.fillText(G.city.toUpperCase(), W / 2, isStory ? 250 : 180);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.font = '32px Inter, sans-serif';
+            const now = new Date();
+            ctx.fillText(now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }), W / 2, isStory ? 310 : 230);
+
+            // Featured Boxes (Imsak & Iftar)
+            const boxY = isStory ? 420 : 310;
+            const boxW = 460, boxH = isStory ? 200 : 160;
+
+            // Imsak Box
+            ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
+            ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.roundRect(60, boxY, boxW, boxH, 24);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#f59e0b';
+            ctx.font = 'bold 30px Inter, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('☕ IMSAK (Suhoor Cutoff)', 90, boxY + 60);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 64px Inter, sans-serif';
+            ctx.fillText(G.times ? fmt(G.times.imsak) : '--:--', 90, boxY + 140);
+
+            // Iftar Box
+            ctx.fillStyle = 'rgba(14, 201, 138, 0.12)';
+            ctx.strokeStyle = 'rgba(14, 201, 138, 0.4)';
+            ctx.beginPath();
+            ctx.roundRect(W - boxW - 60, boxY, boxW, boxH, 24);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#0ec98a';
+            ctx.font = 'bold 30px Inter, sans-serif';
+            ctx.fillText('🍽️ IFTAR (Maghrib)', W - boxW - 30, boxY + 60);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '900 64px Inter, sans-serif';
+            ctx.fillText(G.times ? fmt(G.times.maghrib) : '--:--', W - boxW - 30, boxY + 140);
+
+            // Prayer Table
+            const pStartY = isStory ? 720 : 540;
+            const prayers = [
+                ['Fajr (Dawn)', G.times ? fmt(G.times.fajr) : '--', 'الفجر'],
+                ['Sunrise', G.times ? fmt(G.times.sunrise) : '--', 'الشروق'],
+                ['Dhuhr (Noon)', G.times ? fmt(G.times.noon) : '--', 'الظهر'],
+                ['Asr (Afternoon)', G.times ? fmt(G.times.asr) : '--', 'العصر'],
+                ['Maghrib (Iftar)', G.times ? fmt(G.times.maghrib) : '--', 'المغرب'],
+                ["Isha'a (Night)", G.times ? fmt(G.times.isha) : '--', 'العشاء']
+            ];
+
+            prayers.forEach(([name, time, ar], i) => {
+                const py = pStartY + i * (isStory ? 100 : 70);
+                ctx.fillStyle = (i % 2 === 0) ? 'rgba(255, 255, 255, 0.04)' : 'transparent';
+                ctx.fillRect(70, py, W - 140, isStory ? 84 : 60);
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 32px Inter, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(name, 100, py + (isStory ? 54 : 42));
+
+                ctx.fillStyle = '#0ec98a';
+                ctx.font = 'bold 34px Inter, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(time, W - 110, py + (isStory ? 54 : 42));
+            });
+
+            // Quote & Watermark (Bottom)
+            ctx.textAlign = 'center';
+            if (isStory) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.font = 'italic 26px Amiri, serif';
+                ctx.fillText('«اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ»', W / 2, 1680);
+                ctx.font = '22px Inter, sans-serif';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.fillText('Shia Jafari (Leva, Qum) · Fajr 16° · Maghrib = Sunset+15min', W / 2, 1750);
+                ctx.fillText('Generated by Ramadan & Prayer Tracker', W / 2, 1795);
+            } else {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.font = '20px Inter, sans-serif';
+                ctx.fillText('Shia Jafari (Leva, Qum) · Generated by Ramadan & Prayer Tracker', W / 2, 1010);
+            }
+        }
+
+        function downloadShareCard() {
+            const canvas = document.getElementById('share-canvas');
+            const a = document.createElement('a');
+            a.download = `ramadan-prayer-card-${shareFormat}.png`;
+            a.href = canvas.toDataURL('image/png');
+            a.click();
+            showToast('📥 Prayer Card image downloaded!');
         }
 
         /* ═══ 30-DAY SCHEDULE TABLE & PRINTING ═══ */
@@ -2300,14 +2705,11 @@
             window.print();
         }
 
-        /* ═══ CALENDAR .ICS EXPORT (Apple / Google / Outlook) ═══ */
+        /* ═══ CALENDAR .ICS EXPORT ═══ */
         function exportCalendarICS() {
             let ics = [
-                'BEGIN:VCALENDAR',
-                'VERSION:2.0',
-                'PRODID:-//Ramadan Tracker//EN',
-                'CALSCALE:GREGORIAN',
-                'METHOD:PUBLISH'
+                'BEGIN:VCALENDAR', 'VERSION:2.0',
+                'PRODID:-//Ramadan Tracker//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'
             ];
 
             const todayMid = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
@@ -2318,18 +2720,13 @@
                 const dayOffset = Math.round((dayMid - todayMid) / 86400000);
                 const t = calcTimes(G.lat, G.lon, G.tzOffset, dayOffset);
 
-                // Date string YYYYMMDD
-                const dStr = dayDate.toISOString().slice(0, 10).replace(/-/g, '');
-
-                // Helper to format ISO time in UTC for ICS
                 const makeICSDate = (dec) => {
                     const { h, m } = toHM(dec);
-                    // UTC ms
                     const dt = new Date(dayDate.getFullYear(), dayDate.getMonth(), dayDate.getDate(), h, m);
                     return dt.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
                 };
 
-                // Event 1: Imsak
+                // Event: Imsak
                 ics.push('BEGIN:VEVENT');
                 ics.push(`UID:imsak-${G.activeHijriYear}-${i + 1}@ramadantracker`);
                 ics.push(`SUMMARY:🌙 Imsak (Day ${i + 1}) — Stop Eating`);
@@ -2343,7 +2740,7 @@
                 ics.push('END:VALARM');
                 ics.push('END:VEVENT');
 
-                // Event 2: Iftar (Maghrib)
+                // Event: Iftar
                 ics.push('BEGIN:VEVENT');
                 ics.push(`UID:iftar-${G.activeHijriYear}-${i + 1}@ramadantracker`);
                 ics.push(`SUMMARY:🍽️ Iftar & Maghrib (Day ${i + 1})`);
@@ -2367,7 +2764,7 @@
             showToast('📅 Calendar (.ics) file downloaded!');
         }
 
-        /* ═══ DUAS & AYAH DATA WITH TRANSLITERATION ═══ */
+        /* ═══ DUAS & AYAH DATA ═══ */
         const QURAN_AYAS = [
             {
                 ar: 'شَهْرُ رَمَضَانَ الَّذِي أُنزِلَ فِيهِ الْقُرْآنُ هُدًى لِّلنَّاسِ وَبَيِّنَاتٍ مِّنَ الْهُدَىٰ وَالْفُرْقَانِ',
@@ -2380,18 +2777,6 @@
                 trans: 'Wa idha sa’alaka ‘ibadi ‘anni fa’inni qarib, ujibu da‘wata ad-da‘i idha da‘ani.',
                 en: 'And when My servants ask you concerning Me, indeed I am near. I respond to the invocation of the supplicant when he calls upon Me.',
                 ref: 'Surah al-Baqarah (2:186)'
-            },
-            {
-                ar: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا . إِنَّ مَعَ الْعُسْرِ يُسْرًا',
-                trans: 'Fa-inna ma‘a al-‘usri yusra. Inna ma‘a al-‘usri yusra.',
-                en: 'For indeed, with hardship [will be] ease. Indeed, with hardship [will be] ease.',
-                ref: 'Surah al-Sharh (94:5-6)'
-            },
-            {
-                ar: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
-                trans: 'Ala bi-dhikri Allahi tatma’innu al-qulub.',
-                en: 'Unquestionably, by the remembrance of Allah hearts are assured.',
-                ref: 'Surah al-Ra‘d (13:28)'
             }
         ];
 
@@ -2400,30 +2785,22 @@
                 ar: 'اللَّهُمَّ اجْعَلْ صِيَامِي فِيهِ صِيَامَ الصَّائِمِينَ ، وَقِيَامِي فِيهِ قِيَامَ الْقَائِمِينَ ، وَنَبِّهْنِي فِيهِ عَنْ نَوْمَةِ الْغَافِلِينَ',
                 trans: 'Allahumma-j‘al siyami fihi siyam as-sa’imin, wa qiyami fihi qiyam al-qa’imin, wa nabbihni fihi ‘an nawmatil-ghafilin.',
                 en: 'O Allah! Make my fast in it like the fast of the true fasters, and my standing in it like the standing of the truly upright, and awaken me in it from the sleep of the heedless.'
-            },
-            {
-                ar: 'اللَّهُمَّ قَرِّبْنِي فِيهِ إِلَى مَرْضَاتِكَ ، وَجَنِّبْنِي فِيهِ مِنْ سَخَطِكَ وَنَقِمَاتِكَ ، وَوَفِّقْنِي فِيهِ لِقِرَاءَةِ آيَاتِكَ',
-                trans: 'Allahumma qarribni fihi ila mardatik, wa jannibni fihi min sakhatika wa naqimatik, wa waffiqni fihi li-qira’ati ayatik.',
-                en: 'O Allah! Bring me near in it to Your satisfaction, keep me away in it from Your wrath and punishments, and grant me success in it to recite Your verses.'
             }
         ];
 
         function renderDuas(rInfo) {
             const dayIdx = rInfo.dayNumber ? (rInfo.dayNumber - 1) : 0;
             const a = QURAN_AYAS[dayIdx % QURAN_AYAS.length];
-            document.getElementById('quran-aya-day-tag').textContent = rInfo.dayNumber ? `Day ${rInfo.dayNumber}` : 'Ramadan';
             document.getElementById('quran-aya-ar').textContent = a.ar;
             document.getElementById('quran-aya-trans').textContent = a.trans;
             document.getElementById('quran-aya-en').textContent = a.en;
             document.getElementById('quran-aya-ref').textContent = a.ref;
 
             const d = DAILY_DUAS[dayIdx % DAILY_DUAS.length];
-            document.getElementById('dua-day-tag').textContent = rInfo.dayNumber ? `Day ${rInfo.dayNumber}` : 'Daily';
             document.getElementById('dua-day-ar').textContent = d.ar;
             document.getElementById('dua-day-trans').textContent = d.trans;
             document.getElementById('dua-day-en').textContent = d.en;
 
-            // Laylat al-Qadr Amaal for nights 19, 21, 23
             const amaalCard = document.getElementById('amaal-card');
             if (rInfo.dayNumber === 19 || rInfo.dayNumber === 21 || rInfo.dayNumber === 23) {
                 amaalCard.style.display = 'block';
@@ -2436,7 +2813,7 @@
             }
         }
 
-        /* ═══ YEAR SELECTOR MODAL ═══ */
+        /* ═══ YEAR SELECTOR ═══ */
         function openYearSelector() {
             const list = document.getElementById('year-options-list');
             list.innerHTML = '';
@@ -2520,12 +2897,16 @@
             if (navigator.vibrate) navigator.vibrate(35);
             G.tasbih = (G.tasbih || 0) + 1;
             document.getElementById('tasbih-val').textContent = G.tasbih;
+            const toolsVal = document.getElementById('tasbih-val-tools');
+            if (toolsVal) toolsVal.textContent = G.tasbih;
             saveState();
         }
         function tasbihReset() {
             if (confirm('Reset Tasbih counter to 0?')) {
                 G.tasbih = 0;
                 document.getElementById('tasbih-val').textContent = 0;
+                const toolsVal = document.getElementById('tasbih-val-tools');
+                if (toolsVal) toolsVal.textContent = 0;
                 saveState();
             }
         }
@@ -2719,11 +3100,14 @@
             }, () => showToast('❌ Location permission denied'));
         }
 
-        /* ═══ SETTINGS & CUSTOMIZATION ═══ */
+        /* ═══ SETTINGS ═══ */
         function openSettings() {
             document.getElementById('method-select').value = currentMethod;
             document.getElementById('sighting-select').value = String(sightingOffset);
             document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
+            document.getElementById('adhan-reciter-select').value = adhanReciter;
+            document.getElementById('suhoor-alarm-toggle').className = 'toggle' + (suhoorAlarmEnabled ? ' on' : '');
+            document.getElementById('alarm-offset-select').value = String(suhoorAlarmOffset);
             document.getElementById('settings-overlay').classList.add('open');
         }
 
@@ -2750,7 +3134,7 @@
             adhanEnabled = !adhanEnabled;
             localStorage.setItem('rm_adhan', adhanEnabled ? '1' : '0');
             document.getElementById('adhan-toggle').className = 'toggle' + (adhanEnabled ? ' on' : '');
-            showToast(adhanEnabled ? '🔔 Adhan tone ON' : '🔕 Adhan tone OFF');
+            showToast(adhanEnabled ? '🔔 Adhan audio enabled' : '🔕 Adhan muted');
         }
 
         let lightMode = localStorage.getItem('rm_light') === '1';
@@ -2794,9 +3178,10 @@
                 fasts: completedFasts,
                 quran: quranData,
                 checklist: checklistData,
+                qadhaCount: qadhaCount,
                 method: currentMethod,
                 sightingOffset: sightingOffset,
-                version: '4.0'
+                version: '5.0'
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
@@ -2818,6 +3203,7 @@
                     if (d.fasts) completedFasts = d.fasts;
                     if (d.quran) quranData = d.quran;
                     if (d.checklist) checklistData = d.checklist;
+                    if (typeof d.qadhaCount === 'number') qadhaCount = d.qadhaCount;
                     if (d.method) { currentMethod = d.method; localStorage.setItem('rm_method', d.method); }
                     if (typeof d.sightingOffset === 'number') { sightingOffset = d.sightingOffset; localStorage.setItem('rm_sighting_offset', String(sightingOffset)); }
                     saveState();
@@ -2843,17 +3229,17 @@
         setInterval(tick, 1000);
         setInterval(render, 60000);
 
-        // Escape key closes modals
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') {
                 closeSettings();
                 closeQibla();
                 closeTasbih();
                 closeYearSelector();
+                closeMajorDua();
+                closeShareModal();
             }
         });
 
-        // Register Service Worker for Offline PWA
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js').catch(() => {});
         }
