@@ -8,6 +8,14 @@ A modern, high-precision, zero-dependency Progressive Web App (PWA) supporting *
 
 ## ✨ Features
 
+- **🔔 Native Lock-Screen Notifications & Alarms**
+  - Lock-screen alerts for Pre-Suhoor, 15-min Imsak warning, Imsak cutoff, and Iftar time via Web Notifications API & Service Worker.
+  - Header one-tap toggle bell, browser permission manager, and "Send Test Notification" button in Settings.
+- **📱 Native Mobile Experience & PWA Install**
+  - Ultra-smooth mobile ergonomics with iOS Safari safe-area insets (`viewport-fit=cover`), touch micro-interactions (`:active scale`), and haptic vibration feedback.
+  - Smart PWA install prompt banner for Android Chrome and iOS Safari "Add to Home Screen" instructions.
+- **🎨 High-Definition Vector App Icons**
+  - Handcrafted SVG icons (`icon-192.svg` & `icon-512.svg`) featuring an emerald crescent and golden 8-pointed star (*Najmat al-Quds*) on an obsidian squircle base with `maskable` PWA support.
 - **🗓️ Multi-Year Ramadan Support (1444–1456+ AH)**
   - Automatically identifies whether the current date is within Ramadan or counts down to the upcoming Ramadan.
   - Interactive Year Switcher to view past and future 30-day Ramadan schedules anytime.

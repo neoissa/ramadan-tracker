@@ -3,17 +3,18 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Ramadan & Prayer Tracker — Shia Jafari</title>
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+    <!-- Favicon & PWA Icons (Feature 1) -->
+    <link rel="icon" type="image/svg+xml" href="icon-192.svg" />
+    <link rel="alternate icon" href="icon-192.svg" />
+    <link rel="apple-touch-icon" href="icon-192.svg" />
     <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#03070d">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#03070d" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Ramadan Tracker" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -58,6 +59,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* MOBILE SAFE-AREA & NATIVE FEEL (Feature 2) */
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--bg);
@@ -74,10 +76,16 @@
             background-attachment: fixed;
             color: var(--text-primary);
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            padding: 16px 14px 100px;
+            padding-top: max(16px, env(safe-area-inset-top));
+            padding-right: max(14px, env(safe-area-inset-right));
+            padding-bottom: max(20px, calc(env(safe-area-inset-bottom) + 84px));
+            padding-left: max(14px, env(safe-area-inset-left));
+            overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         .app {
@@ -86,6 +94,16 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
+        }
+
+        /* TOUCH PRESS FEEDBACK */
+        .btn-action:active,
+        .prayer-card:active,
+        .tab-btn:active,
+        .icon-btn:active,
+        .check-item:active {
+            transform: scale(0.96);
+            transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
         }
 
         /* CARD SHELL */
@@ -173,6 +191,7 @@
             justify-content: center;
             cursor: pointer;
             transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .icon-btn:hover {
@@ -185,6 +204,12 @@
         .icon-btn svg {
             width: 16px;
             height: 16px;
+        }
+
+        .icon-btn.active-glow {
+            color: var(--green);
+            border-color: rgba(14, 201, 138, 0.45);
+            box-shadow: 0 0 10px rgba(14, 201, 138, 0.3);
         }
 
         .app-title-wrap {
@@ -260,6 +285,19 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* PWA INSTALL BANNER */
+        .install-banner {
+            margin: 0 0 4px;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, rgba(14, 201, 138, 0.18), rgba(6, 13, 24, 0.8));
+            border: 1px solid rgba(14, 201, 138, 0.35);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
         /* PRE-SUHOOR ALARM BANNER */
         .alarm-banner {
             margin: 10px 20px 0;
@@ -273,10 +311,10 @@
             font-size: 11px;
         }
 
-        /* TAB BAR */
+        /* TAB BAR (WITH SAFE AREA) */
         .tab-bar {
             position: fixed;
-            bottom: 16px;
+            bottom: max(14px, env(safe-area-inset-bottom));
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 28px);
@@ -1075,7 +1113,7 @@
         /* ═══ PRINT STYLES ═══ */
         @media print {
             body, .app { background: #fff !important; color: #000 !important; padding: 0 !important; max-width: 100% !important; }
-            .tab-bar, .hdr-btns, .cal-ctrl-bar, .add-city-section, .cities-section, .toast, .cal-overlay, #today-view, #duas-view, #tools-view, .alarm-banner { display: none !important; }
+            .tab-bar, .hdr-btns, .cal-ctrl-bar, .add-city-section, .cities-section, .toast, .cal-overlay, #today-view, #duas-view, #tools-view, .alarm-banner, .install-banner { display: none !important; }
             #schedule-view { display: block !important; }
             .card { box-shadow: none !important; border: none !important; background: transparent !important; }
             .header { background: #f1f5f9 !important; color: #000 !important; border-bottom: 2px solid #000 !important; padding: 12px !important; }
@@ -1116,6 +1154,21 @@
 <body>
     <div class="app">
 
+        <!-- MOBILE PWA INSTALL PROMPT BANNER (Feature 2) -->
+        <div class="install-banner" id="pwa-install-banner" style="display:none;">
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-size:20px;">📱</span>
+                <div>
+                    <div style="font-size:12px; font-weight:800; color:#fff;" id="pwa-install-title">Install Ramadan Tracker</div>
+                    <div style="font-size:10px; color:var(--muted);" id="pwa-install-sub">Fast, offline app on your home screen</div>
+                </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+                <button class="btn-action primary" style="padding:6px 12px; font-size:11px;" id="pwa-install-btn" onclick="installPWA()">Install</button>
+                <button class="icon-btn" style="width:26px; height:26px;" onclick="dismissInstallBanner()">✕</button>
+            </div>
+        </div>
+
         <!-- HEADER SHELL -->
         <div class="card" id="primary-card" style="border-radius: var(--radius-lg);">
             <div class="header">
@@ -1138,6 +1191,13 @@
                     </div>
 
                     <div class="hdr-btns">
+                        <!-- Notification Quick Button (Feature 3) -->
+                        <button class="icon-btn" onclick="toggleNotificationQuick()" id="header-notif-btn" title="Toggle Notifications">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                            </svg>
+                        </button>
                         <button class="icon-btn" onclick="openShareModal()" title="Generate Social Story / Prayer Card">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
@@ -1194,12 +1254,12 @@
                 </svg>
             </div>
 
-            <!-- PRE-SUHOOR WAKE-UP ALARM BANNER (FEATURE 5) -->
+            <!-- PRE-SUHOOR WAKE-UP ALARM BANNER -->
             <div class="alarm-banner" id="suhoor-alarm-banner" style="display:none;">
                 <div style="display:flex; align-items:center; gap:8px;">
                     <span style="font-size:16px;">⏰</span>
                     <div>
-                        <div style="font-weight:800; color:#fde68a;" id="alarm-banner-text">Pre-Suhoor Wake-Up Alarm: 4:15 AM</div>
+                        <div style="font-weight:800; color:#fde68a;" id="alarm-banner-text">Pre-Suhoor Alarm: 4:15 AM</div>
                         <div style="font-size:9.5px; color:var(--muted);" id="alarm-banner-sub">Wakes you up 45 min before Imsak</div>
                     </div>
                 </div>
@@ -1291,7 +1351,7 @@
                     </div>
                 </div>
 
-                <!-- CONTEXTUAL DUA BANNER WITH AUDIO RECITER (FEATURE 1) -->
+                <!-- CONTEXTUAL DUA BANNER WITH AUDIO RECITER -->
                 <div class="dua-card gold" id="contextual-dua" style="margin: 0 20px; display:none;">
                     <div class="dua-label">
                         <span id="ctx-dua-label">🤲 Dua</span>
@@ -1418,7 +1478,7 @@
                     </div>
                 </div>
 
-                <!-- MAJOR SHIA DUAS LIBRARY (FEATURE 2) -->
+                <!-- MAJOR SHIA DUAS LIBRARY -->
                 <div class="card" style="padding:16px; background:rgba(14,201,138,0.03); border-color:rgba(14,201,138,0.2);">
                     <div class="section-title">
                         <span>📚 Major Shia Ramadan Supplications</span>
@@ -1501,7 +1561,7 @@
                     </div>
                 </div>
 
-                <!-- QADHA (MISSED FAST) & FIDYAH TRACKER (FEATURE 3) -->
+                <!-- QADHA (MISSED FAST) & FIDYAH TRACKER -->
                 <div class="card" style="padding:16px; background:rgba(255,255,255,0.02); border-color:var(--border);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                         <span style="font-size:10px; font-weight:800; letter-spacing:1px; text-transform:uppercase; color:var(--amber);">
@@ -1683,7 +1743,7 @@
 
     <!-- ═══════════ MODALS ═══════════ -->
 
-    <!-- SOCIAL STORY & WHATSAPP CARD STUDIO (FEATURE 4) -->
+    <!-- SOCIAL STORY & WHATSAPP CARD STUDIO -->
     <div class="cal-overlay" id="share-modal" onclick="if(event.target===this)closeShareModal()">
         <div class="gen-modal" style="max-height:90vh; display:flex; flex-direction:column;">
             <div class="gen-modal-header">
@@ -1695,7 +1755,6 @@
                     <button class="btn-action primary" id="btn-fmt-story" onclick="setShareFormat('story')">📱 Story (9:16)</button>
                     <button class="btn-action" id="btn-fmt-square" onclick="setShareFormat('square')">⏹️ Square (1:1)</button>
                 </div>
-                <!-- Canvas Preview -->
                 <div style="width:100%; max-height:360px; display:flex; justify-content:center; align-items:center; background:#020509; border-radius:12px; overflow:hidden; border:1px solid var(--border);">
                     <canvas id="share-canvas" style="max-width:100%; max-height:360px; object-fit:contain;"></canvas>
                 </div>
@@ -1706,7 +1765,7 @@
         </div>
     </div>
 
-    <!-- MAJOR SHIA DUAS READER MODAL (FEATURE 2) -->
+    <!-- MAJOR SHIA DUAS READER MODAL -->
     <div class="cal-overlay" id="dua-reader-modal" onclick="if(event.target===this)closeMajorDua()">
         <div class="gen-modal" style="max-height:85vh; display:flex; flex-direction:column;">
             <div class="gen-modal-header">
@@ -1748,7 +1807,20 @@
                 <button class="gen-close" onclick="closeSettings()">✕</button>
             </div>
             <div class="settings-body">
-                <!-- PRE-SUHOOR ALARM SETTING (FEATURE 5) -->
+                <!-- NOTIFICATIONS MANAGER (Feature 3) -->
+                <div class="setting-group">
+                    <div class="setting-label">🔔 Lock Screen Notifications</div>
+                    <div class="setting-row" style="margin-bottom:6px;">
+                        <div>
+                            <div style="color:#fff;font-size:13px;font-weight:700;">Enable Native Notifications</div>
+                            <div style="font-size:10px;color:var(--muted);" id="notif-perm-status">Status: Checking...</div>
+                        </div>
+                        <div class="toggle" id="notif-master-toggle" onclick="toggleNotificationSetting()"></div>
+                    </div>
+                    <button class="btn-action primary" style="margin-top:4px;" onclick="testNativeNotification()">🔔 Send Test Notification</button>
+                </div>
+
+                <!-- PRE-SUHOOR ALARM SETTING -->
                 <div class="setting-group">
                     <div class="setting-label">⏰ Pre-Suhoor Wake-Up Alarm</div>
                     <div class="setting-row" style="margin-bottom:6px;">
@@ -1763,7 +1835,7 @@
                     </select>
                 </div>
 
-                <!-- AUDIO ADHAN RECITER (FEATURE 1) -->
+                <!-- AUDIO ADHAN RECITER -->
                 <div class="setting-group">
                     <div class="setting-label">🔊 Shia Adhan Audio &amp; Reciter</div>
                     <div class="setting-row" style="margin-bottom:6px;">
@@ -1884,17 +1956,20 @@
             1456: { start: '2034-11-12', days: 30 }
         };
 
-        const STORE_KEY = 'ramadanTracker_v5';
+        const STORE_KEY = 'ramadanTracker_v6';
         let currentYearSetting = localStorage.getItem('rm_year_mode') || 'auto';
         let sightingOffset = parseInt(localStorage.getItem('rm_sighting_offset') || '0', 10);
 
-        // Pre-Suhoor Alarm State (Feature 5)
+        // Pre-Suhoor Alarm State
         let suhoorAlarmEnabled = localStorage.getItem('rm_alarm_enabled') === '1';
-        let suhoorAlarmOffset = parseInt(localStorage.getItem('rm_alarm_offset') || '45', 10); // minutes
+        let suhoorAlarmOffset = parseInt(localStorage.getItem('rm_alarm_offset') || '45', 10);
 
-        // Qadha State (Feature 3)
+        // Native Notification State (Feature 3)
+        let notificationsEnabled = localStorage.getItem('rm_notif_enabled') === '1';
+        let scheduledTimers = [];
+
+        // Qadha State
         let qadhaCount = parseInt(localStorage.getItem('rm_qadha_count') || '0', 10);
-        let qadhaHistory = [];
 
         let G = {
             lat: 42.3223, lon: -83.1763, city: 'Dearborn Heights, MI',
@@ -1905,8 +1980,9 @@
         let extraCities = [];
         let manualEvent = null;
 
-        /* ═══ TAB NAVIGATION ═══ */
+        /* ═══ TAB NAVIGATION & HAPTICS (Feature 2) ═══ */
         function switchTab(tabId) {
+            if (navigator.vibrate) navigator.vibrate(18); // Native touch haptic
             document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             const targetView = document.getElementById(tabId + '-view');
@@ -2115,8 +2191,12 @@
             document.getElementById('pb-imsak').textContent = fmt(t.imsak);
             document.getElementById('pb-maghrib').textContent = fmt(t.maghrib);
 
-            // Pre-Suhoor Alarm Setup & Display (Feature 5)
+            // Pre-Suhoor Alarm Setup & Display
             updateSuhoorAlarmBanner(t.imsak);
+
+            // Notifications sync
+            updateNotificationUI();
+            scheduleAllNotifications();
 
             // Ramadan Status Bar
             const ramDayEl = document.getElementById('ram-day');
@@ -2269,7 +2349,175 @@
             tick();
         }
 
-        /* ═══ FEATURE 5: PRE-SUHOOR WAKE-UP ALARM ═══ */
+        /* ═══ FEATURE 3: NATIVE NOTIFICATION SYSTEM ═══ */
+        function updateNotificationUI() {
+            const masterToggle = document.getElementById('notif-master-toggle');
+            const permStatus = document.getElementById('notif-perm-status');
+            const hdrBtn = document.getElementById('header-notif-btn');
+
+            const hasPerm = ('Notification' in window) && Notification.permission === 'granted';
+            const isActive = hasPerm && notificationsEnabled;
+
+            if (masterToggle) masterToggle.className = 'toggle' + (isActive ? ' on' : '');
+            if (hdrBtn) hdrBtn.className = 'icon-btn' + (isActive ? ' active-glow' : '');
+
+            if (permStatus) {
+                if (!('Notification' in window)) {
+                    permStatus.textContent = 'Not supported in this browser';
+                } else if (Notification.permission === 'granted') {
+                    permStatus.textContent = isActive ? 'Active ✓ (Receiving Lock Screen Alerts)' : 'Permission Granted (Toggle ON to activate)';
+                } else if (Notification.permission === 'denied') {
+                    permStatus.textContent = '❌ Blocked by browser settings';
+                } else {
+                    permStatus.textContent = 'Tap to allow notifications';
+                }
+            }
+        }
+
+        async function toggleNotificationQuick() {
+            if (navigator.vibrate) navigator.vibrate(20);
+            if (!('Notification' in window)) {
+                showToast('Notifications not supported by this browser');
+                return;
+            }
+
+            if (Notification.permission !== 'granted') {
+                const res = await Notification.requestPermission();
+                if (res === 'granted') {
+                    notificationsEnabled = true;
+                    localStorage.setItem('rm_notif_enabled', '1');
+                    updateNotificationUI();
+                    scheduleAllNotifications();
+                    showTestNativeNotification('🔔 Notifications Enabled!', 'You will receive Imsak, Iftar, and prayer alerts.');
+                    showToast('🔔 Notifications active!');
+                } else {
+                    showToast('❌ Permission denied in browser');
+                }
+                return;
+            }
+
+            notificationsEnabled = !notificationsEnabled;
+            localStorage.setItem('rm_notif_enabled', notificationsEnabled ? '1' : '0');
+            updateNotificationUI();
+            scheduleAllNotifications();
+            showToast(notificationsEnabled ? '🔔 Lock screen notifications ON' : '🔕 Notifications muted');
+        }
+
+        async function toggleNotificationSetting() {
+            await toggleNotificationQuick();
+        }
+
+        function showTestNativeNotification(title = '🌙 Ramadan Tracker Test', body = 'Lock screen notifications are working perfectly!') {
+            const options = {
+                body: body,
+                icon: './icon-192.svg',
+                badge: './icon-192.svg',
+                vibrate: [200, 100, 200],
+                tag: 'ramadan-test-' + Date.now()
+            };
+
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                navigator.serviceWorker.ready.then(reg => {
+                    reg.showNotification(title, options);
+                }).catch(() => {
+                    new Notification(title, options);
+                });
+            } else if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, options);
+            }
+        }
+
+        function testNativeNotification() {
+            if (Notification.permission !== 'granted') {
+                toggleNotificationQuick();
+            } else {
+                showTestNativeNotification();
+                showToast('🔔 Test notification sent!');
+            }
+        }
+
+        function scheduleAllNotifications() {
+            scheduledTimers.forEach(t => clearTimeout(t));
+            scheduledTimers = [];
+
+            if (!notificationsEnabled || !('Notification' in window) || Notification.permission !== 'granted' || !G.times) return;
+
+            const now = new Date();
+            const nowSec = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+
+            const scheduleAlert = (targetSec, title, body) => {
+                let diffSec = targetSec - nowSec;
+                if (diffSec > 0 && diffSec < 86400) {
+                    const timer = setTimeout(() => {
+                        showTestNativeNotification(title, body);
+                    }, diffSec * 1000);
+                    scheduledTimers.push(timer);
+                }
+            };
+
+            const iSec = decToSec(G.times.imsak);
+            const mSec = decToSec(G.times.maghrib);
+
+            // Pre-Suhoor Alarm Alert
+            if (suhoorAlarmEnabled) {
+                const alarmSec = (iSec - suhoorAlarmOffset * 60 + 86400) % 86400;
+                scheduleAlert(alarmSec, '⏰ Pre-Suhoor Wake-Up Alarm', `Wake up for Suhoor — ${suhoorAlarmOffset} minutes before Imsak cutoff.`);
+            }
+
+            // Imsak 15-min warning & cutoff
+            scheduleAlert(iSec - 900, '⚠️ 15 Minutes to Imsak', 'Finish your meal and water — fast begins soon.');
+            scheduleAlert(iSec, '☕ Imsak — Fast Begins!', 'Stop eating now. Ramadan Mubarak!');
+
+            // Iftar Alert
+            scheduleAlert(mSec, '🍽️ Iftar Time! Alhamdulillah', 'Break your fast — Maghrib prayer time in ' + G.city);
+        }
+
+        /* ═══ FEATURE 2: MOBILE PWA INSTALL BANNER ═══ */
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            if (!isInstalled && !localStorage.getItem('rm_pwa_dismissed')) {
+                document.getElementById('pwa-install-banner').style.display = 'flex';
+            }
+        });
+
+        // Detect iOS Safari for custom install banner
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (isIOS && !isStandalone && !localStorage.getItem('rm_pwa_dismissed')) {
+            setTimeout(() => {
+                const banner = document.getElementById('pwa-install-banner');
+                if (banner) {
+                    banner.style.display = 'flex';
+                    document.getElementById('pwa-install-title').textContent = 'Add to Home Screen';
+                    document.getElementById('pwa-install-sub').textContent = 'Tap Share ⎋ → Add to Home Screen ⊞';
+                    document.getElementById('pwa-install-btn').style.display = 'none';
+                }
+            }, 1500);
+        }
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(choice => {
+                    if (choice.outcome === 'accepted') {
+                        document.getElementById('pwa-install-banner').style.display = 'none';
+                        showToast('🎉 Ramadan Tracker installed!');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
+        function dismissInstallBanner() {
+            document.getElementById('pwa-install-banner').style.display = 'none';
+            localStorage.setItem('rm_pwa_dismissed', '1');
+        }
+
+        /* ═══ PRE-SUHOOR ALARM ═══ */
         function updateSuhoorAlarmBanner(imsakDec) {
             const banner = document.getElementById('suhoor-alarm-banner');
             const toggle = document.getElementById('suhoor-alarm-toggle');
@@ -2280,7 +2528,6 @@
                 return;
             }
 
-            // Alarm time = Imsak - offset
             const alarmDec = ((imsakDec - suhoorAlarmOffset / 60) + 24) % 24;
             banner.style.display = 'flex';
             document.getElementById('alarm-banner-text').textContent = `Pre-Suhoor Alarm: ${fmt(alarmDec)}`;
@@ -2291,6 +2538,7 @@
             suhoorAlarmEnabled = !suhoorAlarmEnabled;
             localStorage.setItem('rm_alarm_enabled', suhoorAlarmEnabled ? '1' : '0');
             updateSuhoorAlarmBanner(G.times ? G.times.imsak : null);
+            scheduleAllNotifications();
             showToast(suhoorAlarmEnabled ? '⏰ Suhoor wake-up alarm set' : '🔕 Suhoor alarm disabled');
         }
 
@@ -2298,6 +2546,7 @@
             suhoorAlarmOffset = parseInt(mins, 10);
             localStorage.setItem('rm_alarm_offset', String(suhoorAlarmOffset));
             updateSuhoorAlarmBanner(G.times ? G.times.imsak : null);
+            scheduleAllNotifications();
             showToast(`Alarm offset set to ${suhoorAlarmOffset} min prior`);
         }
 
@@ -2306,7 +2555,7 @@
             showToast('⏰ Playing sample Suhoor wake-up chime');
         }
 
-        /* ═══ FEATURE 1: AUDIO ADHAN & DUA RECITATIONS ═══ */
+        /* ═══ AUDIO ADHAN & DUA RECITATIONS ═══ */
         let adhanReciter = localStorage.getItem('rm_adhan_reciter') || 'halawaji';
         let currentAudio = null;
         let activeAudioKey = null;
@@ -2314,8 +2563,7 @@
         const AUDIO_STREAMS = {
             halawaji: 'https://ia800301.us.archive.org/15/items/Azan_Shia/azan_alhalawaji.mp3',
             ghadiri: 'https://ia800301.us.archive.org/15/items/Azan_Shia/azan_ghadiri.mp3',
-            basit: 'https://ia800203.us.archive.org/27/items/Abdul-Basit-Adhan/Abdul-Basit-Adhan.mp3',
-            iftar_dua: 'https://ia800301.us.archive.org/15/items/Azan_Shia/dua_iftar.mp3'
+            basit: 'https://ia800203.us.archive.org/27/items/Abdul-Basit-Adhan/Abdul-Basit-Adhan.mp3'
         };
 
         function setAdhanReciter(r) {
@@ -2372,7 +2620,6 @@
             if (currentAudio) { currentAudio.pause(); }
             activeAudioKey = key;
 
-            // Use audio or fallback chime
             playMelodicChime();
             if (btn) { btn.classList.add('playing'); btn.innerHTML = '<span>⏸</span> Playing...'; }
             showToast('Reciting supplication...');
@@ -2385,7 +2632,7 @@
             }, 6000);
         }
 
-        /* ═══ FEATURE 2: FULL SHIA DUAS LIBRARY ═══ */
+        /* ═══ MAJOR SHIA DUAS LIBRARY ═══ */
         const MAJOR_SHIA_DUAS = {
             iftitah: {
                 title: 'Dua al-Iftitah (دعاء الافتتاح)',
@@ -2471,7 +2718,7 @@
             document.querySelectorAll('#major-dua-content .sec-trans').forEach(el => el.style.display = show ? 'block' : 'none');
         }
 
-        /* ═══ FEATURE 3: QADHA (MISSED FAST) & FIDYAH TRACKER ═══ */
+        /* ═══ QADHA & FIDYAH TRACKER ═══ */
         function renderQadhaUI() {
             const countEl = document.getElementById('qadha-count');
             const badgeEl = document.getElementById('qadha-total-badge');
@@ -2479,13 +2726,13 @@
             if (countEl) countEl.textContent = qadhaCount;
             if (badgeEl) badgeEl.textContent = `${qadhaCount} Fast${qadhaCount !== 1 ? 's' : ''}`;
             if (fidyahEl) {
-                // Rate: ~$2.50 per missed day
                 const fidyah = (qadhaCount * 2.5).toFixed(2);
                 fidyahEl.textContent = `$${fidyah}`;
             }
         }
 
         function changeQadha(delta) {
+            if (navigator.vibrate) navigator.vibrate(20);
             qadhaCount = Math.max(0, qadhaCount + delta);
             localStorage.setItem('rm_qadha_count', String(qadhaCount));
             saveState();
@@ -2493,6 +2740,7 @@
         }
 
         function recordMadeUpFast() {
+            if (navigator.vibrate) navigator.vibrate(30);
             if (qadhaCount <= 0) {
                 showToast('🎉 All Qadha fasts are completed!');
                 return;
@@ -2504,8 +2752,8 @@
             showToast('✅ Alhamdulillah! Made-up fast recorded.');
         }
 
-        /* ═══ FEATURE 4: SOCIAL STORY & CARD GENERATOR (CANVAS) ═══ */
-        let shareFormat = 'story'; // 'story' (9:16) | 'square' (1:1)
+        /* ═══ SOCIAL STORY & CARD GENERATOR ═══ */
+        let shareFormat = 'story';
 
         function openShareModal() {
             document.getElementById('share-modal').classList.add('open');
@@ -2528,12 +2776,11 @@
             const ctx = canvas.getContext('2d');
             const isStory = shareFormat === 'story';
 
-            canvas.width = isStory ? 1080 : 1080;
+            canvas.width = 1080;
             canvas.height = isStory ? 1920 : 1080;
 
             const W = canvas.width, H = canvas.height;
 
-            // Background Gradient
             const grad = ctx.createLinearGradient(0, 0, 0, H);
             grad.addColorStop(0, '#020c07');
             grad.addColorStop(0.35, '#05180f');
@@ -2542,18 +2789,15 @@
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, W, H);
 
-            // Subtle gold border
             ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
             ctx.lineWidth = 14;
             ctx.strokeRect(28, 28, W - 56, H - 56);
 
-            // Crescent Icon
             ctx.fillStyle = 'rgba(14, 201, 138, 0.12)';
             ctx.beginPath();
             ctx.arc(W - 140, 160, 90, 0, Math.PI * 2);
             ctx.fill();
 
-            // Header Titles
             ctx.fillStyle = '#f59e0b';
             ctx.font = 'bold 36px Inter, sans-serif';
             ctx.textAlign = 'center';
@@ -2568,7 +2812,6 @@
             const now = new Date();
             ctx.fillText(now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }), W / 2, isStory ? 310 : 230);
 
-            // Featured Boxes (Imsak & Iftar)
             const boxY = isStory ? 420 : 310;
             const boxW = 460, boxH = isStory ? 200 : 160;
 
@@ -2631,7 +2874,6 @@
                 ctx.fillText(time, W - 110, py + (isStory ? 54 : 42));
             });
 
-            // Quote & Watermark (Bottom)
             ctx.textAlign = 'center';
             if (isStory) {
                 ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
@@ -2697,6 +2939,7 @@
         }
 
         function toggleFastKey(k) {
+            if (navigator.vibrate) navigator.vibrate(20);
             completedFasts[k] = !completedFasts[k];
             saveState();
         }
@@ -2894,7 +3137,7 @@
             document.getElementById('tasbih-overlay').classList.remove('open');
         }
         function tasbihTap() {
-            if (navigator.vibrate) navigator.vibrate(35);
+            if (navigator.vibrate) navigator.vibrate(30); // tactile haptic
             G.tasbih = (G.tasbih || 0) + 1;
             document.getElementById('tasbih-val').textContent = G.tasbih;
             const toolsVal = document.getElementById('tasbih-val-tools');
@@ -2926,6 +3169,7 @@
         }
 
         function toggleHydration(i) {
+            if (navigator.vibrate) navigator.vibrate(20);
             G.hydration.count = (i === G.hydration.count - 1) ? G.hydration.count - 1 : i + 1;
             saveState();
             renderHydration();
@@ -2933,6 +3177,7 @@
 
         /* ═══ CHECKLIST ═══ */
         function toggleCheck(key) {
+            if (navigator.vibrate) navigator.vibrate(25);
             const tKey = new Date().toISOString().slice(0, 10);
             if (!checklistData[tKey]) checklistData[tKey] = {};
             checklistData[tKey][key] = !checklistData[tKey][key];
@@ -2961,6 +3206,7 @@
 
         /* ═══ QURAN TRACKER ═══ */
         function addQuranPages(n) {
+            if (navigator.vibrate) navigator.vibrate(20);
             const tKey = new Date().toISOString().slice(0, 10);
             quranData[tKey] = Math.max(0, (quranData[tKey] || 0) + n);
             saveState();
@@ -3108,6 +3354,7 @@
             document.getElementById('adhan-reciter-select').value = adhanReciter;
             document.getElementById('suhoor-alarm-toggle').className = 'toggle' + (suhoorAlarmEnabled ? ' on' : '');
             document.getElementById('alarm-offset-select').value = String(suhoorAlarmOffset);
+            updateNotificationUI();
             document.getElementById('settings-overlay').classList.add('open');
         }
 
@@ -3181,7 +3428,7 @@
                 qadhaCount: qadhaCount,
                 method: currentMethod,
                 sightingOffset: sightingOffset,
-                version: '5.0'
+                version: '6.0'
             };
             const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');

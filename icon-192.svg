@@ -1,9 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="32" fill="#04090f"/>
-  <circle cx="96" cy="76" r="40" fill="none"/>
-  <path d="M120 76c0 22-13 40-33 40s-33-18-33-40 13-40 33-40c-15 16-15 64 33 40z" fill="#10b981"/>
-  <line x1="135" y1="30" x2="135" y2="48" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
-  <line x1="126" y1="39" x2="144" y2="39" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="130" cy="60" r="3" fill="#f59e0b" opacity=".6"/>
-  <text x="96" y="160" text-anchor="middle" font-size="22" fill="#10b981" font-weight="bold" font-family="Arial, sans-serif">RAMADAN 1447</text>
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040c14" />
+      <stop offset="50%" stop-color="#071b12" />
+      <stop offset="100%" stop-color="#03070d" />
+    </linearGradient>
+
+    <!-- Emerald Crescent Gradient -->
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="40%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Radiant Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="40%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base for Mobile & Maskable Icons -->
+  <rect width="192" height="192" rx="42" fill="url(#bgGrad)" />
+  <rect width="192" height="192" rx="42" fill="none" stroke="rgba(16, 185, 129, 0.25)" stroke-width="2" />
+
+  <!-- Ambient Light Halo -->
+  <circle cx="96" cy="94" r="54" fill="rgba(16, 185, 129, 0.08)" />
+
+  <!-- Elegant Islamic Crescent Moon -->
+  <path d="M118 48 C144 68 144 116 114 138 C84 160 48 136 48 104 C48 76 68 54 94 48 C80 58 76 96 100 114 C120 128 134 94 118 48 Z"
+        fill="url(#emeraldGrad)" filter="url(#glow)" />
+
+  <!-- 8-Pointed Star (Najmat al-Quds) -->
+  <g transform="translate(126, 68) scale(0.95)" filter="url(#glow)">
+    <!-- Primary Diamond -->
+    <polygon points="0,-18 13,-5 18,0 13,5 0,18 -13,5 -18,0 -13,-5" fill="url(#goldGrad)" />
+    <!-- Secondary Diamond (Rotated 45deg) -->
+    <polygon points="0,-18 13,-5 18,0 13,5 0,18 -13,5 -18,0 -13,-5" fill="url(#goldGrad)" transform="rotate(45)" opacity="0.9" />
+    <!-- Central Core -->
+    <circle cx="0" cy="0" r="3.5" fill="#ffffff" />
+  </g>
+
+  <!-- Minor Celestial Stars -->
+  <circle cx="62" cy="52" r="1.8" fill="#fde68a" opacity="0.6" />
+  <circle cx="138" cy="128" r="1.5" fill="#34d399" opacity="0.5" />
+  <circle cx="56" cy="124" r="1.2" fill="#fde68a" opacity="0.4" />
 </svg>
